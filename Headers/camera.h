@@ -32,6 +32,15 @@ typedef struct t_camera
 	t_rotation	rotation;
 }		t_camera;
 
+typedef struct t_scene
+{
+	t_camera		camera;
+	t_object_list	objects;
+	t_light			ambient_light;
+	t_light			light;
+}		t_scene;
+
 t_color	ray_color(t_ray ray, t_camera camera, t_object_list objs);
+void	render(t_scene scene);
 
 #endif
