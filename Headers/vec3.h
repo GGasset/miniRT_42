@@ -23,4 +23,10 @@ typedef struct t_vec3
 typedef t_vec3	t_point3;
 typedef t_vec3	t_color;
 
+typedef struct t_ray
+{
+	t_point3	orig;
+	t_vec3		direct;
+};
+
 #endif
