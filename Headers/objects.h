@@ -29,8 +29,7 @@ typedef struct t_object
 {
 	t_point3	coords;
 	t_color		color;
-	t_data		size1;
-	t_data		size2;
+	t_data		*sizes;
 	e_object	kind;
 	int			(*hit)(t_hit_args hit_args);
 }		t_object;
