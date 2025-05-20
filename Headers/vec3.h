@@ -13,6 +13,8 @@
 #ifndef VEC3_H
 # define VEC3_H
 
+# include <stddef.h>
+
 typedef double	t_data;
 
 typedef struct t_vec3
