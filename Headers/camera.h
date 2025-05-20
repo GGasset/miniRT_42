@@ -45,6 +45,6 @@ typedef struct t_scene
 }		t_scene;
 
 t_color	ray_color(t_ray ray, t_camera camera, t_object_list objs);
-void	render(t_scene scene);
+void	render(t_scene scene, t_render_data *render_data);
 
 #endif
