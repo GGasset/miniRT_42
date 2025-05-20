@@ -28,6 +28,7 @@ typedef struct t_hit_info	t_hit_info;
 typedef struct t_object
 {
 	t_point3	coords;
+	t_rotation	rotation;
 	t_color		color;
 	t_data		*sizes;
 	e_object	kind;
