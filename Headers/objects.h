@@ -28,6 +28,24 @@ typedef struct t_object
 	t_color		color;
 	t_data		size1;
 	t_data		size2;
+	e_object	kind;
 }		t_object;
+
+typedef struct t_hit_args
+{
+	t_object	object;
+	t_interval	distance_range;
+	t_ray		ray;
+}	t_hit_args;
+
+
+int		hit_sphere(t_hit_args args);
+int		hit_cylinder(t_hit_args args);
+int		hit_plane(t_hit_args args);
+
+// ## Returns:
+// * Wheter it hitted with the specified object
+int		object_hit(t_hit_args args);
+
 
 #endif
