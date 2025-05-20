@@ -13,7 +13,11 @@
 #ifndef CAMERA_H
 # define CAMERA_H
 
-#include "objects.h"
+# include "objects.h"
+
+typedef struct t_render_data
+{
+}		t_render_data;
 
 typedef struct t_light
 {
@@ -26,7 +30,7 @@ typedef struct t_camera
 {
 	size_t		width;
 	double		aspect_ratio;
-	size_t		FOV;
+	size_t		fov;
 	size_t		max_bounces;
 	t_point3	camera_pos;
 	t_rotation	rotation;
