@@ -65,6 +65,6 @@ int		hit_plane(t_hit_args args);
 // ## Returns:
 // * Wheter it hitted with the specified object
 int		object_hit(t_hit_args args);
-int		world_hit(t_object_list world_objs);
+int		world_hit(t_object_list world_objs, t_hit_args args);
 
 #endif
