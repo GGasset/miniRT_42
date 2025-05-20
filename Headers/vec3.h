@@ -29,4 +29,10 @@ typedef struct t_ray
 	t_vec3		direct;
 };
 
+typedef struct t_interval
+{
+	t_data	min;
+	t_data	max;
+}		t_interval;
+
 #endif
