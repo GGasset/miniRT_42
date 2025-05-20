@@ -22,6 +22,9 @@ enum	e_object
 	Plane,
 };
 
+typedef struct t_hit_args;
+typedef struct t_hit_info;
+
 typedef struct t_object
 {
 	t_point3	coords;
@@ -29,6 +32,7 @@ typedef struct t_object
 	t_data		size1;
 	t_data		size2;
 	e_object	kind;
+	int			(*hit)(t_hit_args hit_args);
 }		t_object;
 
 typedef struct t_object_list
@@ -57,14 +61,6 @@ typedef struct t_hit_args
 	t_hit_info	*hit_info;
 }	t_hit_args;
 
-
-int		hit_sphere(t_hit_args args);
-int		hit_cylinder(t_hit_args args);
-int		hit_plane(t_hit_args args);
-
-// ## Returns:
-// * Wheter it hitted with the specified object
-int		object_hit(t_hit_args args);
 int		world_hit(t_object_list world_objs, t_hit_args args);
 
 #endif
