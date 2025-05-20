@@ -34,11 +34,15 @@ typedef struct t_object
 	int			(*hit)(t_hit_args hit_args);
 }		t_object;
 
+t_object	object(e_object kind);
+
 typedef struct t_object_list
 {
 	t_object	*objs;
 	size_t		len;
-};
+}		t_object_list;
+
+void	free_object_list(t_object_list list);
 
 /*
 ### Distance (a.k.a. t)
