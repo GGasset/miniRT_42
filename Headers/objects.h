@@ -31,6 +31,24 @@ typedef struct t_object
 	e_object	kind;
 }		t_object;
 
+typedef struct t_object_list
+{
+	t_object	*objs;
+	size_t		len;
+};
+
+/*
+### Distance (a.k.a. t)
+*/
+typedef struct t_hit_info
+{
+	t_point3	p;
+	t_vec3		normal;
+	t_data		distance;
+	t_object	hit_obj;
+};
+
+
 typedef struct t_hit_args
 {
 	t_object	object;
