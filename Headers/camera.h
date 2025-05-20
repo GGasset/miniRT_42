@@ -24,10 +24,12 @@ typedef struct t_light
 
 typedef struct t_camera
 {
-	size_t	width;
-	double	aspect_ratio;
-	size_t	FOV;
-	size_t	max_bounces;
+	size_t		width;
+	double		aspect_ratio;
+	size_t		FOV;
+	size_t		max_bounces;
+	t_point3	camera_pos;
+	t_rotation	rotation;
 }		t_camera;
 
 t_color	ray_color(t_ray ray, t_camera camera, t_object_list objs);
