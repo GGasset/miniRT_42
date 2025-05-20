@@ -22,8 +22,8 @@ enum	e_object
 	Plane,
 };
 
-typedef struct t_hit_args;
-typedef struct t_hit_info;
+typedef struct t_hit_args	t_hit_args;
+typedef struct t_hit_info	t_hit_info;
 
 typedef struct t_object
 {
@@ -42,7 +42,7 @@ typedef struct t_object_list
 	size_t		len;
 }		t_object_list;
 
-void	free_object_list(t_object_list list);
+void		free_object_list(t_object_list list);
 
 /*
 ### Distance (a.k.a. t)
@@ -53,8 +53,7 @@ typedef struct t_hit_info
 	t_vec3		normal;
 	t_data		distance;
 	t_object	hit_obj;
-};
-
+}		t_hit_info;
 
 typedef struct t_hit_args
 {
@@ -62,8 +61,8 @@ typedef struct t_hit_args
 	t_interval	distance_range;
 	t_ray		ray;
 	t_hit_info	*hit_info;
-}	t_hit_args;
+}		t_hit_args;
 
-int		world_hit(t_object_list world_objs, t_hit_args args);
+int			world_hit(t_object_list world_objs, t_hit_args args);
 
 #endif

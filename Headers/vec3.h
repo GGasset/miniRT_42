@@ -29,7 +29,7 @@ typedef struct t_ray
 {
 	t_point3	orig;
 	t_vec3		direct;
-};
+}		t_ray;
 
 typedef struct t_interval
 {
