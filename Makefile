@@ -3,7 +3,7 @@ STATIC_FILES=./libft/libft.a
 O_FILES=
 INCLUDE=-I ./Headers/ -I ./libft/
 
-CC_flags=-c -Wall -Wextra -Werror
+CC_flags=-c -Wall -Wextra -Werror ${INCLUDE}
 CC_LINKING_FLAGS=
 CC_SHARED_FLAGS=-fsanitize=address,undefined
 
