@@ -24,7 +24,7 @@ int	render_image(t_render_data *render_d, t_scene scene)
 			&render_d->img.endian);
 	if (!render_d->img.addr)
 		return (free_img(render_d), mlx_loop_end(render_d->mlx), 1);
-	if (draw(render_d))
+	if (render(scene, render_d))
 		return (0);
 	mlx_put_image_to_window(render_d->mlx, render_d->win, render_d->img.img,
 		0, 0);
