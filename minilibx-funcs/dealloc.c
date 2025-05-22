@@ -12,7 +12,7 @@
 
 #include "minilibx_funcs.h"
 
-static int	free_img(t_render_data *d)
+int	free_img(t_render_data *d)
 {
 	if (!d->img.img || !d->mlx)
 		return (1);
@@ -40,7 +40,7 @@ static int	free_win(t_render_data *d)
 	return (1);
 }
 
-void	free_all(t_render_data *d)
+void	free_render_data(t_render_data *d)
 {
 	free_img(d);
 	free_win(d);

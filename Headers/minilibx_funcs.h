@@ -58,6 +58,8 @@ typedef struct t_render_data
 int		render_image(t_render_data *render_d);
 void	render_loop(t_render_data *render_d);
 
-void	free_all(t_render_data *d);
+int		free_img(t_render_data *d);
+// Does not free scene
+void	free_render_data(t_render_data *d);
 
 #endif
