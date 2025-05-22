@@ -1,5 +1,5 @@
 
-MINILIBX_FUNCS_O_FILES=render.o hooks.o
+MINILIBX_FUNCS_O_FILES=render.o hooks.o dealloc.o
 RT_O_FILES=
 
 O_FILES = $(addprefix ./minilibx_funcs/, ${MINILIBX_FUNCS_O_FILES})
