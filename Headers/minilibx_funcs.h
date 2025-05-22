@@ -50,4 +50,9 @@ typedef struct t_render_data
 	void	*win;
 }		t_render_data;
 
+typedef struct t_scene	t_scene;
+
+int		render_image(t_render_data *render_d, t_scene scene);
+void	render_loop(t_render_data *render_d);
+
 #endif
