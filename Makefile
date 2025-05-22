@@ -30,3 +30,5 @@ libft:
 
 libft_fclean:
 	make --directory=./libft/ fclean
+
+.PHONY: all ${NAME} re fclean clean libft libft_fclean
