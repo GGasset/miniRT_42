@@ -2,8 +2,8 @@
 MINILIBX_FUNCS_O_FILES=
 RT_O_FILES=
 
-O_FILES = $(addprefix minilibx_funcs/, ${MINILIBX_FUNCS_O_FILES})
-O_FILES += $(addprefix RT/, ${RT_O_FILES})
+O_FILES = $(addprefix ./minilibx_funcs/, ${MINILIBX_FUNCS_O_FILES})
+O_FILES += $(addprefix ./RT/, ${RT_O_FILES})
 
 STATIC_FILES=./libft/libft.a
 
