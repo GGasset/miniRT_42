@@ -1,0 +1,3 @@
+minilibx-linux/*.o
+libft/*.o
+*.o
