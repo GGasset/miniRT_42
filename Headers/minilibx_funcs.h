@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
-
 #ifndef MINILIBX_FUNCS_H
 # define MINILIBX_FUNCS_H
+
+# include "mlx.h"
+# include "camera.h"
 
 # ifndef WINDOW_WIDTH
 #  define WINDOW_WIDTH 300
@@ -45,7 +46,6 @@ typedef struct s_win_d
 	t_res	res;
 }				t_win_d;
 
-typedef struct t_scene	t_scene;
 typedef struct t_render_data
 {
 	t_scene	scene;
