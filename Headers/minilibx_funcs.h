@@ -27,8 +27,27 @@
 #  define MAX_BOUNCES 3
 # endif
 
+typedef struct s_res
+{
+	int	x;
+	int	y;
+}			t_res;
+
+typedef struct s_win_d
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	t_res	res;
+}				t_win_d;
+
 typedef struct t_render_data
 {
+	t_win_d	img;
+	void	*mlx;
+	void	*win;
 }		t_render_data;
 
 #endif
