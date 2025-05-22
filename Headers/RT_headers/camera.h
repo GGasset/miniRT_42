@@ -14,10 +14,7 @@
 # define CAMERA_H
 
 # include "objects.h"
-
-typedef struct t_render_data
-{
-}		t_render_data;
+# include "minilibx_funcs.h"
 
 typedef struct t_light
 {
