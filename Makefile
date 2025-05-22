@@ -21,7 +21,7 @@ ${NAME}: libft ${O_FILES}
 	cc -o ${NAME} ${CC_LINKING_FLAGS} ${O_FILES} ${STATIC_FILES}
 
 %.o: %.c
-	cc $? ${CC_flags} -o $%
+	cc $? ${CC_flags} -o $@
 
 re: fclean all
 
