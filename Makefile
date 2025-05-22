@@ -7,7 +7,7 @@ CC_SHARED_FLAGS=-fsanitize=address,undefined
 CC_flags=${CC_SHARED_FLAGS} -c -Wall -Wextra -Werror ${INCLUDE}
 CC_LINKING_FLAGS=${CC_SHARED_FLAGS}
 
-NAME=MINI_RT
+NAME=miniRT
 
 all: ${NAME}
 
