@@ -16,6 +16,9 @@
 # ifndef WINDOW_WIDTH
 #  define WINDOW_WIDTH 300
 # endif
+# ifndef RENDER_WIDTH
+	#define RENDER_WIDTH WINDOW_WIDTH
+#endif
 # ifndef ASPECT_RATIO
 // 16:9 default aspect ratio
 #  define ASPECT_RATIO 1.77777
