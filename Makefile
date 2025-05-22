@@ -1,7 +1,7 @@
 
 STATIC_FILES=./libft/libft.a
 O_FILES=
-INCLUDE=-I ./Headers/ -I ./libft/
+INCLUDE=-I ./Headers/ I ./Headers/RT_headers/ -I ./libft/ -I ./minilibx-linux/
 
 CC_SHARED_FLAGS=-fsanitize=address,undefined
 CC_flags=${CC_SHARED_FLAGS} -c -Wall -Wextra -Werror ${INCLUDE}
