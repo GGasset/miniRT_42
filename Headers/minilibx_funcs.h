@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mlx.h"
+
 #ifndef MINILIBX_FUNCS_H
 # define MINILIBX_FUNCS_H
 
