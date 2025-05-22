@@ -45,16 +45,17 @@ typedef struct s_win_d
 	t_res	res;
 }				t_win_d;
 
+typedef struct t_scene	t_scene;
 typedef struct t_render_data
 {
+	t_scene	scene;
 	t_win_d	img;
 	void	*mlx;
 	void	*win;
 }		t_render_data;
 
-typedef struct t_scene	t_scene;
 
-int		render_image(t_render_data *render_d, t_scene scene);
+int		render_image(t_render_data *render_d);
 void	render_loop(t_render_data *render_d);
 
 #endif
