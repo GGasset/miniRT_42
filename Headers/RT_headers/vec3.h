@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   vec3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggasset- <ggasset-@student.42.fr>          #+#  +:+       +#+        */
+/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-05-20 10:20:03 by ggasset-          #+#    #+#             */
-/*   Updated: 2025-05-20 10:20:03 by ggasset-         ###   ########student.  */
+/*   Created: 2025/05/20 10:20:03 by ggasset-          #+#    #+#             */
+/*   Updated: 2025/06/02 23:57:27 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,11 @@ typedef struct t_interval
 	t_data	min;
 	t_data	max;
 }		t_interval;
+
+t_vec3	*alloc_vec3(t_data x, t_data y, t_data z);
+void	destroy_vec3(t_vec3 *vec);
+t_data  x(t_vec3 *vec);
+t_data  y(t_vec3 *vec);
+t_data  z(t_vec3 *vec);
 
 #endif

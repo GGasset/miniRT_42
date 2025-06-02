@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minilibx_funcs.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggasset- <ggasset-@student.42.fr>          #+#  +:+       +#+        */
+/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-05-22 16:02:48 by ggasset-          #+#    #+#             */
-/*   Updated: 2025-05-22 16:02:48 by ggasset-         ###   ########student.  */
+/*   Created: 2025/05/22 16:02:48 by ggasset-          #+#    #+#             */
+/*   Updated: 2025/06/02 22:07:35 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINILIBX_FUNCS_H
 # define MINILIBX_FUNCS_H
 
-# include "mlx.h"
+# include "../minilibx-linux/mlx.h"
 # include "camera.h"
 
 # ifndef WINDOW_WIDTH
@@ -57,6 +57,7 @@ typedef struct t_render_data
 
 int		render_image(t_render_data *render_d);
 void	render_loop(t_render_data *render_d);
+int		render(t_render_data *render_data);
 
 int		free_img(t_render_data *d);
 // Does not free scene

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggasset- <ggasset-@student.42.fr>          #+#  +:+       +#+        */
+/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-05-20 12:50:09 by ggasset-          #+#    #+#             */
-/*   Updated: 2025-05-20 12:50:09 by ggasset-         ###   ########student.  */
+/*   Created: 2025/05/20 12:50:09 by ggasset-          #+#    #+#             */
+/*   Updated: 2025/06/02 22:06:50 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CAMERA_H
 
 # include "objects.h"
-# include "minilibx_funcs.h"
+// # include "../minilibx_funcs.h"
 
 typedef struct t_light
 {
@@ -42,6 +42,6 @@ typedef struct t_scene
 }		t_scene;
 
 t_color	ray_color(t_ray ray, t_camera camera, t_object_list objs);
-int		render(t_render_data *render_data);
+// int		render(t_render_data *render_data);
 
 #endif
