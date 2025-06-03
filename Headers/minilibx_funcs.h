@@ -60,6 +60,7 @@ int		render_image(t_render_data *render_d);
 void	render_loop(t_render_data *render_d);
 int		render(t_render_data *render_data);
 
+int		free_mlx(t_render_data *d);
 int		free_img(t_render_data *d);
 // Does not free scene
 void	free_render_data(t_render_data *d);

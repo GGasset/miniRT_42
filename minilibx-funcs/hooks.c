@@ -24,8 +24,6 @@ static double	fov_to_zoom(size_t fov)
 
 static int	key_hook(int keycode, t_render_data *render_d)
 {
-	double	zoom;
-
 	if (keycode == 65307)
 		mlx_loop_end(render_d->mlx);
 	return (0);
@@ -36,9 +34,7 @@ static int	mouse_hook(int button, int x, int y, t_render_data *render_d)
 	double	zoom;
 	double	centralizer;
 
-	x = x;
-	y = y;
-	zoom = fov_to_zoom(render_d->scene.camera.fov);
+	zoom = fov_to_zoom(render_d->scene.camera.fov + x * 0 + y * 0);
 	centralizer = 2 * fabs(.5 - zoom) / 5;
 	centralizer *= zoom >= .5 && button == 4;
 	centralizer *= zoom < .5 && button == 5;

@@ -14,6 +14,7 @@
 # define CAMERA_H
 
 # include "objects.h"
+# include "stdlib.h"
 // # include "../minilibx_funcs.h"
 
 typedef struct t_light

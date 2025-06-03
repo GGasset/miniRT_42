@@ -7,20 +7,27 @@ O_FILES += $(addprefix ./RT/, ${RT_O_FILES})
 
 O_FILES += main.o
 
-STATIC_FILES=${LIBFT_DIR}/libft.a
+LIBFT_DIR=./libft
+LIBFT_NAME=libft.a
 
-INCLUDE=-I ./Headers/ -I ./Headers/RT_headers/ -I ${LIBFT_DIR}/ -I ./minilibx-linux/
+MINILIBX_DIR=./minilibx-linux
+MINILIBX_NAME=libmlx_Linux.a
+
+STATIC_FILES=${LIBFT_DIR}/${LIBFT_NAME} ${MINILIBX_DIR}/${MINILIBX_NAME}
+
+INCLUDE=-I/usr/include -I ./Headers/ -I ./Headers/RT_headers/ -I ${LIBFT_DIR}/ -I ${MINILIBX_DIR}
 
 CC_SHARED_FLAGS=-fsanitize=address,undefined
 CC_flags=${CC_SHARED_FLAGS} -c -Wall -Wextra -Werror ${INCLUDE}
 CC_LINKING_FLAGS=${CC_SHARED_FLAGS}
+MINILIBX_LINKING_FLAGS=-L/usr/lib -lXext -lX11 -lm -lz 
 
 NAME=miniRT
 
 all: ${NAME}
 
-${NAME}: libft ${O_FILES}
-	cc -o ${NAME} ${CC_LINKING_FLAGS} ${O_FILES} ${STATIC_FILES}
+${NAME}: minilib-all libft ${O_FILES}
+	cc -o ${NAME} ${CC_LINKING_FLAGS} ${MINILIBX_LINKING_FLAGS} ${O_FILES} ${STATIC_FILES}
 
 %.o : %.c
 	cc $? ${CC_flags} -o $@
@@ -30,7 +37,7 @@ re: fclean all
 fclean: clean
 	rm -f ${MINI_RT}
 
-clean: libft_fclean
+clean: minilib-clean libft_fclean
 	rm -f ${O_FILES}
 
 libft:
@@ -39,4 +46,12 @@ libft:
 libft_fclean:
 	make --directory=./libft/ fclean
 
-.PHONY: all ${NAME} re fclean clean libft libft_fclean
+# MINILIB
+
+minilib-all:
+	make --directory=./minilibx-linux/ all
+
+minilib-clean:
+	make --directory=./minilibx-linux/ clean
+
+.PHONY: all ${NAME} re fclean clean libft libft_fclean minilib-all minilib-clean

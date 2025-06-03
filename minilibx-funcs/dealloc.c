@@ -21,7 +21,7 @@ int	free_img(t_render_data *d)
 	return (1);
 }
 
-static int	free_mlx(t_render_data *d)
+int	free_mlx(t_render_data *d)
 {
 	if (!d->mlx)
 		return (1);
