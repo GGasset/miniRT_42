@@ -54,6 +54,7 @@ typedef struct t_hit_info
 	t_vec3		normal;
 	t_data		distance;
 	t_object	hit_obj;
+	int			did_hit;
 }		t_hit_info;
 
 typedef struct t_hit_args
