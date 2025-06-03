@@ -24,7 +24,7 @@
 #endif
 # ifndef ASPECT_RATIO
 // 16:9 default aspect ratio
-#  define ASPECT_RATIO 1.77777
+#  define ASPECT_RATIO 0.5625
 # endif
 # ifndef MAX_BOUNCES
 #  define MAX_BOUNCES 3
@@ -55,6 +55,7 @@ typedef struct t_render_data
 }		t_render_data;
 
 
+void	create_hooks(t_render_data *r_d);
 int		render_image(t_render_data *render_d);
 void	render_loop(t_render_data *render_d);
 int		render(t_render_data *render_data);
