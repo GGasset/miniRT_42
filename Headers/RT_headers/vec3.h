@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:20:03 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/06/02 23:57:27 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/06/03 01:44:20 by alvaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,13 @@ typedef struct t_interval
 }		t_interval;
 
 t_vec3	*alloc_vec3(t_data x, t_data y, t_data z);
+t_vec3	*asign_vec3(t_vec3 *vec, t_data x, t_data y, t_data z);
+void	copy_vec3(t_vec3 *dest, t_vec3 *src);
 void	destroy_vec3(t_vec3 *vec);
 t_data  x(t_vec3 *vec);
 t_data  y(t_vec3 *vec);
 t_data  z(t_vec3 *vec);
+void    print_vec3(t_vec3 *vec);
+void    vec_sum(t_vec3 *v1, t_vec3 *v2);
 
 #endif

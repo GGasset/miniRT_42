@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_creation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 22:33:25 by alvmoral          #+#    #+#             */
-/*   Updated: 2025/06/03 00:04:29 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/06/03 02:07:30 by alvaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,16 @@ const char	*get_type_info(char *type)
 	return (type_info[get_index(type)]);
 }
 
+char	**get_info_struct(char *type)
+{
+	const char	*info;
+	char		**info_struct;
+	
+	info = get_type_info(type);
+	info_struct = ft_split(info, ',');
+	return (info_struct);
+}
+
 int	get_next_field(char **info_struct, char *field)
 {
 	static int	i = 0;
@@ -56,43 +66,57 @@ int	get_next_field(char **info_struct, char *field)
 	}
 	else
 	{
-		ft_strlcpy(field, info_struct[i], 8);
+		ft_strlcpy(field, info_struct[i], ft_strlen(info_struct[i]));
 		i++;
 		return (1);
 	}
 }
 
-t_data	get_scalar(char *value)
+t_data	get_scalar(char **info_struct, char *value)
 {
+	char	field[9];
+
+	get_next_field(info_struct, field);
 	return (ft_atod(value));
 }
 
-t_vec3	*get_vector(char *value)
+t_vec3	*get_vector(char **info_struct, char *dim)
 {
-	char	**dim;
+	char	**dims;
+	char	field[9];
 	t_vec3	*vec;
 
-	dim = ft_split(value, ',');
-	if (dim == NULL)
+	get_next_field(info_struct, field);
+	dims = ft_split(dim, ',');
+	if (!dims)
 		return (NULL);
-
-	vec = alloc_vec3(ft_atod(dim[0]), ft_atod(dim[1]), ft_atod(dim[2]));
-	ft_free((void **) dim, 1);
+	vec = alloc_vec3(ft_atod(dims[0]), ft_atod(dims[1]), ft_atod(dims[2]));
+	ft_free((void **) dims, 1);
 	return (vec);
+}
+
+void	fill_ambient_ligth(t_light *ambient, char **argv)
+{
+	char		**info_struct;
+
+	info_struct = get_info_struct("A");
+	
+	asign_vec3(&ambient->coords, 0.0, 0.0, 0.0); //Por poner algo
+	ambient->brightness = get_scalar(info_struct, *argv++);
+	copy_vec3(&ambient->color, get_vector(info_struct, *argv++));
+	
+	ft_free((void **) info_struct, 1);
 }
 
 int	main(int argc, char **argv)
 {
-	char		field[8];
-	const char	*infoA = get_type_info("A");
-	char		**info_struct  = ft_split(infoA, ',');
-	
+	t_light	ambient;
+	//Aqui iria la logica para determinar que tipo es.
 	argv++;
-
-	while (get_next_field(info_struct, field))	
-	{
-		// Aqui viene la logica para llenar
-		//las estructuras que despues van a llenar las estructuras
-	}
-	ft_free((void **) info_struct, 1);
+	fill_ambient_ligth(&ambient, argv);
+	printf("coords: ");
+	print_vec3(&ambient.coords);
+	printf("brightness: %lf\n", ambient.brightness);
+	printf("color: ");
+	print_vec3(&ambient.color);
 }
