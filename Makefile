@@ -5,9 +5,10 @@ RT_O_FILES=
 O_FILES = $(addprefix ./minilibx-funcs/, ${MINILIBX_FUNCS_O_FILES})
 O_FILES += $(addprefix ./RT/, ${RT_O_FILES})
 
-STATIC_FILES=./libft/libft.a
+LIBFT_DIR=./libft_GG
+STATIC_FILES=${LIBFT_DIR}/libft.a
 
-INCLUDE=-I ./Headers/ -I ./Headers/RT_headers/ -I ./libft/ -I ./minilibx-linux/
+INCLUDE=-I ./Headers/ -I ./Headers/RT_headers/ -I ${LIBFT_DIR}/ -I ./minilibx-linux/
 
 CC_SHARED_FLAGS=-fsanitize=address,undefined
 CC_flags=${CC_SHARED_FLAGS} -c -Wall -Wextra -Werror ${INCLUDE}
