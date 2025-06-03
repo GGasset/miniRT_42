@@ -13,6 +13,7 @@
 #ifndef VEC3_H
 # define VEC3_H
 
+# include "libft.h"
 # include <stddef.h>
 # include <math.h>
 
