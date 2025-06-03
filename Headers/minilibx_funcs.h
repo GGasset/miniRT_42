@@ -13,7 +13,7 @@
 #ifndef MINILIBX_FUNCS_H
 # define MINILIBX_FUNCS_H
 
-# include "../minilibx-linux/mlx.h"
+# include "mlx.h"
 # include "camera.h"
 
 # ifndef WINDOW_WIDTH
