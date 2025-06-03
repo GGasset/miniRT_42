@@ -14,13 +14,6 @@
 #include "minilibx_funcs.h"
 #include "stdio.h"
 
-static void	render_loop(t_render_data *render_d)
-{
-	create_hooks(render_d);
-	mlx_loop_hook(render_d->mlx, render_image, render_d);
-	mlx_loop(render_d->mlx);
-}
-
 int main()
 {
 	t_render_data	render_d;
