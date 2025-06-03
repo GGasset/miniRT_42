@@ -6,7 +6,7 @@
 
 # Raytracing
 ## Basico
-- Luz (Vareter)
+- Luz (GG)
 - is_hit / Rebote / get_color / Calcular normal / Rotacion
   * Cilindro (GG)
   * Plano (Vareter)
