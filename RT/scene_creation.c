@@ -87,17 +87,16 @@ t_data	get_scalar(char **info_struct, char *value)
 	return (ft_atod(value));
 }
 
-t_vec3	*get_vector(char **info_struct, char *dim)
+t_vec3	get_vector(char **info_struct, char *dim)
 {
 	char	**dims;
 	char	field[9];
-	t_vec3	*vec;
+	t_vec3	vec;
 
 	get_next_field(info_struct, field);
 	dims = ft_split(dim, ',');
-	if (!dims)
-		return (NULL);
-	vec = alloc_vec3(ft_atod(dims[0]), ft_atod(dims[1]), ft_atod(dims[2]));
+	if (dims)
+		vec = vec3(ft_atod(dims[0]), ft_atod(dims[1]), ft_atod(dims[2]));
 	ft_free((void **) dims, 1);
 	return (vec);
 }
@@ -121,105 +120,48 @@ void	fill_ligth(t_light *light, char **argv)
 
 	info_struct = get_info_struct("L");
 	
-	copy_vec3(&light->coords, get_vector(info_struct, *argv++)); //Por poner algo
+	light->coords =  get_vector(info_struct, *argv++); //Por poner algo
 	light->brightness = get_scalar(info_struct, *argv++);
 	copy_vec3(&light->color, get_vector(info_struct, *argv++));
 	
 	ft_free((void **) info_struct, 1);
 }
 
-// int	main(int argc, char **argv)
-// {
-// 	// t_light	ambient;
-// 	t_light	light;
-// 	//Aqui iria la logica para determinar que tipo es.
-// 	argv++;
-// 	// fill_ambient_ligth(&ambient, argv);
-// 	// printf("coords: ");
-// 	// print_vec3(&ambient.coords);
-// 	// printf("brightness: %lf\n", ambient.brightness);
-// 	// printf("color: ");
-// 	// print_vec3(&ambient.color);
+int	main(int argc, char **argv)
+{
+	// t_light	ambient;
+	t_light	light;
+	//Aqui iria la logica para determinar que tipo es.
+	argv += 2;
+	// fill_ambient_ligth(&ambient, argv);
+	// printf("coords: ");
+	// print_vec3(&ambient.coords);
+	// printf("brightness: %lf\n", ambient.brightness);
+	// printf("color: ");
+	// print_vec3(&ambient.color);
 
-// 	fill_ligth(&light, argv);
-// 	printf("coords: ");
-// 	print_vec3(&light.coords);
-// 	printf("brightness: %lf\n", light.brightness);
-// 	printf("color: ");
-// 	print_vec3(&light.color);
-// }
+	fill_ligth(&light, argv);
+	printf("coords: ");
+	print_vec3(light.coords);
+	printf("brightness: %lf\n", light.brightness);
+	printf("color: ");
+	print_vec3(light.color);
+}
 
 // void	merge_in_formatted()
 // {
 
 // }
 
-char	**format_line(char *line)
-{
-	t_darray	*format_line;	
-	t_darray	*line_field;
-	int			is_field;
-	char		c;
-	char		*field;
-	int			i;
 
-	is_field = 0;
-	// ft_bzero(c, 2);
-	i = 0;
-	format_line = alloc_darray(24, sizeof(char *)); //8 fields como máximo y 3 char por field
-	if (!format_line)
-		return (NULL);
-	line_field = NULL;
-	while (line[i])
-	{
-		if (!is_field)
-		{
-			if (!ft_isspace(line[i]))
-			{
-				is_field = 1;
-				continue ;
-			}
-		}
-		else
-		{
-			line_field = alloc_darray(3, sizeof(char));
-			if (!line_field)
-				return (free_darray(format_line, 1), NULL);
-			if (ft_isspace(line[i]))
-			{
-				is_field = 0;
-				c = '\0';
-				append_darray(&line_field, &c);
-				field  = dstr(line_field);
-				append_darray(&format_line, &field);
-				free_darray(line_field, 0);
-				continue ;
-			}
-			c = line[i];
-			append_darray(&line_field, &c);
-			printf("a ver si ahora: %s\n", r_darray(line_field, i - 1));
-		}
-		i++;
-	}
-	if (is_field)
-	{
-		(c = '\0', append_darray(&line_field, &c));
-		field  = dstr(line_field);
-		append_darray(&format_line, &field);
-		free_darray(line_field, 0);
-	}
-	append_darray(&format_line, &line_field);
-	return (dpstr(format_line));
-}
+// int	main(void)
+// {
+// 	char	line[] = "L -50.2,45.3,5.8   	0.6 34,67,197  ";
+// 	char	**line_formatted = format_line(line);
 
-int	main(void)
-{
-	char	line[] = "L -50.2,45.3,5.8   	0.6 34,67,197  ";
-	char	**line_formatted = format_line(line);
-
-	while (*line_formatted)
-	{
-		printf("line_formatted: %s  ", *line_formatted);
-		line_formatted++;
-	}
-}
+// 	while (*line_formatted)
+// 	{
+// 		printf("line_formatted: %s  ", *line_formatted);
+// 		line_formatted++;
+// 	}
+// }
