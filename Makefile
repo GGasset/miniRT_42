@@ -5,6 +5,8 @@ RT_O_FILES=
 O_FILES = $(addprefix ./minilibx-funcs/, ${MINILIBX_FUNCS_O_FILES})
 O_FILES += $(addprefix ./RT/, ${RT_O_FILES})
 
+O_FILES += main.o
+
 STATIC_FILES=./libft/libft.a
 
 INCLUDE=-I ./Headers/ -I ./Headers/RT_headers/ -I ./libft/ -I ./minilibx-linux/
