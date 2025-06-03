@@ -40,6 +40,8 @@ static int	mouse_hook(int button, int x, int y, t_render_data *render_d)
 	y = y;
 	zoom = fov_to_zoom(render_d->scene.camera.fov);
 	centralizer = 2 * fabs(.5 - zoom) / 5;
+	centralizer *= zoom >= .5 && button == 4;
+	centralizer *= zoom < .5 && button == 5;
 	if (button == 4)
 		render_d->scene.camera.fov += .05 * 180 * zoom + centralizer;
 	else if (button == 5)
