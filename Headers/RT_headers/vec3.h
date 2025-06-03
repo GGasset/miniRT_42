@@ -14,6 +14,7 @@
 # define VEC3_H
 
 # include <stddef.h>
+# include <math.h>
 
 typedef double	t_data;
 
