@@ -3,3 +3,4 @@ minilibx-linux/*.a
 libft/*.a
 libft/*.o
 *.o
+.vscode

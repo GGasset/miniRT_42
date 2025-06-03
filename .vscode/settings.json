@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "camera.h": "c",
-        "minilibx_funcs.h": "c",
-        "vec3.h": "c",
-        "objects.h": "c"
-    }
-}
