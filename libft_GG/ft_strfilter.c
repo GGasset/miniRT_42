@@ -12,8 +12,6 @@
 
 #include "libft.h"
 
-#include "libft.h"
-
 static size_t	count_values(char const *s1, char value)
 {
 	size_t	output;
