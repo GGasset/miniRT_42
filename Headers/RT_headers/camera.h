@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:50:09 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/06/02 22:06:50 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/06/09 15:14:40 by alvaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,17 @@ typedef struct t_scene
 t_color	ray_color(t_ray ray, t_camera camera, t_object_list objs);
 // int		render(t_render_data *render_data);
 
+void			print_t_scene(t_scene s);
+char			**format_line(char *line);
+unsigned int	ft_atoui(const char *str);
+t_data			get_scalar(char *value);
+size_t			get_scalar_size_t(char *value);
+t_vec3			get_vector(char *dim);
+
+
+void	fill_ambient_ligth(t_light *ambient, char **argv);
+void	fill_ligth(t_light *light, char **argv);
+void	fill_camera(t_camera *cam, char **argv);
+void	fill_obj(t_object *obj, char **argv);
+void	fill_obj_list(t_object_list *objs, char **argv);
 #endif
