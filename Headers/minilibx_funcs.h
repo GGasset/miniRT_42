@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minilibx_funcs.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:02:48 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/06/02 22:07:35 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/06/09 11:43:25 by alvaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINILIBX_FUNCS_H
 # define MINILIBX_FUNCS_H
 
-# include "mlx.h"
-# include "camera.h"
+# include "../minilibx-linux/mlx.h"
+# include "RT_headers/camera.h"
 
 # ifndef WINDOW_WIDTH
 #  define WINDOW_WIDTH 300
