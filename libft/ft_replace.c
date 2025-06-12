@@ -29,7 +29,7 @@ char	*ft_replace(char *s, char *old, char *new, int free_s)
 		replace_start -= (size_t)s;
 	s = ft_strdup_free(s, free_s);
 	free_s = 1;
-	while (ft_strnstr(s, old, s_len))
+	while (replace_start)
 	{
 		s = ft_strdup_free(s, 1);
 		s = ft_index_replace(s, replace_start, old_len, new);
