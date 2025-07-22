@@ -21,7 +21,7 @@ void	fill_ligth(t_light *light, char **argv)
 	∗ 3D normalized orientation vector, in the range [-1,1] for each x, y,
 		z axis:
 	0.0,0.0,1.0
-	∗ FOV: Horizontal field of view in degrees in the range [0,18
+	∗ FOV: Horizontal field of view in degrees in the range [0,180]
 */
 void	fill_camera(t_camera *cam, char **argv)
 {

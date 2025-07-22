@@ -152,13 +152,13 @@ void test_cross_product(t_vec3 a, t_vec3 b)
         x(c) + x(c2), y(c) + y(c2), z(c) + z(c2));
 }
 
-int main(void)
-{
-    printf("==== Test cruzado ====\n");
-    t_vec3 a = vec3(1, 2, 3);
-    t_vec3 b = vec3(4, 5, 6);
-    test_cross_product(a, b);
+// int main(void)
+// {
+//     printf("==== Test cruzado ====\n");
+//     t_vec3 a = vec3(1, 2, 3);
+//     t_vec3 b = vec3(4, 5, 6);
+//     test_cross_product(a, b);
 
-    return 0;
-}
+//     return 0;
+// }
 
