@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggasset- <ggasset-@student.42.fr>          #+#  +:+       +#+        */
+/*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-06-03 10:35:13 by ggasset-          #+#    #+#             */
-/*   Updated: 2025-06-03 10:35:13 by ggasset-         ###   ########student.  */
+/*   Created: 2025/06/03 10:35:13 by ggasset-          #+#    #+#             */
+/*   Updated: 2025/06/09 15:23:52 by alvaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ int main()
 	render_loop(&render_d);
 	printf("Delete in future, exited loop.");
 	free_render_data(&render_d);
+	return (0);
 }

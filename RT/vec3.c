@@ -46,9 +46,55 @@ void    print_vec3(t_vec3 vec)
     printf("(%lf, %lf, %lf)\n", x(vec), y(vec), z(vec));
 }
 
-void    vec_sum(t_vec3 *v1, t_vec3 *v2)
+t_vec3  vec_sum(t_vec3 v1, t_vec3 v2)
 {
-    v1->vs[0] = x(*v1) + x(*v2);
-    v1->vs[1] = y(*v1) + y(*v2);
-    v1->vs[2] = z(*v1) + z(*v2);
+    t_vec3  ret;
+
+    ret.vs[0] = x(v1) + x(v2);
+    ret.vs[1] = y(v1) + y(v2);
+    ret.vs[2] = z(v1) + z(v2);
+    return (ret);
+}
+
+t_vec3  vec_sust(t_vec3 v1, t_vec3 v2)
+{
+    t_vec3  ret;
+
+    ret.vs[0] = x(v1) - x(v2);
+    ret.vs[1] = y(v1) - y(v2);
+    ret.vs[2] = z(v1) - z(v2);
+    return (ret);
+}
+
+t_vec3  vec_sdiv(t_vec3 v1, t_data denom)
+{
+    t_vec3  ret;
+
+    ret.vs[0] = x(v1) / denom;
+    ret.vs[1] = y(v1) - denom;
+    ret.vs[2] = z(v1) - denom;
+    return (ret);
+}
+
+t_vec3  vec_smul(t_vec3 v1, t_data factor)
+{
+    t_vec3  ret;
+
+    ret.vs[0] = x(v1) / factor;
+    ret.vs[1] = y(v1) - factor;
+    ret.vs[2] = z(v1) - factor;
+    return (ret);
+}
+
+t_data  dot(t_vec3 v1, t_vec3 v2)
+{
+    return ((x(v1) * x(v2)) + (y(v1) * y(v2)) + (z(v1) * z(v2)));
+}
+
+t_vec3  norm(t_vec3 v)
+{
+    double  module;
+
+    module = pow(x(v), 2) + pow(y(v), 2) + pow(z(v), 2);
+    return (vec_sdiv(v, module));
 }
