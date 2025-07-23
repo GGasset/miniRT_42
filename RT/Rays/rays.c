@@ -12,13 +12,13 @@
 
 #include "camera.h"
 
-t_ray ray(t_point3 position, t_rotation direction)
+t_ray	ray(t_point3 position, t_rotation direction)
 {
 	t_ray	out;
 
 	out.orig = position;
 	out.direct = direction;
-	return out;
+	return (out);
 }
 
 t_ray	create_ray(t_camera camera, size_t pixel_i)
@@ -40,7 +40,7 @@ t_ray	create_ray(t_camera camera, size_t pixel_i)
 			vec_sdiv(viewport[1], 2));
 	viewport_upper_left[1] = vec_smul(vec_sum(viewport[0], viewport[1]), .5);
 	out_direction = vec_sum(vec_sum(viewport_upper_left[1],
-		vec_smul(pixel_delta[0], pixel_i % camera.width)),
-		vec_smul(pixel_delta[1], pixel_i / camera.width));
+				vec_smul(pixel_delta[0], pixel_i % camera.width)),
+			vec_smul(pixel_delta[1], pixel_i / camera.width));
 	return (ray(camera.camera_pos, out_direction));
 }
