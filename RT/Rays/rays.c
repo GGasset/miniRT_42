@@ -30,7 +30,7 @@ t_ray	create_ray(t_camera camera, size_t pixel_i)
 	t_vec3	out_direction;
 
 	viewport_len[1] = 2.0;
-	viewport_len[0] = viewport_len[0] * ((t_data)camera.width / camera.height);
+	viewport_len[0] = viewport_len[1] * ((t_data)camera.width / camera.height);
 	viewport[0] = vec3(viewport_len[0], 0, 0);
 	viewport[1] = vec3(0, -viewport_len[1], 0);
 	pixel_delta[0] = vec_sdiv(viewport[0], camera.width);
