@@ -27,7 +27,7 @@ typedef struct t_light
 typedef struct t_camera
 {
 	size_t		width;
-	double		aspect_ratio;
+	size_t		height;
 	size_t		fov;
 	size_t		max_bounces;
 	t_point3	camera_pos;
