@@ -43,6 +43,7 @@ typedef struct t_scene
 }		t_scene;
 
 t_color	ray_color(t_ray ray, t_camera camera, t_object_list objs);
+t_ray	create_ray(t_camera camera, size_t pixel_i);
 // int		render(t_render_data *render_data);
 
 #endif
