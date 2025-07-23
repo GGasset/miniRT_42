@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggasset- <ggasset-@student.42.fr>          #+#  +:+       +#+        */
+/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-05-22 16:52:59 by ggasset-          #+#    #+#             */
-/*   Updated: 2025-05-22 16:52:59 by ggasset-         ###   ########student.  */
+/*   Created: 2025/05/22 16:52:59 by ggasset-          #+#    #+#             */
+/*   Updated: 2025/07/23 20:29:56 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,15 @@ int	render_image(t_render_data *render_d)
 		return (0);
 	mlx_put_image_to_window(render_d->mlx, render_d->win, render_d->img.img,
 		0, 0);
-	free_img(render_d);
+	printf("AAAAAAAAA\n");
+	// free_img(render_d);
 	return (0);
 }
 
 void	render_loop(t_render_data *render_d)
 {
 	create_hooks(render_d);
+	// render_image(render_d);
 	mlx_loop_hook(render_d->mlx, render_image, render_d);
 	mlx_loop(render_d->mlx);
 }

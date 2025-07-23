@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:50:09 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/06/09 15:14:40 by alvaro           ###   ########.fr       */
+/*   Updated: 2025/07/23 18:31:57 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct t_camera
 {
 	size_t		width;
 	size_t		height;
+	size_t		aspect_ratio;
 	size_t		fov;
 	size_t		max_bounces;
 	t_point3	camera_pos;

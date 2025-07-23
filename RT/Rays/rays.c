@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggasset- <ggasset-@student.42.fr>          #+#  +:+       +#+        */
+/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-06-05 13:08:48 by ggasset-          #+#    #+#             */
-/*   Updated: 2025-06-05 13:08:48 by ggasset-         ###   ########student.  */
+/*   Created: 2025/06/05 13:08:48 by ggasset-          #+#    #+#             */
+/*   Updated: 2025/07/23 20:12:20y alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,45 @@ t_ray	ray(t_point3 position, t_rotation direction)
 	return (out);
 }
 
-t_ray	create_ray(t_camera camera, size_t pixel_i)
+t_ray create_ray(t_camera camera, size_t pixel_i)
 {
-	t_data	viewport_len[2];
-	t_vec3	viewport[2];
-	t_vec3	pixel_delta[2];
-	t_vec3	viewport_upper_left[2];
-	t_vec3	out_direction;
+    t_data aspect_ratio = (t_data)camera.width / camera.height;
+    t_data viewport_height = 2.0;
+    t_data viewport_width = aspect_ratio * viewport_height;
 
-	viewport_len[1] = 2.0;
-	viewport_len[0] = viewport_len[1] * ((t_data)camera.width / camera.height);
-	viewport[0] = vec3(viewport_len[0], 0, 0);
-	viewport[1] = vec3(0, -viewport_len[1], 0);
-	pixel_delta[0] = vec_sdiv(viewport[0], camera.width);
-	pixel_delta[1] = vec_sdiv(viewport[1], camera.height);
-	viewport_upper_left[0] = vec_sust(vec_sust(vec_sust(camera.camera_pos,
-					vec3(0, 0, 1)), vec_sdiv(viewport[0], 2)),
-			vec_sdiv(viewport[1], 2));
-	viewport_upper_left[1] = vec_smul(vec_sum(viewport[0], viewport[1]), .5);
-	out_direction = vec_sum(vec_sum(viewport_upper_left[1],
-				vec_smul(pixel_delta[0], pixel_i % camera.width)),
-			vec_smul(pixel_delta[1], pixel_i / camera.width));
-	return (ray(camera.camera_pos, out_direction));
+    // Ejes del viewport
+    t_vec3 horizontal = vec3(viewport_width, 0, 0);       // eje X
+    t_vec3 vertical = vec3(0, -viewport_height, 0);       // eje Y (hacia abajo)
+
+    // Dirección en la que mira la cámara (eje Z negativo)
+    t_vec3 forward = vec3(0, 0, -1);
+
+    // Centro del viewport a una unidad delante de la cámara
+    t_vec3 viewport_center = vec_sum(camera.camera_pos, forward);
+
+    // Esquina superior izquierda
+    t_vec3 upper_left = vec_sust(vec_sust(viewport_center,
+                                          vec_sdiv(horizontal, 2)),
+                                 vec_sdiv(vertical, 2));
+
+    // Coordenadas del píxel
+	size_t x = pixel_i % camera.width;
+	size_t y = pixel_i / camera.width;
+
+	t_data fx = (t_data)x / (t_data)camera.width;
+	t_data fy = (t_data)y / (t_data)camera.height;
+
+	t_vec3 u = vec_smul(horizontal, fx);
+	t_vec3 v = vec_smul(vertical, fy);
+
+
+    // Posición del píxel en el espacio 3D
+    t_vec3 pixel_position = vec_sum(vec_sum(upper_left, u), v);
+
+    // Dirección del rayo: desde la cámara al píxel
+    t_vec3 direction = norm(vec_sust(pixel_position, camera.camera_pos));
+
+    return ray(camera.camera_pos, direction);
 }
+
+

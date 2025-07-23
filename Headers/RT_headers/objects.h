@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggasset- <ggasset-@student.42.fr>          #+#  +:+       +#+        */
+/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-05-20 10:23:20 by ggasset-          #+#    #+#             */
-/*   Updated: 2025-05-20 10:23:20 by ggasset-         ###   ########student.  */
+/*   Created: 2025/05/20 10:23:20 by ggasset-          #+#    #+#             */
+/*   Updated: 2025/07/23 18:20:36 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct t_hit_args
 	t_hit_info	*hit_info;
 }		t_hit_args;
 
+t_data		hit_sphere(t_hit_args *args);
 int			world_hit(t_object_list world_objs, t_hit_args args);
 
 #endif

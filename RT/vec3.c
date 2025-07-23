@@ -123,9 +123,6 @@ t_vec3	n_unitary(t_vec3 a, t_vec3 b)
 
 t_vec3	cross_product(t_vec3 a, t_vec3 b)
 {
-    t_data mod_a = modulus(a);
-    t_data mod_b = modulus(b);
-
     t_data tt = theta(a, b);
 
     return (vec_smul(n_unitary(a, b), modulus(a) * modulus(b) * sin(tt)));
