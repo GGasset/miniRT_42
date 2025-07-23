@@ -33,6 +33,7 @@ typedef struct t_ray
 	t_point3	orig;
 	t_vec3		direct;
 }		t_ray;
+t_ray		ray(t_point3 position, t_rotation direction);
 
 t_ray		bounce_ray(t_ray in, t_rotation surface_normal);
 t_point3	ray_at(t_data t);
