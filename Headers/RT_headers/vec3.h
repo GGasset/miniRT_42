@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:20:03 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/06/03 17:26:38 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:57:57 by alvaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_data  x(t_vec3 vec);
 t_data  y(t_vec3 vec);
 t_data  z(t_vec3 vec);
 void    print_vec3(t_vec3 vec);
+<<<<<<< HEAD
 void    vec_sum(t_vec3 *v1, t_vec3 *v2);
 =======
 t_vec3		*alloc_vec3(t_data x, t_data y, t_data z);
@@ -63,5 +64,17 @@ t_data  	z(t_vec3 *vec);
 void    	print_vec3(t_vec3 *vec);
 void    	vec_sum(t_vec3 *v1, t_vec3 *v2);
 >>>>>>> GBranch
+=======
+t_vec3	vec_sum(t_vec3 v1, t_vec3 v2);
+t_vec3  vec_sust(t_vec3 v1, t_vec3 v2);
+t_vec3  vec_sdiv(t_vec3 v1, t_data denom);
+t_vec3  vec_smul(t_vec3 v1, t_data factor);
+t_data  dot(t_vec3 v1, t_vec3 v2);
+t_vec3  norm(t_vec3 v);
+t_data	modulus(t_vec3 vec);
+t_data	theta(t_vec3 a, t_vec3 b);
+t_vec3	n_unitary(t_vec3 a, t_vec3 b);
+t_vec3	cross_product(t_vec3 a, t_vec3 b);
+>>>>>>> origin/alvarito
 
 #endif
