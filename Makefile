@@ -42,6 +42,7 @@ fclean: clean
 
 clean: minilib-clean libft_fclean
 	rm -f ${O_FILES}
+	rm miniRT
 
 libft:
 	make --directory=./libft/ all
