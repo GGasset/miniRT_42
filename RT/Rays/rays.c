@@ -23,6 +23,38 @@ t_ray	ray(t_point3 position, t_rotation direction)
 
 t_ray create_ray(t_camera camera, size_t pixel_i)
 {
+	double focal_len = 1;
+
+	double aspect_ratio = (double)camera.width / camera.height;
+	double viewport_height = 2.0;
+	double viewport_width = viewport_height * aspect_ratio;
+
+	t_vec3 viewport[2];
+	viewport[0] = vec3(viewport_width, 0, 0);
+	viewport[1] = vec3(0, -viewport_height, 0);
+
+	t_vec3 pixel_delta[2];
+	pixel_delta[0] = vec_sdiv(viewport[0], camera.width);
+	pixel_delta[1] = vec_sdiv(viewport[1], camera.height);
+
+	t_vec3 upper_left = vec_sust(vec_sust(vec_sust(camera.camera_pos,
+											vec3(0, 0, focal_len)),
+										vec_sdiv(viewport[0], 2)),
+								vec_sdiv(viewport[1], 2));
+
+	t_vec3 upper_left_pixel_pos = vec_sum(upper_left, vec_smul(vec_sum(pixel_delta[0], pixel_delta[1]), .5));
+
+	size_t x = pixel_i % camera.width;
+	size_t y = pixel_i / camera.width;
+	t_vec3 pixel_center = vec_sum(vec_sum(upper_left_pixel_pos, 
+		vec_smul(pixel_delta[0], x))
+		, vec_smul(pixel_delta[1], y));
+
+	return ray(camera.camera_pos, vec_sust(pixel_center, camera.camera_pos));
+}
+
+t_ray create_equidistant_ray(t_camera camera, size_t pixel_i)
+{
     t_data aspect_ratio = (t_data)camera.width / camera.height;
     t_data viewport_height = 2.0;
     t_data viewport_width = aspect_ratio * viewport_height;
