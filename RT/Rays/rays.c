@@ -67,39 +67,3 @@ t_ray	create_ray(t_camera camera, size_t pixel_i)
 			vec_smul(pixel_delta[1], pixel_i / camera.width));
 	return (ray(camera.camera_pos, vec_sust(pixel_center, camera.camera_pos)));
 }
-
-/*t_ray create_equidistant_ray(t_camera camera, size_t pixel_i)
-{
-    t_data aspect_ratio = (t_data)camera.width / camera.height;
-    t_data viewport_height = 2.0;pixel0_pos(camera, pixel_i, pixel_delta)0);
-
-    // Dirección en la que mira la cámara (eje Z negativo)
-    t_vec3 forward = vec3(0, 0, -1);
-
-    // Centro del viewport a una unidad delante de la cámara
-    t_vec3 viewport_center = vec_sum(camera.camera_pos, forward);
-
-    // Esquina superior izquierda
-    t_vec3 upper_left = vec_sust(vec_sust(viewport_center,
-                                          vec_sdiv(horizontal, 2)),
-                                 vec_sdiv(vertical, 2));
-
-    // Coordenadas del píxel
-	size_t x = pixel_i % camera.width;
-	size_t y = pixel_i / camera.width;
-
-	t_data fx = (t_data)x / (t_data)camera.width;
-	t_data fy = (t_data)y / (t_data)camera.height;
-
-	t_vec3 u = vec_smul(horizontal, fx);
-	t_vec3 v = vec_smul(vertical, fy);
-
-
-    // Posición del píxel en el espacio 3D
-    t_vec3 pixel_position = vec_sum(vec_sum(upper_left, u), v);
-
-    // Dirección del rayo: desde la cámara al píxel
-    t_vec3 direction = norm(vec_sust(pixel_position, camera.camera_pos));
-
-    return ray(camera.camera_pos, direction);
-}*/
