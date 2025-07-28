@@ -21,34 +21,34 @@ t_ray	ray(t_point3 position, t_rotation direction)
 	return (out);
 }
 
-static t_data degrees_to_radians(t_data degrees)
+static void	get_viewport(t_camera camera, t_vec3 *viewport[2])
 {
-	return degrees * 3.14159 / 180;
+	double	aspect_ratio;
+	double	h;
+	double	viewport_width;
+
+	if (!viewport)
+		return ;
+	aspect_ratio = (double)camera.width / camera.height;
+	h = tan(camera.fov * 3.14159 / 180 / 2);
+	viewport_width = 2.0 * aspect_ratio * 2 * h * camera.focal_len;
+	viewport[0][0] = vec3(viewport_width, 0, 0);
+	viewport[0][1] = vec3(0, -(viewport_width / aspect_ratio), 0);
+
 }
 
 t_ray create_ray(t_camera camera, size_t pixel_i)
 {
-	double focal_len = 1;
-
-	double aspect_ratio = (double)camera.width / camera.height;
-
-	double theta = degrees_to_radians(camera.fov);
-	double h = tan(theta / 2);
-
-	double viewport_height = 2.0;
-	double viewport_width = viewport_height * aspect_ratio * 2 * h * focal_len;
-	viewport_height = viewport_width / aspect_ratio;
 
 	t_vec3 viewport[2];
-	viewport[0] = vec3(viewport_width, 0, 0);
-	viewport[1] = vec3(0, -viewport_height, 0);
+	get_viewport(camera, &viewport);
 
 	t_vec3 pixel_delta[2];
 	pixel_delta[0] = vec_sdiv(viewport[0], camera.width);
 	pixel_delta[1] = vec_sdiv(viewport[1], camera.height);
 
 	t_vec3 upper_left = vec_sust(vec_sust(vec_sust(camera.camera_pos,
-											vec3(0, 0, focal_len)),
+											vec3(0, 0, camera.focal_len)),
 										vec_sdiv(viewport[0], 2)),
 								vec_sdiv(viewport[1], 2));
 
