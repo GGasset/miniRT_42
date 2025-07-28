@@ -24,6 +24,8 @@ int main()
 		return (1);
 	render_d.img.res.x = WINDOW_WIDTH;
 	render_d.img.res.y = WINDOW_WIDTH * 0.5625;
+
+	render_d.scene.camera.fov = 90;
 	render_d.scene.camera.width = render_d.img.res.x;
 	render_d.scene.camera.height = render_d.img.res.y;
 	render_d.win = mlx_new_window(render_d.mlx, render_d.img.res.x,
