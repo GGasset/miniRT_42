@@ -31,6 +31,7 @@ typedef struct t_camera
 	size_t		aspect_ratio;
 	size_t		fov;
 	size_t		max_bounces;
+	t_data		focal_len;
 	t_point3	camera_pos;
 	t_rotation	rotation;
 }		t_camera;

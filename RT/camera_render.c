@@ -23,19 +23,19 @@ int	render(t_render_data *render_data)
     t_hit_info  hit_info;
     t_data      distance;
 
+    ft_bzero(&hit_args, sizeof(t_hit_args));
     i = 0;
     hit_info.did_hit = 0;
     hit_args.hit_info = &hit_info;
     width = render_data->scene.camera.width;
     height = render_data->scene.camera.height;
     
-    ft_bzero(&hit_args, sizeof(t_hit_args));
     printf("h: %ld  w: %ld", height, width);
-    while (i < height * width - 1)
+    while (i < height * width)
     {
         hit_args.ray = create_ray(render_data->scene.camera, i);
         distance = hit_sphere(&hit_args);
-        if (distance != -1.0)
+        if (distance < -3.0)
             ((int *)render_data->img.addr)[i] = 0xFFFFFFF;
         else
             ((int *)render_data->img.addr)[i] = 0x0;
