@@ -21,13 +21,23 @@ t_ray	ray(t_point3 position, t_rotation direction)
 	return (out);
 }
 
+static t_data degrees_to_radians(t_data degrees)
+{
+	return degrees * 3.14159 / 180;
+}
+
 t_ray create_ray(t_camera camera, size_t pixel_i)
 {
 	double focal_len = 1;
 
 	double aspect_ratio = (double)camera.width / camera.height;
+
+	double theta = degrees_to_radians(camera.fov);
+	double h = tan(theta / 2);
+
 	double viewport_height = 2.0;
-	double viewport_width = viewport_height * aspect_ratio;
+	double viewport_width = viewport_height * aspect_ratio * 2 * h * focal_len;
+	viewport_height = viewport_width / aspect_ratio;
 
 	t_vec3 viewport[2];
 	viewport[0] = vec3(viewport_width, 0, 0);
