@@ -36,34 +36,44 @@ static void	get_viewport(t_camera camera, t_vec3 viewport[2])
 	viewport[1] = vec3(0, -(viewport_width / aspect_ratio), 0);
 }
 
-static t_vec3	get_pixel0_pos(t_camera c, size_t i, t_vec3 d[2])
+static t_vec3	get_pixel0_pos(t_camera c, t_vec3 delta[2])
 {
 	t_vec3	viewport[2];
 	t_vec3	upper_left;
 	t_vec3	upper_left_pixel_pos;
 
 	get_viewport(c, viewport);
-	d[0] = vec_sdiv(viewport[0], c.width);
-	d[1] = vec_sdiv(viewport[1], c.height);
+	delta[0] = vec_sdiv(viewport[0], c.width);
+	delta[1] = vec_sdiv(viewport[1], c.height);
 	upper_left = vec_sust(vec_sust(vec_sust(c.camera_pos,
 					vec3(0, 0, c.focal_len)),
 				vec_sdiv(viewport[0], 2)),
 			vec_sdiv(viewport[1], 2));
 	upper_left_pixel_pos = vec_sum(upper_left, vec_smul(
-				vec_sum(d[0], d[1]), .5));
+				vec_sum(delta[0], delta[1]), .5));
 	return (upper_left_pixel_pos);
+}
+
+static t_ray	assemble_ray(t_camera camera, t_vec3 pixel_center)
+{
+	t_ray	out;
+
+	out = ray(camera.camera_pos, vec_sust(pixel_center, camera.camera_pos));
+	camera.rotation = vec_sum(camera.rotation, vec3(1, 1, 1));
+	camera.rotation = vec_smul(camera.rotation, 360);
+	out.direct = rotate(out.direct, camera.rotation);
+	return (out);
 }
 
 t_ray	create_ray(t_camera camera, size_t pixel_i)
 {
 	t_vec3	pixel_delta[2];
-	t_vec3	upper_left_pixel_pos;
 	t_vec3	pixel_center;
 	t_vec3	pixel0_pos;
 
-	pixel0_pos = get_pixel0_pos(camera, pixel_i, pixel_delta);
+	pixel0_pos = get_pixel0_pos(camera, pixel_delta);
 	pixel_center = vec_sum(vec_sum(pixel0_pos,
 				vec_smul(pixel_delta[0], pixel_i % camera.width)),
 			vec_smul(pixel_delta[1], pixel_i / camera.width));
-	return (ray(camera.camera_pos, vec_sust(pixel_center, camera.camera_pos)));
+	return (assemble_ray(camera, pixel_center));
 }
