@@ -62,4 +62,9 @@ t_data	theta(t_vec3 a, t_vec3 b);
 t_vec3	n_unitary(t_vec3 a, t_vec3 b);
 t_vec3	cross_product(t_vec3 a, t_vec3 b);
 
+// * Will populate one value per call
+// * r_i: Row index
+void	vec_matrix_mult(t_vec3 matrix_row, t_vec3 vec, t_vec3 *out, size_t r_i);
+t_vec3	rotate(t_vec3 input, t_vec3 degrees);
+
 #endif
