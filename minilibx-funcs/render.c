@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:52:59 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/07/23 20:29:56 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:03:21 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,3 +40,4 @@ void	render_loop(t_render_data *render_d)
 	mlx_loop_hook(render_d->mlx, render_image, render_d);
 	mlx_loop(render_d->mlx);
 }
+

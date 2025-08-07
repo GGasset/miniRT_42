@@ -35,7 +35,7 @@ int	render(t_render_data *render_data)
     {
         hit_args.ray = create_ray(render_data->scene.camera, i);
         distance = hit_sphere(&hit_args);
-        if (distance < -3.0)
+        if (distance <= 0.0)
             ((int *)render_data->img.addr)[i] = 0xF010490;
         else
             ((int *)render_data->img.addr)[i] = 0xFFFFFFF;

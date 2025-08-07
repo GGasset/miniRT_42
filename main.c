@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 10:35:13 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/07/23 19:09:58 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/08/06 19:33:44 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ int main()
 	render_d.img.res.x = WINDOW_WIDTH;
 	render_d.img.res.y = WINDOW_WIDTH * 0.5625;
 
-	render_d.scene.camera.fov = 90;
+	render_d.scene.camera.fov = 60;
+	render_d.scene.camera.rotation = norm(vec3(-10.0, 46.4, -0.9));
+	// render_d.scene.camera.rotation = vec3(0, 0, -1);
 	render_d.scene.camera.focal_len = 1;
 
 	render_d.scene.camera.width = render_d.img.res.x;
