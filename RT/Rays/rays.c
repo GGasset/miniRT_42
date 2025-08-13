@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:33:15 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/08/06 19:38:31 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/08/13 18:49:30 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,49 +21,40 @@ t_ray	ray(t_point3 position, t_rotation direction)
 	return (out);
 }
 
-static void	get_viewport(t_camera camera, t_vec3 viewport[2])
+static void get_viewport(t_camera c, t_vec3 viewport[2])
 {
-	double	aspect_ratio;
-	double	h;
-	double	viewport_width;
+    double ar      = (double)c.width / (double)c.height;
+    double fov_rad = (double)c.fov * 3.14159265359 / 180.0;
+    double w       = 2.0 * c.focal_len * tan(0.5 * fov_rad); // Wv
+    double h       = w / ar;                                  // Hv
 
-	if (!viewport)
-		return ;
-	aspect_ratio = (double)camera.width / camera.height;
-	h = tan(camera.fov * 3.14159 / 180 / 2);
-	viewport_width = 2.0 * aspect_ratio * 2 * h * camera.focal_len;
-	viewport[0] = vec3(viewport_width, 0, 0);
-	viewport[1] = vec3(0, -(viewport_width / aspect_ratio), 0);
+    viewport[0] = vec3(w,  0.0, 0.0);   // right (X)
+    viewport[1] = vec3(0.0, -h,  0.0);  // up (Y negativo para que ↑ sea hacia arriba en pantalla)
 }
 
-static t_vec3	get_pixel0_pos(t_camera c, t_vec3 delta[2])
+static t_vec3 get_pixel0_pos(t_camera c, t_vec3 delta[2])
 {
-	t_vec3	viewport[2];
-	t_vec3	upper_left;
-	t_vec3	upper_left_pixel_pos;
+    t_vec3 viewport[2];
+    t_vec3 center, upper_left;
 
-	get_viewport(c, viewport);
-	delta[0] = vec_sdiv(viewport[0], c.width);
-	delta[1] = vec_sdiv(viewport[1], c.height);
-	upper_left = vec_sust(vec_sust(vec_sust(c.camera_pos,
-					vec3(0, 0, c.focal_len)),
-				vec_sdiv(viewport[0], 2)),
-			vec_sdiv(viewport[1], 2));
-	upper_left_pixel_pos = vec_sum(upper_left, vec_smul(
-				vec_sum(delta[0], delta[1]), .5));
-	return (upper_left_pixel_pos);
+    get_viewport(c, viewport);
+    delta[0] = vec_sdiv(viewport[0], c.width);
+    delta[1] = vec_sdiv(viewport[1], c.height);
+
+    center     = vec_sum(c.camera_pos, vec3(0, 0, c.focal_len));                 // +Z
+    upper_left = vec_sum(center, vec_sum(vec_smul(viewport[0], -0.5),            // -W/2
+                                         vec_smul(viewport[1], -0.5)));          // +H/2 (porque viewport[1] es negativo)
+    return vec_sum(upper_left, vec_smul(vec_sum(delta[0], delta[1]), 0.5));
 }
 
-static t_ray	assemble_ray(t_camera camera, t_vec3 pixel_center)
-{
-	t_ray	out;
 
-	out = ray(camera.camera_pos, vec_sust(pixel_center, camera.camera_pos));
-	camera.rotation = vec_sum(camera.rotation, vec3(1, 1, 1));
-	camera.rotation = vec_smul(camera.rotation, 360);
-	out.direct = rotate(out.direct, camera.rotation);
-	return (out);
+static t_ray assemble_ray(t_camera camera, t_vec3 pixel_center)
+{
+    t_ray out = ray(camera.camera_pos, vec_sust(pixel_center, camera.camera_pos));
+    out.direct = rotate(out.direct, camera.rotation); // rotate corregida a radianes
+    return out;
 }
+
 
 t_ray	create_ray(t_camera camera, size_t pixel_i)
 {

@@ -92,13 +92,13 @@ t_data  dot(t_vec3 v1, t_vec3 v2)
     return ((x(v1) * x(v2)) + (y(v1) * y(v2)) + (z(v1) * z(v2)));
 }
 
-t_vec3  norm(t_vec3 v)
+t_vec3 norm(t_vec3 v)
 {
-    double  module;
-
-    module = pow(x(v), 2) + pow(y(v), 2) + pow(z(v), 2);
-    return (vec_sdiv(v, module));
+    double m = modulus(v);
+    if (m == 0.0) return v;     // o vec3(0,0,0)
+    return vec_sdiv(v, m);
 }
+
 
 t_data	modulus(t_vec3 vec)
 {
@@ -107,10 +107,15 @@ t_data	modulus(t_vec3 vec)
                  + z(vec) * z(vec)));
 }
 
-t_data	theta(t_vec3 a, t_vec3 b)
+t_data theta(t_vec3 a, t_vec3 b)
 {
-    return (acos((dot(a, b) / (modulus(a) * modulus(b)))));
+    double ma = modulus(a), mb = modulus(b);
+    if (ma==0.0 || mb==0.0) return 0.0;
+    double c = dot(a,b) / (ma*mb);
+    if (c>1.0) c=1.0; else if (c<-1.0) c=-1.0;
+    return acos(c);
 }
+
 
 t_vec3	n_unitary(t_vec3 a, t_vec3 b)
 {
@@ -122,12 +127,25 @@ t_vec3	n_unitary(t_vec3 a, t_vec3 b)
     return (out);
 }
 
-t_vec3	cross_product(t_vec3 a, t_vec3 b)
+t_vec3 cross_product(t_vec3 a, t_vec3 b)
 {
-    t_data tt = theta(a, b);
-
-    return (vec_smul(n_unitary(a, b), modulus(a) * modulus(b) * sin(tt)));
+    return vec3(y(a)*z(b) - y(b)*z(a),
+                z(a)*x(b) - z(b)*x(a),
+                x(a)*y(b) - x(b)*y(a));
 }
+
+t_vec3 unit_cross(t_vec3 a, t_vec3 b)
+{
+    return norm(cross_product(a, b));
+}
+
+
+// t_vec3	cross_product(t_vec3 a, t_vec3 b)
+// {
+//     t_data tt = theta(a, b);
+
+//     return (vec_smul(n_unitary(a, b), modulus(a) * modulus(b) * sin(tt)));
+// }
 
 void	vec_matrix_mult(t_vec3 matrix_row, t_vec3 vec, t_vec3 *out, size_t r_i)
 {
@@ -140,25 +158,39 @@ void	vec_matrix_mult(t_vec3 matrix_row, t_vec3 vec, t_vec3 *out, size_t r_i)
 	row_value += matrix_row.vs[2] * vec.vs[2];
 	out->vs[r_i] = row_value;
 }
-t_vec3	rotate(t_vec3 input, t_vec3 degrees)
-{
-	t_vec3	out;
-	t_vec3	tmp;
 
-	tmp = input;
-	vec_matrix_mult(vec3(1, 0, 0), tmp, &out, 0);
-	vec_matrix_mult(vec3(0, cos(x(degrees)), -sin(x(degrees))), tmp, &out, 1);
-	vec_matrix_mult(vec3(0, sin(x(degrees)), cos(x(degrees))), tmp, &out, 2);
-	tmp = out;
-	vec_matrix_mult(vec3(cos(y(degrees)), 0, sin(y(degrees))), tmp, &out, 0);
-	vec_matrix_mult(vec3(0, 1, 0), tmp, &out, 1);
-	vec_matrix_mult(vec3(-sin(y(degrees)), 0, cos(y(degrees))), tmp, &out, 2);
-	tmp = out;
-	vec_matrix_mult(vec3(cos(z(degrees)), -sin(z(degrees)), 0), tmp, &out, 0);
-	vec_matrix_mult(vec3(sin(z(degrees)), cos(z(degrees)), 0), tmp, &out, 1);
-	vec_matrix_mult(vec3(0, 0, 1), tmp, &out, 2);
-	return (out);
+static inline double rad(double deg){ return deg * 3.14159265359 / 180.0; }
+
+t_vec3 rotate(t_vec3 input, t_vec3 degrees)
+{
+    t_vec3 out, tmp;
+
+    double cx = cos(rad(x(degrees))), sx = sin(rad(x(degrees)));
+    double cy = cos(rad(y(degrees))), sy = sin(rad(y(degrees)));
+    double cz = cos(rad(z(degrees))), sz = sin(rad(z(degrees)));
+
+    // Rx
+    tmp = input;
+    vec_matrix_mult(vec3(1, 0, 0), tmp, &out, 0);
+    vec_matrix_mult(vec3(0, cx, -sx), tmp, &out, 1);
+    vec_matrix_mult(vec3(0, sx,  cx), tmp, &out, 2);
+
+    // Ry
+    tmp = out;
+    vec_matrix_mult(vec3( cy, 0,  sy), tmp, &out, 0);
+    vec_matrix_mult(vec3(  0, 1,   0), tmp, &out, 1);
+    vec_matrix_mult(vec3(-sy, 0,  cy), tmp, &out, 2);
+
+    // Rz
+    tmp = out;
+    vec_matrix_mult(vec3( cz, -sz, 0), tmp, &out, 0);
+    vec_matrix_mult(vec3( sz,  cz, 0), tmp, &out, 1);
+    vec_matrix_mult(vec3(  0,   0, 1), tmp, &out, 2);
+
+    return out;
 }
+
+
 void test_cross_product(t_vec3 a, t_vec3 b)
 {
     t_vec3 c = cross_product(a, b);
