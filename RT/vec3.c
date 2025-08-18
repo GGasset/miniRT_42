@@ -92,13 +92,17 @@ t_data  dot(t_vec3 v1, t_vec3 v2)
     return ((x(v1) * x(v2)) + (y(v1) * y(v2)) + (z(v1) * z(v2)));
 }
 
-t_vec3 norm(t_vec3 v)
-{
-    double m = modulus(v);
-    if (m == 0.0) return v;     // o vec3(0,0,0)
-    return vec_sdiv(v, m);
-}
+// t_vec3 norm(t_vec3 v)
+// {
+//     double m = modulus(v);
+//     if (m == 0.0) return v;     // o vec3(0,0,0)
+//     return vec_sdiv(v, m);
+// }
 
+t_vec3 norm(t_vec3 v){
+    double m = modulus(v);
+    return (m>0) ? vec_sdiv(v, m) : v;
+}
 
 t_data	modulus(t_vec3 vec)
 {
@@ -115,7 +119,6 @@ t_data theta(t_vec3 a, t_vec3 b)
     if (c>1.0) c=1.0; else if (c<-1.0) c=-1.0;
     return acos(c);
 }
-
 
 t_vec3	n_unitary(t_vec3 a, t_vec3 b)
 {
