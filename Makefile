@@ -3,7 +3,13 @@ MINILIBX_FUNCS_O_FILES=render.o hooks.o dealloc.o
 
 RT_RAYS_O_FILES=hit.o rays.o
 RT_O_FILES = $(addprefix Rays/, ${RT_RAYS_O_FILES})
-RT_O_FILES += vec3.o sphere.o camera_render.o
+RT_O_FILES += vec3.o sphere.o camera_render.o \
+			  plane.o \
+			  scene_creation/scene_creation.o \
+			  scene_creation/fill_scene.o \
+			  scene_creation/utils.o \
+			  ../data_structs/dynamic_array.o \
+			  ../data_structs/darray_conversions.o \
 
 O_FILES = $(addprefix ./minilibx-funcs/, ${MINILIBX_FUNCS_O_FILES})
 O_FILES += $(addprefix ./RT/, ${RT_O_FILES})

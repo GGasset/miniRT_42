@@ -1,4 +1,5 @@
 #include "../../Headers/RT_headers/camera.h"
+#include "../../Headers/RT_headers/objects.h"
 #include "../../Headers/minilibx_funcs.h"
 
 void	fill_ambient_ligth(t_light *ambient, char **argv)
@@ -28,8 +29,10 @@ void	fill_camera(t_camera *cam, char **argv)
 	cam->camera_pos = get_vector(*argv++);
 	cam->rotation = get_vector(*argv++);
 	cam->fov = get_scalar_size_t(*argv++);
+	cam->focal_len = 1.0; // Default focal length, can be adjusted later
 	cam->aspect_ratio = ASPECT_RATIO;
 	cam->width = WINDOW_WIDTH;
+	cam->height = WINDOW_WIDTH * cam->aspect_ratio;
 	cam->max_bounces = MAX_BOUNCES;
 }
 
@@ -41,9 +44,9 @@ void	fill_obj(t_object *obj, char **argv)
 	obj->sizes = sizes;
 
 	if (!ft_strcmp(*argv, "sp"))
-		obj->kind = Sphere;
+		(obj->kind = Sphere, obj->hit = hit_sphere);
 	else if (!ft_strcmp(*argv, "pl"))
-		obj->kind = Plane;
+		(obj->kind = Plane, obj->hit = hit_plane);
 	else if (!ft_strcmp(*argv, "cy"))
 		obj->kind = Cylinder;
 	argv++;
@@ -63,7 +66,6 @@ void	fill_obj(t_object *obj, char **argv)
 
 void	fill_obj_list(t_object_list *objs, char **argv)
 {
-	t_object	obj;
 	size_t		obj_to_alloc;
 
 	obj_to_alloc = ((objs->len == 0) * 2 + (objs->len != 0) * (objs->len + 1)) * sizeof(t_object);

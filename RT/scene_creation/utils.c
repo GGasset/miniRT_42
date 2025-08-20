@@ -33,7 +33,7 @@ void	print_t_scene(t_scene s)
 
 	//Printeo de objeto
 	char	obj_names [3][40] = {"Sphere", "Cylinder", "Plane"};
-	for (int i = 0; i < s.objects.len; i++)
+	for (size_t i = 0; i < s.objects.len; i++)
 	{
 		printf("[%s]:\n", obj_names[s.objects.objs[i].kind]);
 		printf("coords: ");
@@ -110,16 +110,12 @@ unsigned int	ft_atoui(const char *str)
 
 t_data	get_scalar(char *value)
 {
-	char	field[9];
-
 	// get_next_field(info_struct, field);
 	return (ft_atod(value));
 }
 
 size_t	get_scalar_size_t(char *value)
 {
-	char	field[9];
-
 	// get_next_field(info_struct, field);
 	return (ft_atoui(value));
 }
@@ -127,7 +123,6 @@ size_t	get_scalar_size_t(char *value)
 t_vec3	get_vector(char *dim)
 {
 	char	**dims;
-	char	field[9];
 	t_vec3	vec;
 
 	// get_next_field(info_struct, field);

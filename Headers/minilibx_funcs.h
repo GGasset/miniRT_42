@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minilibx_funcs.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:02:48 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/08/18 09:18:19 by alvaro           ###   ########.fr       */
+/*   Updated: 2025/08/18 14:51:01 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "RT_headers/camera.h"
 
 # ifndef WINDOW_WIDTH
-#  define WINDOW_WIDTH 800
+#  define WINDOW_WIDTH 1920
 # endif
 # ifndef RENDER_WIDTH
 	#define RENDER_WIDTH WINDOW_WIDTH

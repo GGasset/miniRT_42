@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 10:35:13 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/08/18 12:20:02 by alvaro           ###   ########.fr       */
+/*   Updated: 2025/08/20 17:53:23 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,21 @@ int main()
 	render_d.img.res.x = WINDOW_WIDTH;
 	render_d.img.res.y = WINDOW_WIDTH * 0.5625;
 
-	render_d.scene.camera.camera_pos = vec3(-4.5, -3, -17);
-	// render_d.scene.camera.camera_pos = vec3(5, 0, -6);
-	render_d.scene.camera.fov = 70;
-	//render_d.scene.camera.rotation = norm(vec3(-10.0, 46.4, -0.9));
-	render_d.scene.camera.rotation = vec3(0, 0, 1);
-	render_d.scene.camera.focal_len = 1;
+ 
+	// Toda la mierda esta de cámara, no haría falta porque ya estaría en el mapa
 
-	render_d.scene.camera.width = render_d.img.res.x;
-	render_d.scene.camera.height = render_d.img.res.y;
+	// render_d.scene.camera.camera_pos = vec3(-4.5, 5, -16);
+	// render_d.scene.camera.camera_pos = vec3(5, 0, -3);
+	// render_d.scene.camera.fov = 70;
+	// //render_d.scene.camera.rotation = norm(vec3(-10.0, 46.4, -0.9));
+	// render_d.scene.camera.rotation = vec3(0, 0, 1);
+	// render_d.scene.camera.focal_len = 1;
+
+	// render_d.scene.camera.width = render_d.img.res.x;
+	// render_d.scene.camera.height = render_d.img.res.y;
+	// Toda la mierda esta de cámara, no haría falta porque ya estaría en el mapa
+	
+	render_d.scene = create_scene_from_map();
 	render_d.win = mlx_new_window(render_d.mlx, render_d.img.res.x,
 			render_d.img.res.y, "MiniRT");	
 	if (!render_d.win)

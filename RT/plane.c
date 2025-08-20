@@ -50,34 +50,34 @@ t_data	hit_plane(t_hit_args *args)
 	}
 }
 
-int main(void)
-{
-	t_object plane = {
-		.coords = vec3(0, 0, 0),               // Plano en el origen
-		.rotation = vec3(0, 1, 0)              // Normal apuntando hacia +Y (plano horizontal)
-	};
+// int main(void)
+// {
+// 	t_object plane = {
+// 		.coords = vec3(0, 0, 0),               // Plano en el origen
+// 		.rotation = vec3(0, 1, 0)              // Normal apuntando hacia +Y (plano horizontal)
+// 	};
 
-	t_ray ray = {
-		.orig = vec3(0, 10, 0),                // Empieza 10 unidades sobre el plano
-		.direct = norm(vec3(0, 1, 0)) // Apunta hacia abajo
-	};
+// 	t_ray ray = {
+// 		.orig = vec3(0, 10, 0),                // Empieza 10 unidades sobre el plano
+// 		.direct = norm(vec3(0, 1, 0)) // Apunta hacia abajo
+// 	};
 
-	t_hit_info hit_info;
-	t_hit_args args = {plane, {0.0, 18.0}, ray, &hit_info};
+// 	t_hit_info hit_info;
+// 	t_hit_args args = {plane, {0.0, 18.0}, ray, &hit_info};
 
-	double t = hit_plane(&args);
-	printf("t: %lf\n", t);
+// 	double t = hit_plane(&args);
+// 	printf("t: %lf\n", t);
 
-	if (hit_info.did_hit)
-	{
-		printf("Impacto a t = %.2f\n", t);
-		printf("Punto de impacto: (%.2f, %.2f, %.2f)\n",
-			hit_info.p.vs[0], hit_info.p.vs[1], hit_info.p.vs[2]);
-	}
-	else
-	{
-		printf("No hay impacto con el plano\n");
-	}
+// 	if (hit_info.did_hit)
+// 	{
+// 		printf("Impacto a t = %.2f\n", t);
+// 		printf("Punto de impacto: (%.2f, %.2f, %.2f)\n",
+// 			hit_info.p.vs[0], hit_info.p.vs[1], hit_info.p.vs[2]);
+// 	}
+// 	else
+// 	{
+// 		printf("No hay impacto con el plano\n");
+// 	}
 
-	return 0;
-}
+// 	return 0;
+// }

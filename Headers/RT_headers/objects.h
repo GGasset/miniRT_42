@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:23:20 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/07/23 18:20:36 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:29:36 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct t_object
 	t_color			color;
 	t_data			*sizes;
 	enum e_object	kind;
-	int				(*hit)(t_hit_args hit_args);
+	t_data			(*hit)(t_hit_args *hit_args);
 }		t_object;
 
 t_object	object(enum e_object kind);
@@ -66,6 +66,7 @@ typedef struct t_hit_args
 }		t_hit_args;
 
 t_data		hit_sphere(t_hit_args *args);
+t_data		hit_plane(t_hit_args *args);
 int			world_hit(t_object_list world_objs, t_hit_args args);
 
 #endif

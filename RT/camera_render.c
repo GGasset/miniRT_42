@@ -39,8 +39,6 @@ int	render(t_render_data *render_data)
             ((int *)render_data->img.addr)[i] = 0xF010490;
         else
             ((int *)render_data->img.addr)[i] = 0xFFFFFFF;
-        // printf("i: %ld ray_dir: ", i);
-        // print_vec3(hit_args.ray.direct);
         i++;
 	}
 	return (0);

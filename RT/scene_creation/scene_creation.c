@@ -34,20 +34,23 @@ int	fill_dispatcher(t_scene *s, char *line)
 	return (1);
 }
 
-int	main(void)
+t_scene	create_scene_from_map(void)
 {
 	t_scene	s;
-	char	lineL[] = "L -50.2,  45.3,5.8   	0.6 34,67,197  ";
-	char	lineA[] = "A 0.2 255,255,255";
-	char	lineC[] = "C   -50.0,0,20   0,0,1 70";
-	char	line_pl[] = "pl   0.0,0.0,  -10.0  0.0,1.0,0.0   0,0,225";
-	char	line_cy[] = "cy   50.0,0.0,20.6   0.0,0.0,1.0   14.2   21.42   10,0,255";
+	// char	lineL[] = "L -50.2,  45.3,5.8   	0.6 34,67,197  ";
+	// char	lineA[] = "A 0.2 255,255,255";
+	char	lineC[] = "C  -4.5,5,-7  0,0,1 120";
+	char	line_sp[] = "sp 0,0,10  4.0  255,255,255";
+	// char	line_pl[] = "pl   0.0,0.0,  -10.0  0.0,1.0,0.0   0,0,225";
+	// char	line_cy[] = "cy   50.0,0.0,20.6   0.0,0.0,1.0   14.2   21.42   10,0,255";
 
-	fill_dispatcher(&s, lineA);
-	fill_dispatcher(&s, lineL);
+	// fill_dispatcher(&s, lineA);
+	// fill_dispatcher(&s, lineL);
 	fill_dispatcher(&s, lineC);
 	ft_bzero((char *) &s.objects, sizeof(t_object_list));
-	fill_dispatcher(&s, line_pl);
-	fill_dispatcher(&s, line_cy);
+	fill_dispatcher(&s, line_sp);
+	// fill_dispatcher(&s, line_pl);
+	// fill_dispatcher(&s, line_cy);
 	print_t_scene(s);
+	return (s);
 }

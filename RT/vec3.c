@@ -1,7 +1,6 @@
 #include "../Headers/RT_headers/vec3.h"
 #include "../libft/libft.h"
 #include "stdio.h"
-#include "vec3.h"
 
 t_vec3	vec3(t_data x, t_data y, t_data z)
 {

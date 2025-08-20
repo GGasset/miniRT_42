@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:50:09 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/07/23 18:31:57 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:20:40 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct t_camera
 {
 	size_t		width;
 	size_t		height;
-	size_t		aspect_ratio;
+	t_data		aspect_ratio;
 	size_t		fov;
 	size_t		max_bounces;
 	t_data		focal_len;
@@ -46,6 +46,7 @@ typedef struct t_scene
 
 t_color	ray_color(t_ray ray, t_camera camera, t_object_list objs);
 t_ray	create_ray(t_camera camera, size_t pixel_i);
+t_scene	create_scene_from_map(void);
 // int		render(t_render_data *render_data);
 
 void			print_t_scene(t_scene s);
