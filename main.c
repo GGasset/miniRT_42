@@ -25,9 +25,9 @@ int main()
 	render_d.img.res.x = WINDOW_WIDTH;
 	render_d.img.res.y = WINDOW_WIDTH * 0.5625;
 
-	render_d.scene.camera.fov = 60;
-	render_d.scene.camera.rotation = norm(vec3(-10.0, 46.4, -0.9));
-	// render_d.scene.camera.rotation = vec3(0, 0, -1);
+	render_d.scene.camera.fov = 90;
+	render_d.scene.camera.rotation = vec3(-.124, .124, 0);
+	render_d.scene.camera.camera_pos = vec3(5, 5, 5);
 	render_d.scene.camera.focal_len = 1;
 
 	render_d.scene.camera.width = render_d.img.res.x;
