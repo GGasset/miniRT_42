@@ -59,7 +59,6 @@ static t_ray	assemble_ray(t_camera camera, t_vec3 pixel_center)
 	t_ray	out;
 
 	out = ray(camera.camera_pos, vec_sust(pixel_center, camera.camera_pos));
-	camera.rotation = vec_sum(camera.rotation, vec3(1, 1, 1));
 	camera.rotation = vec_smul(camera.rotation, 360);
 	out.direct = rotate(out.direct, camera.rotation);
 	return (out);
