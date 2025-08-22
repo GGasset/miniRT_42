@@ -28,7 +28,6 @@ int	render_image(t_render_data *render_d)
 		return (0);
 	mlx_put_image_to_window(render_d->mlx, render_d->win, render_d->img.img,
 		0, 0);
-	printf("AAAAAAAAA\n");
 	// free_img(render_d);
 	return (0);
 }
