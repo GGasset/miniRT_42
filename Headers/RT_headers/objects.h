@@ -30,7 +30,7 @@ typedef struct t_object
 	t_point3		coords;
 	t_rotation		rotation;
 	t_color			color;
-	t_data			*sizes;
+	t_vec3			sizes;
 	enum e_object	kind;
 	int				(*hit)(t_hit_args hit_args);
 }		t_object;
