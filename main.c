@@ -17,6 +17,9 @@
 int main()
 {
 	t_render_data	render_d;
+	t_object		object;
+
+	// Setup
 
 	ft_bzero(&render_d, sizeof(t_render_data));
 	render_d.mlx = mlx_init();
@@ -25,10 +28,22 @@ int main()
 	render_d.img.res.x = WINDOW_WIDTH;
 	render_d.img.res.y = WINDOW_WIDTH * 0.5625;
 
+	// Parsing
+
 	render_d.scene.camera.fov = 90;
-	render_d.scene.camera.rotation = vec3(1, 0, 0);
-	render_d.scene.camera.camera_pos = vec3(10, 0, 0);
+	render_d.scene.camera.rotation = vec3(0, 0, 0);
+	render_d.scene.camera.camera_pos = vec3(0, 0, 10);
 	render_d.scene.camera.focal_len = 1;
+
+	ft_bzero(&object, sizeof(t_object));
+	object.kind = Sphere;
+	object.sizes.vs[0] = 6;
+	object.hit = &hit_sphere;
+
+	render_d.scene.objects.len = 1;
+	render_d.scene.objects.objs = &object;
+
+	// Execution
 
 	render_d.scene.camera.width = render_d.img.res.x;
 	render_d.scene.camera.height = render_d.img.res.y;
