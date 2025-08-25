@@ -38,11 +38,10 @@ ${NAME}: minilib-all libft ${O_FILES}
 re: fclean all
 
 fclean: clean
-	rm -f ${MINI_RT}
+	rm -f ${NAME}
 
-clean: minilib-clean libft_fclean
+clean: minilib-clean
 	rm -f ${O_FILES}
-	rm miniRT
 
 libft:
 	make --directory=./libft/ all
