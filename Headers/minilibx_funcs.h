@@ -58,7 +58,7 @@ typedef struct t_render_data
 void	create_hooks(t_render_data *r_d);
 int		render_image(t_render_data *render_d);
 void	render_loop(t_render_data *render_d);
-int		render(t_render_data *render_data);
+int		render(t_render_data *render_d);
 
 int		free_mlx(t_render_data *d);
 int		free_img(t_render_data *d);
