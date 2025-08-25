@@ -27,20 +27,20 @@ MINILIBX_LINKING_FLAGS=-L/usr/lib -lXext -lX11 -lm -lz
 
 NAME=miniRT
 
-all: ${NAME}
+all: minilib-all libft ${NAME}
 
-${NAME}: minilib-all libft ${O_FILES}
-	gcc -o ${NAME} ${O_FILES} ${STATIC_FILES} ${CC_LINKING_FLAGS} ${MINILIBX_LINKING_FLAGS}
+${NAME}: ${O_FILES} ${STATIC_FILES}
+	cc ${CC_LINKING_FLAGS} ${MINILIBX_LINKING_FLAGS} -o ${NAME} ${O_FILES} ${STATIC_FILES} 
 
 %.o : %.c
-	gcc $? ${CC_flags} -o $@
+	cc $? ${CC_flags} -o $@
 
 re: fclean all
 
-fclean: clean
+fclean: clean minilib-clean
 	rm -f ${NAME}
 
-clean: minilib-clean
+clean:
 	rm -f ${O_FILES}
 
 libft:
