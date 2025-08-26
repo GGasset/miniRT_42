@@ -1,7 +1,7 @@
 
-#include "../Headers/RT_headers/camera.h"
-#include "../Headers/RT_headers/vec3.h"
-#include "../libft/libft.h"
+#include "camera.h"
+#include "vec3.h"
+#include "libft.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -27,13 +27,11 @@ int	hit_plane(t_hit_args args)
 	obj = args.object;
 	numerator = dot(obj.rotation, vec_sust(args.ray.orig, obj.coords));
 	denominator = dot(obj.rotation, args.ray.direct);
-	printf("num: %lf  demon: %lf\n", numerator, denominator);
+	//printf("num: %lf  demon: %lf\n", numerator, denominator);
 
-	if (fabs(denominator) < 1e-6)
-		return (-1.0); // El rayo es paralelo al plano
 	t = numerator / denominator;
 	args.hit_info->did_hit = 0;
-	if (t >= 0)
+	if (t >= 0 && fabs(denominator) > 1e-6 /* El rayo es paralelo al plano si denominator < 1e-6 (falso positivo sin rotacion de plano)*/)
 	{
 		args.hit_info->did_hit = 1;
 		args.hit_info->hit_obj = args.object;
