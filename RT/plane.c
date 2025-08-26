@@ -17,40 +17,36 @@
 
 
 */
-t_data	hit_plane(t_hit_args *args)
+int	hit_plane(t_hit_args args)
 {
 	t_data		numerator;
 	t_data		denominator;
 	t_data		t;
 	t_object	obj;
 
-	obj = args->object;
-	numerator = dot(obj.rotation, vec_sust(args->ray.orig, obj.coords));
-	denominator = dot(obj.rotation, args->ray.direct);
+	obj = args.object;
+	numerator = dot(obj.rotation, vec_sust(args.ray.orig, obj.coords));
+	denominator = dot(obj.rotation, args.ray.direct);
 	printf("num: %lf  demon: %lf\n", numerator, denominator);
 
 	if (fabs(denominator) < 1e-6)
 		return (-1.0); // El rayo es paralelo al plano
 	t = numerator / denominator;
-	if (t < 0)
+	args.hit_info->did_hit = 0;
+	if (t >= 0)
 	{
-		args->hit_info->did_hit = 0;
-		return (-1.0);
-	}
-	else
-	{
-		args->hit_info->did_hit = 1;
-		args->hit_info->hit_obj = args->object;
-		args->hit_info->p = vec_sum(vec_smul(args->ray.direct, t),
-									args->ray.orig);
+		args.hit_info->did_hit = 1;
+		args.hit_info->hit_obj = args.object;
+		args.hit_info->p = vec_sum(vec_smul(args.ray.direct, t),
+									args.ray.orig);
 		// args->hit_info->distance = modulus(args->hit_info->p); //Mal
-		args->hit_info->distance = t;
-		args->hit_info->normal = obj.rotation;
-		return (args->hit_info->distance);
+		args.hit_info->distance = t;
+		args.hit_info->normal = obj.rotation;
 	}
+	return (args.hit_info->did_hit);
 }
 
-int main(void)
+/*int main(void)
 {
 	t_object plane = {
 		.coords = vec3(0, 0, 0),               // Plano en el origen
@@ -80,4 +76,4 @@ int main(void)
 	}
 
 	return 0;
-}
+}*/
