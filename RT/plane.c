@@ -33,7 +33,7 @@ int	hit_plane(t_hit_args args)
 		return (-1.0); // El rayo es paralelo al plano
 	t = numerator / denominator;
 	args.hit_info->did_hit = 0;
-	if (t > 0)
+	if (t >= 0)
 	{
 		args.hit_info->did_hit = 1;
 		args.hit_info->hit_obj = args.object;
