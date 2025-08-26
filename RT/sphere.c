@@ -23,9 +23,8 @@ int	hit_sphere(t_hit_args args)
 	// printf("a: %lf,  h %lf,  c: %lf\n", a, h, c);
 	discrim = h * h - a * c;
 	// printf("discrim: %lf\n", discrim);
-	if (discrim < 0)
-		args.hit_info->did_hit = 0;
-	else
+	args.hit_info->did_hit = 0;
+	if (discrim > 0)
 	{
 		args.hit_info->distance = (h - sqrt(discrim)) / a;
 		args.hit_info->hit_obj = args.object;
