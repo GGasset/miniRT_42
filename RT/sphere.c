@@ -24,10 +24,7 @@ int	hit_sphere(t_hit_args args)
 	discrim = h * h - a * c;
 	// printf("discrim: %lf\n", discrim);
 	if (discrim < 0)
-	{
 		args.hit_info->did_hit = 0;
-		return (0);
-	}
 	else
 	{
 		args.hit_info->distance = (h - sqrt(discrim)) / a;
@@ -35,6 +32,6 @@ int	hit_sphere(t_hit_args args)
 		args.hit_info->p = vec_sum(args.ray.orig, vec_smul(args.ray.direct, args.hit_info->distance));
 		args.hit_info->normal = norm(vec_sust(args.hit_info->p, sphere.coords));
 		args.hit_info->did_hit = 1;
-		return (args.hit_info->did_hit);
 	}
+	return (args.hit_info->did_hit);
 }
