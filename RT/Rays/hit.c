@@ -27,11 +27,9 @@ int	world_hit(t_object_list world_objs, t_hit_args args)
 	while (i < world_objs.len)
 	{
 		tmp_args.object = world_objs.objs[i];
-		tmp_args.object.hit(tmp_args);
-		if (tmp_args.hit_info->did_hit
-			//&& tmp_args.hit_info->distance < closest_hit.distance
-			//&& tmp_args.hit_info->distance > .001
-			)
+		if (tmp_args.object.hit(tmp_args)
+			&& tmp_args.hit_info->distance < closest_hit.distance
+			&& tmp_args.hit_info->distance > args.distance_range.min)
 			closest_hit = *tmp_args.hit_info;
 		i++;
 	}

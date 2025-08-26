@@ -21,9 +21,11 @@ int	render(t_render_data *render_d)
 	t_hit_info	hit_info;
 
     ft_bzero(&hit_args, sizeof(t_hit_args));
-    i = 0;
+    ft_bzero(&hit_info, sizeof(t_hit_info));
     hit_args.hit_info = &hit_info;
-    printf("Render loop started...  ");
+    i = 0;
+	hit_args.distance_range.max = 10000;
+	hit_args.distance_range.min = 1E-2;
     while (i < render_d->scene.camera.height * render_d->scene.camera.width)
     {
         hit_args.ray = create_ray(render_d->scene.camera, i);
@@ -35,6 +37,5 @@ int	render(t_render_data *render_d)
         i++;
 	}
 	//render_d->scene.camera.rotation.vs[0] += 90;
-	printf("Render loop over\n");
 	return (0);
 }
