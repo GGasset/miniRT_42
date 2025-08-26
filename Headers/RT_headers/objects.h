@@ -66,6 +66,7 @@ typedef struct t_hit_args
 }		t_hit_args;
 
 int			hit_sphere(t_hit_args args);
+int			hit_plane(t_hit_args args);
 int			world_hit(t_object_list world_objs, t_hit_args args);
 
 #endif
