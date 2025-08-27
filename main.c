@@ -26,7 +26,7 @@ int main()
 	if (!render_d.mlx)
 		return (1);
 	render_d.img.res.x = WINDOW_WIDTH;
-	render_d.img.res.y = WINDOW_WIDTH * 0.5625;
+	render_d.img.res.y = WINDOW_WIDTH * ASPECT_RATIO;
 
 	// Parsing
 
