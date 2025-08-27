@@ -13,11 +13,12 @@
 #include "objects.h"
 #include "minilibx_funcs.h"
 
-int	world_get_color(t_render_data *d, size_t i, size_t pixel_i)
+int	world_get_color(t_render_data *d, size_t i, size_t pixel_i, t_ray ray)
 {
 	t_scene		scene;
     t_hit_args  hit_args;
 	t_hit_info	hit_info;
+	t_color		out;
 
 	if (i > MAX_BOUNCES || !d)
 		return (0);
@@ -27,12 +28,17 @@ int	world_get_color(t_render_data *d, size_t i, size_t pixel_i)
 	hit_args.distance_range.max = 10000;
 	hit_args.distance_range.min = 1E-3;
     hit_args.hit_info = &hit_info;
-	hit_args.ray = create_ray(d->scene.camera, pixel_i);
-
+	hit_args.ray = ray;
+	out = get_sky_color(d->scene.camera, pixel_i / d->scene.camera.height);
+	out *= !i;
 	if (world_hit(d->scene.objects, hit_args))
-		return (shift(hit_info.hit_obj.color, scene.ambient_light.color, scene.ambient_light.brightness, 0)); // call this function recursively
-	else
-		return (get_sky_color(d->scene.camera, pixel_i / d->scene.camera.height));
+	{
+		out = shift(hit_info.hit_obj.color, scene.ambient_light.color,
+			scene.ambient_light.brightness, 0);
+		out = shift(out, scene.light.color, scene.light.brightness * 1, 0);
+		//out = shift(out, world_get_color(d, ++i, pixel_i, bounced_ray), .1, 0);
+	}
+	return (out);
 }
 
 int	world_hit(t_object_list world_objs, t_hit_args args)

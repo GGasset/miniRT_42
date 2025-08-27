@@ -64,7 +64,7 @@ int		render(t_render_data *render_d);
 // ## Params:
 // * i: recursive_depth, 0 for for first iter
 // * color: starting color, 0 for first iter
-int		world_get_color(t_render_data *d, size_t i, size_t pixel_i);
+int		world_get_color(t_render_data *d, size_t i, size_t pixel_i, t_ray ray);
 
 int		free_mlx(t_render_data *d);
 int		free_img(t_render_data *d);
