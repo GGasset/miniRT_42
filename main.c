@@ -39,6 +39,7 @@ int main()
 	object.kind = Sphere;
 	object.sizes.vs[0] = 6;
 	object.hit = &hit_sphere;
+	object.color = 0xFFFFFFFF;
 
 	render_d.scene.objects.len = 1;
 	render_d.scene.objects.objs = &object;

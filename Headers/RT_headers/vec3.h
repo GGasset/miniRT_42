@@ -25,7 +25,7 @@ typedef struct t_vec3
 }		t_vec3;
 
 typedef t_vec3	t_point3;
-typedef t_vec3	t_color;
+typedef int		t_color;
 typedef t_vec3	t_rotation;
 
 typedef struct t_ray

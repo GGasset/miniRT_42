@@ -13,8 +13,8 @@
 #ifndef MINILIBX_FUNCS_H
 # define MINILIBX_FUNCS_H
 
-# include "../minilibx-linux/mlx.h"
-# include "RT_headers/camera.h"
+# include "mlx.h"
+# include "camera.h"
 
 # ifndef WINDOW_WIDTH
 #  define WINDOW_WIDTH 1920
@@ -59,6 +59,12 @@ void	create_hooks(t_render_data *r_d);
 int		render_image(t_render_data *render_d);
 void	render_loop(t_render_data *render_d);
 int		render(t_render_data *render_d);
+
+// Returns updated color
+// ## Params:
+// * i: recursive_depth, 0 for for first iter
+// * color: starting color, 0 for first iter
+int		world_get_color(t_render_data *d, size_t i, size_t pixel_i, int color);
 
 int		free_mlx(t_render_data *d);
 int		free_img(t_render_data *d);
