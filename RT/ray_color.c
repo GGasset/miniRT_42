@@ -15,24 +15,37 @@
 #include "libft.h"
 #include "stdio.h"
 
+t_color	iluminate(t_color current, t_color object_color, t_light light)
+{
+	t_color	out;
+
+	out = current;
+	if (!out || out == 0xFF000000)
+	{
+		out = shift(0, object_color, light.brightness, 1);
+		//printf("Yes, a hit!\n");
+	}
+	out = shift(out, light.color, light.brightness, 0);
+	return (out);
+}
+
 t_color	shift(t_color old, t_color target, t_data factor, int reflects)
 {
 	int	r;
 	int	g;
 	int	b;
 
-	if (!old)
-		return (target);
 	reflects = reflects != 0;
 	factor += (1 - factor) * (factor > 1) - factor * (factor < 0);
 	b = old & 255;
 	g = (old & (255 << 8)) >> 8;
 	r = (old & (255 << 16)) >> 16;
-	r += ((target & 255) - r * reflects) * factor * ((r / 255.) * !reflects);
-	g += (((target & (255 << 8)) >> 8) - g * reflects) * factor
-		* ((g / 255.) * !reflects);
-	b += (((target & (255 << 16)) >> 16) - b * reflects) * factor
-		* ((b / 255.) * !reflects);
+	r += ((target & 255)) * ((r / 255.) * factor * !reflects);
+	r += ((target & 255) - r) * factor * reflects;
+	g += (((target & (255 << 8)) >> 8)) * ((g / 255.) * factor * !reflects);
+	g += ((target & (255 << 8)) >> 8) * factor * reflects;
+	b += (((target & (255 << 16)) >> 16)) * ((b / 255.) * factor * !reflects);
+	b += ((target & (255 << 16)) >> 16) * factor * reflects;
 	r += (255 - r) * (r > 255) - r * (r < 0);
 	g += (255 - g) * (g > 255) - g * (g < 0);
 	b += (255 - b) * (b > 255) - b * (b < 0);
@@ -49,16 +62,3 @@ t_color	get_sky_color(t_camera camera, size_t pixel_y)
 	out += (to_add << 16) + (to_add << 8) + to_add;
 	return (out);
 }
-
-/*t_color	ray_color(t_ray ray, t_camera camera, t_object_list objs, t_hit_args *args)
-{
-    t_hit_info info;
-
-    if (world_hit(objs, *args))
-		return (args->hit_info->hit_obj.color);
-	
-	t_vec3 unit = norm(ray.direct);
-	t_data	a = 0.5 * (y(unit) + 1.0);
-	// return (1.0-a)*color(1.0, 1.0, 1.0) + a*color(0.5, 0.7, 1.0);
-	return (vec_sum( vec_smul(vec3(1.0, 1.0, 1.0), 1.0 - a), vec_smul(vec3(0.5, 0.7, 1.0), a)));
-}*/

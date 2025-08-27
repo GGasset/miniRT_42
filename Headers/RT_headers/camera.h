@@ -36,6 +36,7 @@ typedef struct t_camera
 	t_rotation	rotation;
 }		t_camera;
 
+t_color	iluminate(t_color current, t_color object_color, t_light light);
 t_color	shift(t_color old, t_color target, t_data factor, int reflects);
 t_color	get_sky_color(t_camera camera, size_t pixel_y);
 
@@ -63,4 +64,5 @@ void	fill_ligth(t_light *light, char **argv);
 void	fill_camera(t_camera *cam, char **argv);
 void	fill_obj(t_object *obj, char **argv);
 void	fill_obj_list(t_object_list *objs, char **argv);
+
 #endif
