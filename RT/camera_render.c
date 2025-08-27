@@ -22,7 +22,7 @@ int	render(t_render_data *render_d)
     printf("Render loop started...  ");
     while (i < render_d->scene.camera.height * render_d->scene.camera.width)
     {
-		((int *)render_d->img.addr)[i] = world_get_color(render_d, 0, i, 0);
+		((int *)render_d->img.addr)[i] = world_get_color(render_d, 0, i);
         i++;
 	}
 	//render_d->scene.camera.rotation.vs[0] += 90;

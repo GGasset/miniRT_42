@@ -36,6 +36,9 @@ typedef struct t_camera
 	t_rotation	rotation;
 }		t_camera;
 
+t_color	shift(t_color old, t_color target, t_data factor, int reflects);
+t_color	get_sky_color(t_camera camera, size_t pixel_y);
+
 typedef struct t_scene
 {
 	t_camera		camera;
@@ -44,7 +47,6 @@ typedef struct t_scene
 	t_light			light;
 }		t_scene;
 
-t_color	ray_color(t_ray ray, t_camera camera, t_object_list objs);
 t_ray	create_ray(t_camera camera, size_t pixel_i);
 // int		render(t_render_data *render_data);
 
