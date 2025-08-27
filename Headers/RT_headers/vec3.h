@@ -17,16 +17,16 @@
 # include <stddef.h>
 # include <math.h>
 
-typedef double	t_data;
+typedef double			t_data;
 
 typedef struct t_vec3
 {
 	t_data	vs[3];
 }		t_vec3;
 
-typedef t_vec3	t_point3;
-typedef int		t_color;
-typedef t_vec3	t_rotation;
+typedef t_vec3			t_point3;
+typedef unsigned int	t_color;
+typedef t_vec3			t_rotation;
 
 typedef struct t_ray
 {
