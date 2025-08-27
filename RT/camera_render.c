@@ -20,7 +20,7 @@ int	render(t_render_data *render_d)
 	t_ray	ray;
 
 	i = 0;
-    printf("Render loop started...  ");
+    printf("Render loop started...  \n");
     while (i < render_d->scene.camera.height * render_d->scene.camera.width)
     {
 		ray = create_ray(render_d->scene.camera, i);
