@@ -16,22 +16,13 @@
 
 int	render(t_render_data *render_d)
 {
-    size_t      i;
-    t_hit_args  hit_args;
-	t_hit_info	hit_info;
+    size_t	i;
 
-    ft_bzero(&hit_args, sizeof(t_hit_args));
-    i = 0;
-    hit_args.hit_info = &hit_info;
+	i = 0;
     printf("Render loop started...  ");
     while (i < render_d->scene.camera.height * render_d->scene.camera.width)
     {
-        hit_args.ray = create_ray(render_d->scene.camera, i);
-        world_hit(render_d->scene.objects, hit_args);
-        if (!hit_info.did_hit)
-            ((int *)render_d->img.addr)[i] = 0xF010490;
-        else
-            ((int *)render_d->img.addr)[i] = 0xFFFFFFF;
+		((int *)render_d->img.addr)[i] = world_get_color(render_d, 0, i, 0);
         i++;
 	}
 	//render_d->scene.camera.rotation.vs[0] += 90;
