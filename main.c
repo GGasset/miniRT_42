@@ -34,17 +34,18 @@ int main()
 	render_d.scene.camera.rotation = vec3(0, 0, 0);
 	render_d.scene.camera.camera_pos = vec3(0, 0, 10);
 	render_d.scene.camera.focal_len = 1;
-	render_d.scene.ambient_light.brightness = 1;
+	render_d.scene.ambient_light.brightness = 0;
 	render_d.scene.ambient_light.color = 0xFFFF0000;
 
-	render_d.scene.light.brightness = 0;
-	render_d.scene.light.color = 0xFF30BA8D;
+	render_d.scene.light.coords = vec3(10, 0, 0);
+	render_d.scene.light.brightness = 1;
+	render_d.scene.light.color = 0xFFFFFFFF;
 
 	ft_bzero(&object, sizeof(t_object));
 	object.kind = Sphere;
 	object.sizes.vs[0] = 6;
 	object.hit = &hit_sphere;
-	object.color = 0xFF88ba30;
+	object.color = 0xFFFFFFFF;
 
 	render_d.scene.objects.len = 1;
 	render_d.scene.objects.objs = &object;

@@ -129,6 +129,20 @@ t_vec3	cross_product(t_vec3 a, t_vec3 b)
     return (vec_smul(n_unitary(a, b), modulus(a) * modulus(b) * sin(tt)));
 }
 
+t_data	vec_angle(t_vec3 a, t_vec3 b)
+{
+	t_vec3	tmp;
+	t_data	out;
+
+	a = norm(a);
+	b = norm(b);
+	out = dot(a, b) / (modulus(a) * modulus(b));
+	out = acos(out);
+	out *= 180 / 3.14159;
+	//out = 180 - out;
+	return (out);
+}
+
 void	vec_matrix_mult(t_vec3 matrix_row, t_vec3 vec, t_vec3 *out, size_t r_i)
 {
 	t_data	row_value;

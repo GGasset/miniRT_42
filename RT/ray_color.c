@@ -15,16 +15,25 @@
 #include "libft.h"
 #include "stdio.h"
 
+t_color	point_iluminate(t_color current, t_hit_info info, t_light light)
+{
+	t_vec3	light_direction;
+	t_data	light_normal_angle;
+
+	light_direction = norm(vec_sust(light.coords, info.p));
+	light_normal_angle = vec_angle(light_direction, info.normal);
+	light.brightness *= (180 - light_normal_angle) / 180;
+	light.brightness *= light.brightness * 3;
+	return (iluminate(current, info.hit_obj.color, light));
+}
+
 t_color	iluminate(t_color current, t_color object_color, t_light light)
 {
 	t_color	out;
 
 	out = current;
 	if (!out || out == 0xFF000000)
-	{
 		out = shift(0, object_color, light.brightness, 1);
-		//printf("Yes, a hit!\n");
-	}
 	out = shift(out, light.color, light.brightness, 0);
 	return (out);
 }
