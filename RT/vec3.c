@@ -139,7 +139,6 @@ t_data	vec_angle(t_vec3 a, t_vec3 b)
 	out = dot(a, b) / (modulus(a) * modulus(b));
 	out = acos(out);
 	out *= 180 / 3.14159;
-	//out = 180 - out;
 	return (out);
 }
 
