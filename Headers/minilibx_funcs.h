@@ -48,6 +48,7 @@ typedef struct s_win_d
 
 typedef struct t_render_data
 {
+	int		has_rendered;
 	t_scene	scene;
 	t_win_d	img;
 	void	*mlx;

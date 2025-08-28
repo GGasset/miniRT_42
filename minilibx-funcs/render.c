@@ -15,6 +15,8 @@
 
 int	render_image(t_render_data *render_d)
 {
+	if (render_d->has_rendered)
+		return (0);
 	render_d->img.img = mlx_new_image(render_d->mlx,
 			render_d->img.res.x, render_d->img.res.y);
 	if (!render_d->img.img)
@@ -26,6 +28,7 @@ int	render_image(t_render_data *render_d)
 		return (free_img(render_d), mlx_loop_end(render_d->mlx), 1);
 	if (render(render_d))
 		return (0);
+	render_d->has_rendered = 1;
 	mlx_put_image_to_window(render_d->mlx, render_d->win, render_d->img.img,
 		0, 0);
 	// free_img(render_d);
