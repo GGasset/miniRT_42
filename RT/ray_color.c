@@ -15,7 +15,26 @@
 #include "libft.h"
 #include "stdio.h"
 
-static t_color	color_lerp(t_color start, t_color target, t_data t);
+t_color	get_color(t_vec3 in)
+{
+	t_color	out;
+
+	out = 0xFF << 24;
+	out += (int)in.vs[2] << 16;
+	out += (int)in.vs[1] << 8;
+	out += (int)in.vs[0];
+	return (out);
+}
+
+t_vec3	get_rgb(t_color in)
+{
+	t_vec3	out;
+
+	out.vs[0] = in & 255;
+	out.vs[1] = in >> 8 & 255;
+	out.vs[2] = in >> 16 & 255;
+	return (out);
+}
 
 t_color	point_ilum(t_color current, t_hit_info info, t_scene s, t_light l)
 {
@@ -35,21 +54,28 @@ t_color	point_ilum(t_color current, t_hit_info info, t_scene s, t_light l)
 	hit_args.distance_range.min = 0;
 	hit_args.distance_range.max = modulus(vec_sust(info.p, l.coords));
 	if (world_hit(s.objects, hit_args))
-		l.brightness *= .2;
+		l.brightness *= 0;
 	return (iluminate(current, info.hit_obj.color, l));
 }
 
 t_color	iluminate(t_color current, t_color object_color, t_light light)
 {
-	t_color	out;
-	t_color	common_color;
+	t_vec3	object_rgb;
+	t_vec3	light_rgb;
+	t_vec3	out_rgb;
 
-	out = current;
-	if (!out || out == 0xFF000000)
-		out = shift(0, object_color, light.brightness, 1);
-	out = shift(out, light.color, light.brightness, .02718);
-	//out = color_lerp(out, light.color, light.brightness * .75);
-	return (out);
+	object_rgb = get_rgb(object_color);
+	light_rgb = get_rgb(light.color);
+	out_rgb = element_mult(vec_sdiv(object_rgb, 255), vec_sdiv(light_rgb, 255));
+	out_rgb = vec_smul(out_rgb, light.brightness * 255);
+	out_rgb = vec_sum(get_rgb(current), out_rgb);
+	out_rgb.vs[0] += (255 - out_rgb.vs[0]) * (out_rgb.vs[0] > 255)
+		- out_rgb.vs[0] * (out_rgb.vs[0] < 0);
+	out_rgb.vs[1] += (255 - out_rgb.vs[1]) * (out_rgb.vs[1] > 255)
+		- out_rgb.vs[1] * (out_rgb.vs[1] < 0);
+	out_rgb.vs[2] += (255 - out_rgb.vs[2]) * (out_rgb.vs[2] > 255)
+		- out_rgb.vs[2] * (out_rgb.vs[2] < 0);
+	return (get_color(out_rgb));
 }
 
 t_color	color_lerp(t_color start, t_color target, t_data t)
