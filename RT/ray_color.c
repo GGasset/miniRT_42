@@ -47,7 +47,7 @@ t_color	point_ilum(t_color current, t_hit_info info, t_scene s, t_light l)
 	ft_bzero(&hit_args, sizeof(t_hit_args));
 	light_direction = norm(vec_sust(l.coords, info.p));
 	light_normal_angle = vec_angle(light_direction, info.normal);
-	l.brightness *= (180 - light_normal_angle) / 180;
+	l.brightness *= (190 - light_normal_angle) / 180;
 	hit_args.hit_info = &hit_info;
 	hit_args.ray.orig = vec_sum(info.p, info.normal);
 	hit_args.ray.direct = light_direction;
@@ -64,6 +64,8 @@ t_color	iluminate(t_color current, t_color object_color, t_light light)
 	t_vec3	light_rgb;
 	t_vec3	out_rgb;
 
+	light.brightness += (1 - light.brightness) * (light.brightness > 1)
+		- light.brightness * (light.brightness < 0);
 	object_rgb = get_rgb(object_color);
 	light_rgb = get_rgb(light.color);
 	out_rgb = element_mult(vec_sdiv(object_rgb, 255), vec_sdiv(light_rgb, 255));
