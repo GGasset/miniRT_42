@@ -77,6 +77,14 @@ t_vec3  vec_sdiv(t_vec3 v1, t_data denom)
     return (ret);
 }
 
+t_vec3 element_mult(t_vec3 v1, t_vec3 v2)
+{
+	t_vec3	out;
+
+	out = vec3(v1.vs[0] * v2.vs[0], v1.vs[1] * v2.vs[1], v1.vs[2] * v2.vs[2]);
+	return (out);
+}
+
 t_vec3  vec_smul(t_vec3 v1, t_data factor)
 {
     t_vec3  ret;

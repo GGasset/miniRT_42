@@ -54,6 +54,7 @@ void    print_vec3(t_vec3 vec);
 t_vec3	vec_sum(t_vec3 v1, t_vec3 v2);
 t_vec3  vec_sust(t_vec3 v1, t_vec3 v2);
 t_vec3  vec_sdiv(t_vec3 v1, t_data denom);
+t_vec3	element_mult(t_vec3 v1, t_vec3 v2);
 t_vec3  vec_smul(t_vec3 v1, t_data factor);
 t_data  dot(t_vec3 v1, t_vec3 v2);
 t_vec3  norm(t_vec3 v);
