@@ -38,8 +38,8 @@ int main()
 	render_d.scene.ambient_light.color = 0xFFFF0000;
 
 	render_d.scene.light.coords = vec3(5, 0, 0);
-	render_d.scene.light.brightness = .2;
-	render_d.scene.light.color = 0xFF2010;//0xFFc24a0e;
+	render_d.scene.light.brightness = 1;
+	render_d.scene.light.color = 0xFFFFFF;//0xFF2010;//0xFFc24a0e;
 
 	ft_bzero(&object, sizeof(t_object));
 	object.kind = Sphere;

@@ -36,11 +36,6 @@ typedef struct t_camera
 	t_rotation	rotation;
 }		t_camera;
 
-t_color	point_iluminate(t_color current, t_hit_info info, t_light light);
-t_color	iluminate(t_color current, t_color object_color, t_light light);
-t_color	shift(t_color old, t_color target, t_data factor, float reflects);
-t_color	get_sky_color(t_camera camera, size_t pixel_y);
-
 typedef struct t_scene
 {
 	t_camera		camera;
@@ -48,6 +43,11 @@ typedef struct t_scene
 	t_light			ambient_light;
 	t_light			light;
 }		t_scene;
+
+t_color	point_ilum(t_color current, t_hit_info info, t_scene s, t_light l);
+t_color	iluminate(t_color current, t_color object_color, t_light light);
+t_color	shift(t_color old, t_color target, t_data factor, float reflects);
+t_color	get_sky_color(t_camera camera, size_t pixel_y);
 
 t_ray	create_ray(t_camera camera, size_t pixel_i);
 // int		render(t_render_data *render_data);

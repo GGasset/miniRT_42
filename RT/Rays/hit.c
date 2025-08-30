@@ -35,7 +35,7 @@ int	world_get_color(t_render_data *d, size_t i, size_t pixel_i, t_ray ray)
 	{
 		out = 0xFF000000;
 		out = iluminate(out, hit_info.hit_obj.color, scene.ambient_light);
-		out = point_iluminate(out, hit_info, scene.light);
+		out = point_ilum(out, hit_info, scene, scene.light);
 		//out = shift(out, world_get_color(d, ++i, pixel_i, bounced_ray), .1, 0);
 	}
 	return (out);

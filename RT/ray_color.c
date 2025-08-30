@@ -17,22 +17,26 @@
 
 static t_color	color_lerp(t_color start, t_color target, t_data t);
 
-t_color	point_iluminate(t_color current, t_hit_info info, t_light light)
+t_color	point_ilum(t_color current, t_hit_info info, t_scene s, t_light l)
 {
 	t_vec3	light_direction;
 	t_data	light_normal_angle;
+	t_hit_info	hit_info;
+	t_hit_args	hit_args;
 
-	light_direction = norm(vec_sust(light.coords, info.p));
+	ft_bzero(&hit_info, sizeof(t_hit_info));
+	ft_bzero(&hit_args, sizeof(t_hit_args));
+	light_direction = norm(vec_sust(l.coords, info.p));
 	light_normal_angle = vec_angle(light_direction, info.normal);
-	light.brightness *= (180 - light_normal_angle) / 180;
-	//light.brightness += .4;
-	//light.brightness = light.brightness * light.brightness * light.brightness;
-
-	//light.brightness = light.brightness * 2 - 1;
-	//if (light.brightness < .5)
-	//	light.brightness = 2 * light.brightness - .5;
-	//light.brightness = 1 / (1 + exp(-4 * light.brightness));
-	return (iluminate(current, info.hit_obj.color, light));
+	l.brightness *= (180 - light_normal_angle) / 180;
+	hit_args.hit_info = &hit_info;
+	hit_args.ray.orig = vec_sum(info.p, info.normal);
+	hit_args.ray.direct = light_direction;
+	hit_args.distance_range.min = 0;
+	hit_args.distance_range.max = modulus(vec_sust(info.p, l.coords));
+	if (world_hit(s.objects, hit_args))
+		l.brightness *= .2;
+	return (iluminate(current, info.hit_obj.color, l));
 }
 
 t_color	iluminate(t_color current, t_color object_color, t_light light)
