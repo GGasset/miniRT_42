@@ -12,28 +12,29 @@
 
 #include "vec3.h"
 #include "camera.h"
+#include "minilibx_funcs.h"
 #include "libft.h"
 #include "stdio.h"
 
-t_color	get_color(t_vec3 in)
+static t_data	sample_shadows(t_hit_args ray, t_object_list objs)
 {
-	t_color	out;
+	t_hit_args	args_copy;
+	size_t		n_hits;
+	size_t		n_samples;
+	size_t		i;
 
-	out = 0xFF << 24;
-	out += (int)in.vs[2] << 16;
-	out += (int)in.vs[1] << 8;
-	out += (int)in.vs[0];
-	return (out);
-}
-
-t_vec3	get_rgb(t_color in)
-{
-	t_vec3	out;
-
-	out.vs[0] = in & 255;
-	out.vs[1] = in >> 8 & 255;
-	out.vs[2] = in >> 16 & 255;
-	return (out);
+	n_samples = 5;
+	n_hits = 0;
+	i = 0;
+	while (i < n_samples)
+	{
+		args_copy = ray;
+		args_copy.ray.direct = small_direction_shift(args_copy.ray.direct);
+		if (world_hit(objs, args_copy))
+			n_hits++;
+		i++;
+	}
+	return (1 - (t_data)n_hits / n_samples);
 }
 
 t_color	point_ilum(t_color current, t_hit_info info, t_scene s, t_light l)
@@ -51,10 +52,10 @@ t_color	point_ilum(t_color current, t_hit_info info, t_scene s, t_light l)
 	hit_args.hit_info = &hit_info;
 	hit_args.ray.orig = vec_sum(info.p, info.normal);
 	hit_args.ray.direct = light_direction;
+	hit_args.ray.direct = small_direction_shift(hit_args.ray.direct);
 	hit_args.distance_range.min = 0;
 	hit_args.distance_range.max = modulus(vec_sust(info.p, l.coords));
-	if (world_hit(s.objects, hit_args))
-		l.brightness *= 0;
+	l.brightness *= sample_shadows(hit_args, s.objects);
 	return (iluminate(current, info.hit_obj.color, l));
 }
 
