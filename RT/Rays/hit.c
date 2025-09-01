@@ -13,6 +13,45 @@
 #include "objects.h"
 #include "minilibx_funcs.h"
 
+t_ray	get_bounce(t_hit_args info)
+{
+	t_data	ray_normal_angle;
+	t_vec3	normal_minus_ray_dir;
+	t_ray	out;
+
+	ft_bzero(&out, sizeof(t_ray));
+	if (!info.hit_info || !info.hit_info->did_hit)
+		return (out);
+	ray_normal_angle = vec_angle(info.hit_info->normal, info.ray.direct);
+	normal_minus_ray_dir = vec_sust(info.hit_info->normal, info.ray.direct);
+	out.orig = info.hit_info->p;
+	out.direct = norm(vec_sum(info.hit_info->normal, normal_minus_ray_dir));
+	return (out);
+}
+
+static t_color	bounce(t_render_data *d, size_t i, t_hit_args hit, t_color in)
+{
+	t_hit_args	hit_args;
+	t_hit_info	hit_info;
+	t_light		bounce_light;
+	t_color		out;
+
+	if (i > MAX_BOUNCES || !d)
+		return (0);
+	ft_bzero(&hit_args, sizeof(t_hit_args));
+    ft_bzero(&hit_info, sizeof(t_hit_info));
+	hit_args.distance_range.max = 10000;
+	hit_args.distance_range.min = 1E-3;
+    hit_args.hit_info = &hit_info;
+	hit_args.ray = get_bounce(hit);
+	if (!world_hit(d->scene.objects, hit_args))
+		return (in);
+	bounce_light.brightness = 10 - hit_info.distance;
+	bounce_light.color = world_get_color(d, ++i, 0, get_bounce(hit));
+	out = iluminate(in, hit.hit_info->hit_obj.color, bounce_light);
+	return (out);
+}
+
 int	world_get_color(t_render_data *d, size_t i, size_t pixel_i, t_ray ray)
 {
 	t_scene		scene;
@@ -25,7 +64,7 @@ int	world_get_color(t_render_data *d, size_t i, size_t pixel_i, t_ray ray)
 	scene = d->scene;
     ft_bzero(&hit_args, sizeof(t_hit_args));
     ft_bzero(&hit_info, sizeof(t_hit_info));
-	hit_args.distance_range.max = 10000;
+	hit_args.distance_range.max = 1E4;
 	hit_args.distance_range.min = 1E-3;
     hit_args.hit_info = &hit_info;
 	hit_args.ray = ray;
@@ -36,7 +75,7 @@ int	world_get_color(t_render_data *d, size_t i, size_t pixel_i, t_ray ray)
 		out = 0xFF000000;
 		out = iluminate(out, hit_info.hit_obj.color, scene.ambient_light);
 		out = point_ilum(out, hit_info, scene, scene.light);
-		//out = shift(out, world_get_color(d, ++i, pixel_i, bounced_ray), .1, 0);
+		out = bounce(d, i, hit_args, out);
 	}
 	return (out);
 }

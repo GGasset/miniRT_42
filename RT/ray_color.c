@@ -80,49 +80,6 @@ t_color	iluminate(t_color current, t_color object_color, t_light light)
 	return (get_color(out_rgb));
 }
 
-t_color	color_lerp(t_color start, t_color target, t_data t)
-{
-	int		b[2];
-	int		g[2];
-	int		r[2];
-	t_color	out;
-
-	b[0] = start & 255;
-	g[0] = start >> 8 & 255;
-	r[0] = start >> 16 & 255;
-	b[1] = target & 255;
-	g[1] = target >> 8 & 255;
-	r[1] = target >> 16 & 255;
-	out = 0xFF000000;
-	out += (1 - t) * b[0] + t * b[1];
-	out += (int)((1 - t) * g[0] + t * g[1]) << 8;
-	out += (int)((1 - t) * r[0] + t * r[1]) << 16;
-	return (out);
-}
-
-t_color	shift(t_color old, t_color target, t_data factor, float reflects)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	//reflects = reflects != 0;
-	factor += (1 - factor) * (factor > 1) - factor * (factor < 0);
-	b = old & 255;
-	g = (old & (255 << 8)) >> 8;
-	r = (old & (255 << 16)) >> 16;
-	r += ((target & 255)) * ((r / 255.) * factor * (1 - reflects));
-	r += ((target & 255) - r) * factor * reflects;
-	g += (((target & (255 << 8)) >> 8)) * ((g / 255.) * factor * (1 - reflects));
-	g += ((target & (255 << 8)) >> 8) * factor * reflects;
-	b += (((target & (255 << 16)) >> 16)) * ((b / 255.) * factor * (1 - reflects));
-	b += ((target & (255 << 16)) >> 16) * factor * reflects;
-	r += (255 - r) * (r > 255) - r * (r < 0);
-	g += (255 - g) * (g > 255) - g * (g < 0);
-	b += (255 - b) * (b > 255) - b * (b < 0);
-	return ((0xFF << 24) + (r << 16) + (g << 8) + b);
-}
-
 t_color	get_sky_color(t_camera camera, size_t pixel_y)
 {
 	int	out;

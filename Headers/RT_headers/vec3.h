@@ -28,6 +28,9 @@ typedef t_vec3			t_point3;
 typedef unsigned int	t_color;
 typedef t_vec3			t_rotation;
 
+t_color		get_color(t_vec3 in);
+t_vec3		get_rgb(t_color in);
+
 typedef struct t_ray
 {
 	t_point3	orig;
