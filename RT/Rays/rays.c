@@ -61,10 +61,8 @@ static t_ray	assemble_ray(t_camera camera, t_vec3 pixel_center)
 
 	out = ray(camera.camera_pos, vec_sust(pixel_center, camera.camera_pos));
 	/*degrees = vec3(acos(x(camera.rotation)), acos(y(camera.rotation)),
-		acos(z(camera.rotation)));
-	degrees = vec_smul(degrees, 180 / 3.14159);*/
-	degrees = vec_smul(camera.rotation, 3.14159 / 180);
-	out.direct = norm(rotate(out.direct, degrees));
+		acos(z(camera.rotation)));*/
+	out.direct = norm(rotate(out.direct, camera.rotation));
 	return (out);
 }
 

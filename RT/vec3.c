@@ -3,6 +3,27 @@
 #include "stdio.h"
 #include "vec3.h"
 
+t_color	get_color(t_vec3 in)
+{
+	t_color	out;
+
+	out = 0xFF << 24;
+	out += (int)in.vs[2] << 16;
+	out += (int)in.vs[1] << 8;
+	out += (int)in.vs[0];
+	return (out);
+}
+
+t_vec3	get_rgb(t_color in)
+{
+	t_vec3	out;
+
+	out.vs[0] = in & 255;
+	out.vs[1] = in >> 8 & 255;
+	out.vs[2] = in >> 16 & 255;
+	return (out);
+}
+
 t_vec3	vec3(t_data x, t_data y, t_data z)
 {
     t_vec3  vec;
@@ -166,6 +187,7 @@ t_vec3	rotate(t_vec3 input, t_vec3 degrees)
 	t_vec3	out;
 	t_vec3	tmp;
 
+	degrees = vec_smul(degrees, 3.14159 / 180);
 	tmp = input;
 	vec_matrix_mult(vec3(1, 0, 0), tmp, &out, 0);
 	vec_matrix_mult(vec3(0, cos(x(degrees)), -sin(x(degrees))), tmp, &out, 1);
