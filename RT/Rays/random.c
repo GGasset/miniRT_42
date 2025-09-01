@@ -32,7 +32,7 @@ t_vec3	small_direction_shift(t_rotation to_rotate)
 	rotation.vs[0] = (abs(xorshift32()) % 7 - 3);
 	rotation.vs[1] = (abs(xorshift32()) % 7 - 3);
 	rotation.vs[2] = (abs(xorshift32()) % 7 - 3);
-	rotation = vec_sdiv(rotation, 5);
+	rotation = vec_sdiv(rotation, 1);
 	out = norm(rotate(to_rotate, rotation));
 	return (out);
 }
