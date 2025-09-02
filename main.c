@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 10:35:13 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/08/06 19:33:44 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/09/02 11:30:16 by ggasset-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,18 @@ int main()
 	render_d.scene.camera.rotation = vec3(0, 0, 0);
 	render_d.scene.camera.camera_pos = vec3(0, 0, 5);
 	render_d.scene.camera.focal_len = 1;
-	render_d.scene.ambient_light.brightness = 0;
+	render_d.scene.ambient_light.brightness = 1;
 	render_d.scene.ambient_light.color = 0xFFFF0000;
 
 	render_d.scene.light.coords = vec3(5, 0, 0);
 	render_d.scene.light.brightness = 1;
-	render_d.scene.light.color = 0xFFFFFF;//0xFF2010;//0xFFc24a0e;
+	render_d.scene.light.color = 0xFFffFF;//0xFF2010;//0xFFc24a0e;
 
 	ft_bzero(&object, sizeof(t_object));
 	object.kind = Sphere;
 	object.sizes.vs[0] = 3;
 	object.hit = &hit_sphere;
-	object.color = 0xFF105ae3;
+	object.color = 0xFFffFFff;//0xFFd8a5ba;
 
 	render_d.scene.objects.len = 1;
 	render_d.scene.objects.objs = &object;
