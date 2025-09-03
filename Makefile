@@ -1,14 +1,18 @@
 
-MINILIBX_FUNCS_O_FILES=render.o hooks.o dealloc.o
+MINILIBX_FUNCS_C_FILES=render.c hooks.c dealloc.c
+C_FILES = $(addprefix ./minilibx-funcs/, ${MINILIBX_FUNCS_C_FILES})
 
-RT_RAYS_O_FILES=hit.o rays.o random.o
-RT_O_FILES = $(addprefix Rays/, ${RT_RAYS_O_FILES})
-RT_O_FILES += vec3.o sphere.o plane.o camera_render.o ray_color.o
+RT_RAYS_C_FILES=hit.c rays.c random.c
+RT_C_FILES = $(addprefix Rays/, ${RT_RAYS_C_FILES})
+RT_C_FILES += vec3.c sphere.c plane.c camera_render.c ray_color.c
+C_FILES += $(addprefix ./RT/, ${RT_O_FILES})
 
-O_FILES = $(addprefix ./minilibx-funcs/, ${MINILIBX_FUNCS_O_FILES})
-O_FILES += $(addprefix ./RT/, ${RT_O_FILES})
+PARSING_C_FILES=checks.c fill_scene.c scene_creation.c utils.c
+C_FILES += $(addprefix ./Parsing/, ${PARSING_C_FILES})
 
-O_FILES += main.o
+C_FILES += main.c
+
+O_FILES = $(patsubst %.c,%.o, ${C_FILES})
 
 LIBFT_DIR=./libft
 LIBFT_NAME=libft.a
