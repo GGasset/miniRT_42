@@ -27,6 +27,6 @@ int	check_router(char *line)
 	if ((c == 's' && line[1] != 'p') || (c == 'p' && line[1] != 'l')
 		|| (c == 'c' && line[1] != 'y'))
 		return ((printf("Error\nInvalid object id\n", line), 0));
-	line += 1 + (c == 's' || c == 'p' || c == 'c');
 
+	return (1);
 }
