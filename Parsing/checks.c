@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "camera.h"
+#include "parsing.h"
 
 static int	is_valid_nbr_char(char c)
 {

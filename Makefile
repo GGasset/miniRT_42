@@ -7,7 +7,7 @@ RT_C_FILES = $(addprefix Rays/, ${RT_RAYS_C_FILES})
 RT_C_FILES += vec3.c sphere.c plane.c camera_render.c ray_color.c
 C_FILES += $(addprefix ./RT/, ${RT_O_FILES})
 
-PARSING_C_FILES=checks.c #fill_scene.c scene_creation.c utils.c
+PARSING_C_FILES=checks.c check_line.c #fill_scene.c scene_creation.c utils.c
 C_FILES += $(addprefix ./Parsing/, ${PARSING_C_FILES})
 
 C_FILES += main.c
@@ -22,7 +22,7 @@ MINILIBX_NAME=libmlx_Linux.a
 
 STATIC_FILES=${LIBFT_DIR}/${LIBFT_NAME} ${MINILIBX_DIR}/${MINILIBX_NAME}
 
-INCLUDE=-I/usr/include -I ./Headers/ -I ./Headers/RT_headers/ -I ${LIBFT_DIR}/ -I ${MINILIBX_DIR}
+INCLUDE=-I/usr/include -I ./Headers/ -I ./Headers/RT_headers/ -I ./Parsing/ -I ${LIBFT_DIR}/ -I ${MINILIBX_DIR}
 
 CC_SHARED_FLAGS=#-fsanitize=address,undefined
 CC_flags=${CC_SHARED_FLAGS} -c -Wall -Wextra -g ${INCLUDE} #-Werror
