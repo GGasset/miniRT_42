@@ -16,6 +16,13 @@
 # include "camera.h"
 # include "stdio.h"
 
+typedef struct t_object_counter
+{
+	int	n_a;
+	int	n_c;
+	int	n_l;
+}	t_object_counter;
+
 int	expect_vec3(char *line, size_t *i, t_interval range);
 int	expect_number(char *line, size_t *i, t_interval range, int expect_space);
 
