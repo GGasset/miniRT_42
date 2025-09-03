@@ -46,6 +46,7 @@ typedef struct t_interval
 	t_data	min;
 	t_data	max;
 }		t_interval;
+t_interval	interval(t_data min, t_data max);
 
 t_vec3	vec3(t_data x, t_data y, t_data z);
 void	asign_vec3(t_vec3 *vec, t_data x, t_data y, t_data z);

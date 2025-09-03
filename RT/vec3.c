@@ -24,7 +24,15 @@ t_vec3	get_rgb(t_color in)
 	return (out);
 }
 
-t_vec3	vec3(t_data x, t_data y, t_data z)
+t_interval interval(t_data min, t_data max)
+{
+	t_interval	out;
+
+	out.min = min;
+	out.max = max;
+}
+
+t_vec3 vec3(t_data x, t_data y, t_data z)
 {
     t_vec3  vec;
 
