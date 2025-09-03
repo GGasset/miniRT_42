@@ -2,6 +2,8 @@
 
 # Parsing
 - Checkeo de errores (GG)
+	* queda checkeo si falta alguna propiedad de la escena (L,C,A)
+	* queda checkear si algunos vectores estan normalizados
 - Crear t_scene (Vareter)
 
 # Raytracing
