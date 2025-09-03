@@ -46,7 +46,25 @@ static int	check_property(char *line, t_object_counter *counter)
 
 static int	check_object(char *line)
 {
+	size_t	i;
 
+	i = 2;
+	if (!ft_isspace(line[i]))
+		return ((printf("Error\nInvalid object id\n"), 0));
+	if (!expect_vec3(line, &i, interval(-1E30, 1E30)))
+		return (0);
+	if (*line == 's' && !expect_number(line, &i, interval(-1E30, 1E30), 1))
+		return (0);
+	if (*line == 'p' || *line == 'c')
+		if (!expect_vec3(line, &i, interval(-1, 1)))
+			return (0);
+	if (*line == 'c')
+		if (!expect_number(line, &i, interval(-1E30, 1E30), 1)
+			|| !expect_number(line, &i, interval(-1E30, 1E30), 1))
+				return (0);
+	if (!expect_vec3(line, &i, interval(0, 255)))
+		return (0);
+	return (1);
 }
 
 int	check_router(char *line, t_object_counter *counter)
