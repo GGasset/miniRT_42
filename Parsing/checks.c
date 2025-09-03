@@ -48,7 +48,7 @@ int	expect_number(char *line, size_t *i, t_interval range, int expect_space)
 	if (!line[*i])
 		return (printf("Error\nMissing expected number\n"), 0);
 	number = ft_atod_s(line + *i, &nbr_err);
-	if (nbr_err || number > range.max || number < range.min)
+	if (nbr_err || number >= range.max || number <= range.min)
 		return (printf("Error\nNumber out of range\n"), 0);
 	while (line[*i] && is_valid_nbr_char(line[*i]))
 	{
