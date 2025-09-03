@@ -57,7 +57,8 @@ int	expect_number(char *line, size_t *i, t_interval range, int expect_space)
 	}
 	if (expect_space && !ft_isspace(line[*i]) && line[*i] != '\n' && line[*i])
 		return (printf("Error\nExpected space after number\n"), 0);
-	while (line[*i] && (ft_isspace(line[*i]) || line[*i]))
+	while (line[*i] && (ft_isspace(line[*i]) && line[*i]))
 		(*i)++;
+	write(1, "Error\nToo many dots in number\n", 30 * (dot_count >= 2));
 	return (dot_count < 2);
 }
