@@ -17,7 +17,7 @@
 # include "camera.h"
 
 # ifndef WINDOW_WIDTH
-#  define WINDOW_WIDTH 1080
+#  define WINDOW_WIDTH 1920
 # endif
 # ifndef RENDER_WIDTH
 	#define RENDER_WIDTH WINDOW_WIDTH

@@ -91,8 +91,8 @@ double	ft_atod_s(char *str, int *error)
 		return (*error = 1, 0);
 	str = ft_strdup(str);
 	dot_pos = ft_strchr(str, '.');
-	if (!str)
-		return (*error = 1, 0);
+	//if (!str)
+	//	return (*error = 1, 0);
 	out = after_dot(dot_pos);
 	out = under_dot(out, str);
 	free(str);
