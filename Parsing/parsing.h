@@ -14,6 +14,7 @@
 # define PARSING_H
 
 # include "camera.h"
+# include "stdio.h"
 
 int	expect_vec3(char *line, size_t *i, t_interval range);
 int	expect_number(char *line, size_t *i, t_interval range, int expect_space);
