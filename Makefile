@@ -7,7 +7,7 @@ RT_C_FILES = $(addprefix Rays/, ${RT_RAYS_C_FILES})
 RT_C_FILES += vec3.c sphere.c plane.c camera_render.c ray_color.c
 C_FILES += $(addprefix ./RT/, ${RT_O_FILES})
 
-PARSING_C_FILES=checks.c fill_scene.c scene_creation.c utils.c
+PARSING_C_FILES=checks.c #fill_scene.c scene_creation.c utils.c
 C_FILES += $(addprefix ./Parsing/, ${PARSING_C_FILES})
 
 C_FILES += main.c
