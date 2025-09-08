@@ -5,7 +5,7 @@ C_FILES = $(addprefix ./minilibx-funcs/, ${MINILIBX_FUNCS_C_FILES})
 RT_RAYS_C_FILES=hit.c rays.c random.c
 RT_C_FILES = $(addprefix Rays/, ${RT_RAYS_C_FILES})
 RT_C_FILES += vec3.c sphere.c plane.c camera_render.c ray_color.c
-C_FILES += $(addprefix ./RT/, ${RT_O_FILES})
+C_FILES += $(addprefix ./RT/, ${RT_C_FILES})
 
 PARSING_C_FILES=checks.c check_line.c #fill_scene.c scene_creation.c utils.c
 C_FILES += $(addprefix ./Parsing/, ${PARSING_C_FILES})
