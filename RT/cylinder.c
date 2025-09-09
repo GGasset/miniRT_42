@@ -58,7 +58,7 @@ static int	calculate_cylinder(t_ray ray, t_hit_args args, t_hit_info *out_data)
 	return (out_data->did_hit);
 }
 
-int	hit_cylinder(t_ray ray, t_hit_args args)
+int	hit_cylinder(t_hit_args args)
 {
-	return (calculate_cylinder(ray, args, args.hit_info));
+	return (calculate_cylinder(args.ray, args, args.hit_info));
 }
