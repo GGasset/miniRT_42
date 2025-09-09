@@ -30,6 +30,7 @@ t_interval interval(t_data min, t_data max)
 
 	out.min = min;
 	out.max = max;
+	return (out);
 }
 
 t_vec3 vec3(t_data x, t_data y, t_data z)
