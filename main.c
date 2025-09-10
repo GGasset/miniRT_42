@@ -42,9 +42,10 @@ int main()
 	render_d.scene.light.color = 0xFFffFF;//0xFF2010;//0xFFc24a0e;
 
 	ft_bzero(&object, sizeof(t_object));
-	object.kind = Sphere;
-	object.sizes.vs[0] = 3;
-	object.hit = &hit_sphere;
+	object.kind = Cylinder;
+	object.sizes = vec3(1, 1, 0);
+	object.rotation = vec3(1, 0, 0);
+	object.hit = &hit_cylinder;
 	object.color = 0xFFffFFff;//0xFFd8a5ba;
 
 	render_d.scene.objects.len = 1;
