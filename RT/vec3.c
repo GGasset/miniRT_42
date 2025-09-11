@@ -134,7 +134,7 @@ t_vec3  norm(t_vec3 v)
 {
     double  module;
 
-    module = pow(x(v), 2) + pow(y(v), 2) + pow(z(v), 2);
+    module = modulus(v);
     return (vec_sdiv(v, module));
 }
 
