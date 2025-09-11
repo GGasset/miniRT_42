@@ -44,7 +44,8 @@ typedef struct t_scene
 	t_light			light;
 }		t_scene;
 
-t_color	point_ilum(t_color current, t_hit_info info, t_scene s, t_light l);
+t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r);
+t_ray	get_bounce(t_hit_args info);
 t_color	iluminate(t_color current, t_color object_color, t_light light);
 t_color	shift(t_color old, t_color target, t_data factor, float reflects);
 t_color	get_sky_color(t_camera camera, size_t pixel_y);

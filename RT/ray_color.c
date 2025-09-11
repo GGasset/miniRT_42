@@ -23,7 +23,7 @@ static t_data	sample_shadows(t_hit_args ray, t_object_list objs)
 	size_t		n_samples;
 	size_t		i;
 
-	n_samples = 5;
+	n_samples = 10;
 	n_hits = 0;
 	i = 0;
 	while (i < n_samples)
@@ -37,26 +37,44 @@ static t_data	sample_shadows(t_hit_args ray, t_object_list objs)
 	return (1 - (t_data)n_hits / n_samples);
 }
 
-t_color	point_ilum(t_color current, t_hit_info info, t_scene s, t_light l)
+static t_data	reflect_multiplier(t_hit_args args, t_ray r, t_light l)
 {
 	t_vec3	light_direction;
-	t_data	light_normal_angle;
+	t_vec3	bounced_ray_dir;
+	t_vec3	tmp;
+	t_data	out;
+	
+	light_direction = norm(vec_sust(l.coords, args.hit_info->p));
+	tmp = norm(args.hit_info->normal);
+	//print_vec3(tmp);
+	//printf("%f\n", modulus(tmp));
+	bounced_ray_dir = get_bounce(args).direct;
+	return (1 - modulus(vec_sust(light_direction, bounced_ray_dir)) / 1);
+	//out = modulus(vec_sust(light_direction, tmp));
+	//printf("%f\n", out);
+	return (1 - out);
+}
+
+t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
+{
+	t_vec3		light_direction;
 	t_hit_info	hit_info;
 	t_hit_args	hit_args;
 
 	ft_bzero(&hit_info, sizeof(t_hit_info));
 	ft_bzero(&hit_args, sizeof(t_hit_args));
-	light_direction = norm(vec_sust(l.coords, info.p));
-	light_normal_angle = vec_angle(light_direction, info.normal);
-	l.brightness *= (190 - light_normal_angle) / 180;
+	light_direction = norm(vec_sust(l.coords, info.hit_info->p));
+	l.brightness *= (190 - vec_angle(light_direction, info.hit_info->normal)) / 180;
+	//l.brightness *= reflect_multiplier(info, r, l);
+
 	hit_args.hit_info = &hit_info;
-	hit_args.ray.orig = vec_sum(info.p, info.normal);
+	hit_args.ray.orig = vec_sum(info.hit_info->p, vec_smul(info.hit_info->normal, .5));
 	hit_args.ray.direct = light_direction;
-	hit_args.ray.direct = small_direction_shift(hit_args.ray.direct);
+	hit_args.ray.direct = hit_args.ray.direct;
 	hit_args.distance_range.min = 0;
-	hit_args.distance_range.max = modulus(vec_sust(info.p, l.coords));
+	hit_args.distance_range.max = modulus(vec_sust(info.hit_info->p, l.coords));
 	l.brightness *= sample_shadows(hit_args, s.objects);
-	return (iluminate(current, info.hit_obj.color, l));
+	return (iluminate(c, info.hit_info->hit_obj.color, l));
 }
 
 t_color	iluminate(t_color current, t_color object_color, t_light light)
