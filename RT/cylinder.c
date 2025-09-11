@@ -55,6 +55,7 @@ static int	calculate_cylinder(t_ray ray, t_hit_args args, t_hit_info *out_data)
 	tmp = vec_smul(args.object.rotation, -t);
 	tmp = vec_sum(tmp, vec_smul(ray.direct, out_data->distance));
 	out_data->normal = vec_sum(tmp, args.object.coords);
+	out_data->hit_obj = args.object;
 	return (out_data->did_hit);
 }
 
