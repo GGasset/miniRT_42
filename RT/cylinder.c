@@ -38,7 +38,7 @@ static void	quadratic(t_data *out_d, t_hit_args args, t_data sqrt_in)
 	t_vec3	b;
 	t_data	before_sqrt;
 	t_data	solutions[2];
-	
+
 	b = vec_sust(args.object.coords, args.ray.orig);
 	nxa = cross_product(args.ray.direct, args.object.rotation);
 	nxanxa = dot(nxa, nxa);
@@ -74,6 +74,33 @@ static int	calculate_cylinder(t_hit_args args, t_hit_info *out_data)
 	out_data->normal = vec_sum(tmp, args.object.coords);
 	out_data->hit_obj = args.object;
 	return (out_data->did_hit);
+}
+
+static int	calculate_caps(t_hit_args args, t_hit_info *out, int is_end_cap)
+{
+	t_vec3	c;
+	t_vec3	b;
+	t_vec3	nd;
+	t_data	d;
+	t_data	r;
+
+	r = x(args.object.sizes) / 2;
+	b = vec_sust(args.object.coords, args.ray.orig);
+	is_end_cap = is_end_cap != 0;
+	c = vec_sum(b, vec_smul(vec_smul(args.object.rotation,
+					y(args.object.sizes)), is_end_cap));
+	d = dot(args.object.rotation, c)
+		/ dot(args.object.rotation, args.ray.direct);
+	nd = vec_smul(args.ray.direct, d);
+	if (fabs(dot(vec_sust(nd, c), args.object.rotation)) < 1E-5)
+		return (0);
+	if (dot(vec_sust(nd, c), vec_sust(nd, c)) >= r * r)
+		return (0);
+	out->did_hit = 1;
+	out->distance = d;
+	out->hit_obj = args.object;
+	out->normal = vec_smul(args.object.rotation, 1 - 2 * (!is_end_cap));
+	return (1);
 }
 
 int	hit_cylinder(t_hit_args args)
