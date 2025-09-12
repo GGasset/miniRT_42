@@ -64,7 +64,7 @@ t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
 	ft_bzero(&hit_info, sizeof(t_hit_info));
 	ft_bzero(&hit_args, sizeof(t_hit_args));
 	light_direction = norm(vec_sust(l.coords, info.hit_info->p));
-	l.brightness *= info.hit_info->distance / 20;
+	l.brightness *= 1 - info.hit_info->distance / 20;
 	//l.brightness *= (190 - vec_angle(light_direction, info.hit_info->normal)) / 180;
 	//l.brightness *= reflect_multiplier(info, r, l);
 
