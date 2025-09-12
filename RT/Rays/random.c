@@ -30,10 +30,11 @@ t_vec3	small_direction_shift(t_rotation to_rotate)
 	t_vec3	out;
 	int		range;
 
-	range = 8 + 1;
-	rotation.vs[0] = (abs(xorshift32()) % range - range / 2);
-	rotation.vs[1] = (abs(xorshift32()) % range - range / 2);
-	rotation.vs[2] = (abs(xorshift32()) % range - range / 2);
+	range = 7;
+	range += range % 2 == 0;
+	rotation.vs[0] = (abs(xorshift32()) % range - (range - range % 2) / 2);
+	rotation.vs[1] = (abs(xorshift32()) % range - (range - range % 2) / 2);
+	rotation.vs[2] = (abs(xorshift32()) % range - (range - range % 2) / 2);
 	rotation = vec_sdiv(rotation, 1.5);
 	out = norm(rotate(to_rotate, rotation));
 	return (out);
