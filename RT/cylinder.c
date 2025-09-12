@@ -49,7 +49,7 @@ static int	calculate_cylinder(t_ray ray, t_hit_args args, t_hit_info *out_data)
 	+ sqrt(sqrt_in)) / dot(nxa, nxa);
 	out_data->p = vec_sum(ray.orig, vec_smul(ray.direct, out_data->distance));
 	t = dot(args.object.rotation, vec_sum(vec_smul(ray.direct, out_data->distance), args.object.coords));
-	if (t >= 0 && args.object.sizes.vs[1] >= t)
+	if (t < 0 || t > args.object.sizes.vs[1])
 		return (0);
 	out_data->did_hit = 1;
 	tmp = vec_smul(args.object.rotation, -t);
