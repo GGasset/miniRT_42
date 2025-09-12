@@ -69,7 +69,7 @@ t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
 	//l.brightness *= reflect_multiplier(info, r, l);
 
 	hit_args.hit_info = &hit_info;
-	hit_args.ray.orig = vec_sum(info.hit_info->p, vec_smul(info.hit_info->normal, .5));
+	hit_args.ray.orig = vec_sum(info.hit_info->p, vec_smul(info.hit_info->normal, .2));
 	hit_args.ray.direct = light_direction;
 	hit_args.ray.direct = hit_args.ray.direct;
 	hit_args.distance_range.min = 0;
