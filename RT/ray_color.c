@@ -76,7 +76,7 @@ t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
 	hit_args.ray.direct = hit_args.ray.direct;
 	hit_args.distance_range.min = 0;
 	hit_args.distance_range.max = modulus(vec_sust(info.hit_info->p, l.coords));
-	//l.brightness *= sample_shadows(hit_args, s.objects);
+	l.brightness *= sample_shadows(hit_args, s.objects);
 	return (iluminate(c, info.hit_info->hit_obj.color, l));
 }
 
