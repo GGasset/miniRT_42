@@ -180,6 +180,23 @@ t_data	vec_angle(t_vec3 a, t_vec3 b)
 	return (out);
 }
 
+t_vec3 get_angles(t_vec3 a, t_vec3 b)
+{
+	t_vec3	out;
+	t_vec3	tmp[2];
+
+	tmp[0] = vec3(0, y(a), z(a));
+	tmp[1] = vec3(0, y(b), z(b));
+	out.vs[0] = vec_angle(tmp[0], tmp[1]);
+	tmp[0] = vec3(x(a), 0, z(a));
+	tmp[1] = vec3(x(b), 0, z(b));
+	out.vs[1] = vec_angle(tmp[0], tmp[1]);
+	tmp[0] = vec3(x(a), y(a), 0);
+	tmp[1] = vec3(x(b), y(b), 0);
+	out.vs[2] = vec_angle(tmp[0], tmp[1]);
+	return (out);
+}
+
 void	vec_matrix_mult(t_vec3 matrix_row, t_vec3 vec, t_vec3 *out, size_t r_i)
 {
 	t_data	row_value;

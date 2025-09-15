@@ -67,6 +67,7 @@ t_data	theta(t_vec3 a, t_vec3 b);
 t_vec3	n_unitary(t_vec3 a, t_vec3 b);
 t_vec3	cross_product(t_vec3 a, t_vec3 b);
 t_data	vec_angle(t_vec3 a, t_vec3 b);
+t_vec3	get_angles(t_vec3 a, t_vec3 b);
 
 // * Will populate one value per call
 // * r_i: Row index
