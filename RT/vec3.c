@@ -175,6 +175,10 @@ t_data	vec_angle(t_vec3 a, t_vec3 b)
 	a = norm(a);
 	b = norm(b);
 	out = dot(a, b) / (modulus(a) * modulus(b));
+	if (out > 1)
+		out = 1;
+	if (out < -1)
+		out = -1;
 	out = acos(out);
 	out *= 180 / 3.14159;
 	return (out);
@@ -185,15 +189,20 @@ t_vec3 get_angles(t_vec3 a, t_vec3 b)
 	t_vec3	out;
 	t_vec3	tmp[2];
 
+	a = norm(a);
+	b = norm(b);
 	tmp[0] = vec3(0, y(a), z(a));
 	tmp[1] = vec3(0, y(b), z(b));
 	out.vs[0] = vec_angle(tmp[0], tmp[1]);
+	out.vs[0] += 180 * (x(a) > x(b));
 	tmp[0] = vec3(x(a), 0, z(a));
 	tmp[1] = vec3(x(b), 0, z(b));
 	out.vs[1] = vec_angle(tmp[0], tmp[1]);
+	out.vs[1] += 180 * ((y(a) > y(b)));
 	tmp[0] = vec3(x(a), y(a), 0);
 	tmp[1] = vec3(x(b), y(b), 0);
 	out.vs[2] = vec_angle(tmp[0], tmp[1]);
+	out.vs[2] += 180 * ((z(a) > z(b)));
 	return (out);
 }
 
