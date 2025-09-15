@@ -1,4 +1,6 @@
 
+# TODO
+solucionar bug con sombras
 
 # Parsing
 - Checkeo de errores (GG)
