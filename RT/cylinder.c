@@ -61,17 +61,17 @@ static int	calculate_cylinder(t_hit_args args, t_hit_info *out_data)
 	sqrt_in = calculate_quadratic_sqrt(args);
 	if (sqrt_in < 0)
 		return (0);
-	quadratic(&args.hit_info->distance, args, sqrt_in);
-	out_data->p = vec_sum(args.ray.orig, vec_smul(args.ray.direct, out_data->distance));
-	//t = dot(args.object.rotation, vec_sum(vec_smul(args.ray.direct, out_data->distance), args.object.coords));
-	t = dot(args.object.rotation, vec_sust(vec_smul(args.ray.direct, out_data->distance), vec_sust(args.object.coords, args.ray.orig)));
-
+	quadratic(&out_data->distance, args, sqrt_in);
+	t = dot(args.object.rotation, vec_sum(vec_smul(args.ray.direct, out_data->distance), args.object.coords));
+	//t = dot(args.object.rotation, vec_sust(vec_smul(args.ray.direct, out_data->distance), vec_sust(args.object.coords, args.ray.orig)));
+	
 	if (t < 0 || t > args.object.sizes.vs[1])
 		return (0);
+	out_data->p = vec_sum(args.ray.orig, vec_smul(args.ray.direct, out_data->distance));
 	out_data->did_hit = 1;
 	tmp = vec_smul(args.object.rotation, -t);
 	tmp = vec_sum(tmp, vec_smul(args.ray.direct, out_data->distance));
-	out_data->normal = vec_sum(tmp, args.object.coords);
+	out_data->normal = norm(vec_sum(tmp, args.object.coords));
 	out_data->hit_obj = args.object;
 	return (out_data->did_hit);
 }
@@ -92,18 +92,43 @@ static int	calculate_caps(t_hit_args args, t_hit_info *out, int is_end_cap)
 	d = dot(args.object.rotation, c)
 		/ dot(args.object.rotation, args.ray.direct);
 	nd = vec_smul(args.ray.direct, d);
-	if (fabs(dot(vec_sust(nd, c), args.object.rotation)) < 1E-5)
+	if (fabs(dot(vec_sust(nd, c), args.object.rotation)) < 1E-6)
 		return (0);
 	if (dot(vec_sust(nd, c), vec_sust(nd, c)) >= r * r)
 		return (0);
 	out->did_hit = 1;
 	out->distance = d;
 	out->hit_obj = args.object;
-	out->normal = vec_smul(args.object.rotation, 1 - 2 * (!is_end_cap));
+	out->normal = norm(vec_smul(args.object.rotation, 1 - 2 * (!is_end_cap)));
 	return (1);
 }
 
 int	hit_cylinder(t_hit_args args)
 {
-	return (calculate_cylinder(args, args.hit_info));
+	t_hit_info	tmp[3];
+	t_hit_info	closest_hit;
+	int			did_hit;
+	int			is_closer;
+	size_t		i;
+
+	args.object.rotation = norm(args.object.rotation);
+	ft_bzero(&closest_hit, sizeof(t_hit_info));
+	ft_bzero(&tmp, sizeof(t_hit_info) * 3);
+	did_hit = calculate_cylinder(args, &tmp);
+	did_hit = calculate_caps(args, &tmp[1], 0) || did_hit;
+	did_hit = calculate_caps(args, &tmp[2], 1) || did_hit;
+	if (!did_hit)
+		return (0);
+	closest_hit.distance = args.distance_range.max + 1;
+	i = 0;
+	while (i < 3)
+	{
+		is_closer = tmp[i].did_hit && tmp[i].did_hit > args.distance_range.min;
+		is_closer = is_closer && (tmp[i].distance < closest_hit.distance);
+		if (is_closer)
+			closest_hit = tmp[i];
+		i++;
+	}
+	*args.hit_info = closest_hit;
+	return (args.hit_info->did_hit);
 }
