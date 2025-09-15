@@ -37,6 +37,12 @@ static t_data	sample_shadows(t_hit_args ray, t_object_list objs)
 	return (1 - (t_data)n_hits / n_samples);
 }
 
+/*
+get angle between ray and norm
+get angle from norm to light
+
+
+*/
 static t_data	reflect_multiplier(t_hit_args args, t_ray r, t_light l)
 {
 	t_vec3	light_direction;
@@ -46,13 +52,8 @@ static t_data	reflect_multiplier(t_hit_args args, t_ray r, t_light l)
 	
 	light_direction = norm(vec_sust(l.coords, args.hit_info->p));
 	tmp = norm(args.hit_info->normal);
-	//print_vec3(tmp);
-	//printf("%f\n", modulus(tmp));
 	bounced_ray_dir = get_bounce(args).direct;
-	return (1 - modulus(vec_sust(light_direction, bounced_ray_dir)) / 1);
-	//out = modulus(vec_sust(light_direction, tmp));
-	//printf("%f\n", out);
-	return (1 - out);
+	return (1.3 - modulus(vec_sust(get_angles(r.direct, tmp), get_angles(tmp, light_direction))) / 360);
 }
 
 t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
@@ -64,9 +65,9 @@ t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
 	ft_bzero(&hit_info, sizeof(t_hit_info));
 	ft_bzero(&hit_args, sizeof(t_hit_args));
 	light_direction = norm(vec_sust(l.coords, info.hit_info->p));
-	l.brightness *= 1 - info.hit_info->distance / 20;
-	//l.brightness *= (190 - vec_angle(light_direction, info.hit_info->normal)) / 180;
-	//l.brightness *= reflect_multiplier(info, r, l);
+	//l.brightness *= 1 - info.hit_info->distance / 20;
+	//l.brightness *= (180 - vec_angle(light_direction, info.hit_info->normal)) / 180;
+	l.brightness *= reflect_multiplier(info, r, l);
 
 	hit_args.hit_info = &hit_info;
 	hit_args.ray.orig = vec_sum(info.hit_info->p, vec_smul(info.hit_info->normal, .2));
