@@ -135,6 +135,8 @@ t_vec3  norm(t_vec3 v)
     double  module;
 
     module = modulus(v);
+	if (!module)
+		return (v);
     return (vec_sdiv(v, module));
 }
 
@@ -175,6 +177,8 @@ t_data	vec_angle(t_vec3 a, t_vec3 b)
 	a = norm(a);
 	b = norm(b);
 	out = dot(a, b) / (modulus(a) * modulus(b));
+	if (out != out)
+		return (0);
 	if (out > 1)
 		out = 1;
 	if (out < -1)
