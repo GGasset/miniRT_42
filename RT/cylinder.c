@@ -114,7 +114,7 @@ int	hit_cylinder(t_hit_args args)
 	args.object.rotation = norm(args.object.rotation);
 	ft_bzero(&closest_hit, sizeof(t_hit_info));
 	ft_bzero(&tmp, sizeof(t_hit_info) * 3);
-	did_hit = calculate_cylinder(args, &tmp);
+	did_hit = calculate_cylinder(args, &tmp[0]);
 	did_hit = calculate_caps(args, &tmp[1], 0) || did_hit;
 	did_hit = calculate_caps(args, &tmp[2], 1) || did_hit;
 	if (!did_hit)
