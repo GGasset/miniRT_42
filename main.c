@@ -31,22 +31,22 @@ int main()
 	// Parsing
 
 	render_d.scene.camera.fov = 90;
-	render_d.scene.camera.rotation = vec3(0, 0, 0);
+	render_d.scene.camera.rotation = vec3(0, 0, 1);
 	render_d.scene.camera.camera_pos = vec3(0, 0, 5);
 	render_d.scene.camera.focal_len = 1;
-	render_d.scene.ambient_light.brightness = .0;
-	render_d.scene.ambient_light.color = 0xFFFF0000;
-
-	render_d.scene.light.coords = vec3(5, 0, 0);
+	render_d.scene.ambient_light.brightness = 0.2;
+	render_d.scene.ambient_light.color = 0x00ff00;
+	
+	render_d.scene.light.coords = vec3(20, 0, 0);
 	render_d.scene.light.brightness = 1;
-	render_d.scene.light.color = 0xFFffFF;//0xFF2010;//0xFFc24a0e;
+	render_d.scene.light.color = 0xFFc24a0e;
 
 	ft_bzero(&object, sizeof(t_object));
 	object.kind = Cylinder;
-	object.sizes = vec3(1, 1, 0);
+	object.sizes = vec3(4, 1, 0);
 	object.rotation = vec3(1, 0, 0);
-	object.hit = &hit_cylinder;
-	object.color = 0xFFffFFff;//0xFFd8a5ba;
+	object.hit = &hit_sphere;
+	object.color = 0xFFd8a5ba;
 
 	render_d.scene.objects.len = 1;
 	render_d.scene.objects.objs = &object;
