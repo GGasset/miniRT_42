@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 14:33:15 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/08/06 19:38:31 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/09/16 14:05:04y alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,16 @@ t_ray	ray(t_point3 position, t_rotation direction)
 	return (out);
 }
 
-static void	get_viewport(t_camera camera, t_vec3 viewport[2])
+static void get_viewport(t_camera cam, t_vec3 viewport[2])
 {
-	double	aspect_ratio;
-	double	h;
-	double	viewport_width;
+    const double ar     = (double)cam.width / cam.height;
+    const double tan_h  = tan((cam.fov * 3.14159 / 180.0) * 0.5); // FOV horizontal
+    const double vw     = 2.0 * cam.focal_len * tan_h;         // ancho en plano imagen
+    const double vh     = vw / ar;                             // alto
 
-	if (!viewport)
-		return ;
-	aspect_ratio = (double)camera.width / camera.height;
-	h = tan(camera.fov * 3.14159 / 180 / 2);
-	viewport_width = 2.0 * aspect_ratio * 2 * h * camera.focal_len;
-	viewport[0] = vec3(viewport_width, 0, 0);
-	viewport[1] = vec3(0, -(viewport_width / aspect_ratio), 0);
+    // Eje X = horizontal (derecha), Eje Y = vertical (hacia abajo en imagen)
+    viewport[0] = vec3(vw, 0.0, 0.0);   // horizontal extent
+    viewport[1] = vec3(0.0, -vh, 0.0);  // vertical extent (negativo si v crece hacia abajo)
 }
 
 static t_vec3	get_pixel0_pos(t_camera c, t_vec3 delta[2])
