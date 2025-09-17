@@ -23,13 +23,16 @@ static t_data	sample_shadows(t_hit_args ray, t_object_list objs)
 	size_t		n_samples;
 	size_t		i;
 
-	n_samples = 30;
+	n_samples = 20;
 	n_hits = 0;
 	i = 0;
 	while (i < n_samples)
 	{
 		args_copy = ray;
-		args_copy.ray.direct = small_direction_shift(args_copy.ray.direct);
+		if (i)
+			args_copy.ray.direct = small_direction_shift(args_copy.ray.direct);
+		else
+			args_copy.ray.direct = args_copy.ray.direct;
 		if (world_hit(objs, args_copy))
 			n_hits++;
 		i++;
@@ -37,12 +40,6 @@ static t_data	sample_shadows(t_hit_args ray, t_object_list objs)
 	return (1 - (t_data)n_hits / n_samples);
 }
 
-/*
-get angle between ray and norm
-get angle from norm to light
-
-
-*/
 static t_data	reflect_multiplier(t_hit_args args, t_ray r, t_light l)
 {
 	t_vec3	light_direction;
