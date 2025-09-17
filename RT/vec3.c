@@ -171,7 +171,6 @@ t_vec3	cross_product(t_vec3 a, t_vec3 b)
 
 t_data	vec_angle(t_vec3 a, t_vec3 b)
 {
-	t_vec3	tmp;
 	t_data	out;
 
 	a = norm(a);
