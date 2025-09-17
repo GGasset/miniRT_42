@@ -15,15 +15,18 @@
 
 t_ray	get_bounce(t_hit_args info)
 {
-	t_vec3	angles_to_normal;
+	t_vec3	d;
+	t_vec3	n;
 	t_ray	out;
 
 	ft_bzero(&out, sizeof(t_ray));
 	if (!info.hit_info || !info.hit_info->did_hit)
 		return (out);
 	out.orig = info.hit_info->p;
-	angles_to_normal = get_angles(info.ray.direct,  info.hit_info->normal);
-	out.direct = norm(rotate(info.hit_info->normal, angles_to_normal));
+	d = info.ray.direct;
+	n = info.hit_info->normal;
+	out.direct = vec_sust(d, vec_smul(d, 2 * dot(d, n)));
+
 	return (out);
 }
 
