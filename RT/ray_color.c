@@ -23,7 +23,7 @@ static t_data	sample_shadows(t_hit_args ray, t_object_list objs)
 	size_t		n_samples;
 	size_t		i;
 
-	n_samples = 10;
+	n_samples = 30;
 	n_hits = 0;
 	i = 0;
 	while (i < n_samples)
@@ -53,7 +53,7 @@ static t_data	reflect_multiplier(t_hit_args args, t_ray r, t_light l)
 	light_direction = norm(vec_sust(l.coords, args.hit_info->p));
 	tmp = norm(args.hit_info->normal);
 	bounced_ray_dir = get_bounce(args).direct;
-	out = fabs(vec_angle(bounced_ray_dir, light_direction) / 180);
+	out = fabs(vec_angle(bounced_ray_dir, light_direction) / 105);
 	return (1 - out);
 }
 
@@ -71,12 +71,12 @@ t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
 	l.brightness *= reflect_multiplier(info, r, l);
 
 	hit_args.hit_info = &hit_info;
-	hit_args.ray.orig = vec_sum(info.hit_info->p, vec_smul(info.hit_info->normal, .2));
+	hit_args.ray.orig = vec_sum(info.hit_info->p, vec_smul(info.hit_info->normal, 1));
 	hit_args.ray.direct = light_direction;
 	hit_args.ray.direct = hit_args.ray.direct;
-	hit_args.distance_range.min = 0;
+	hit_args.distance_range.min = 0.0;
 	hit_args.distance_range.max = modulus(vec_sust(info.hit_info->p, l.coords));
-	l.brightness *= sample_shadows(hit_args, s.objects);
+	//l.brightness *= sample_shadows(hit_args, s.objects);
 	return (iluminate(c, info.hit_info->hit_obj.color, l));
 }
 
