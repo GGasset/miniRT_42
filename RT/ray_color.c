@@ -16,24 +16,26 @@
 #include "libft.h"
 #include "stdio.h"
 
-static t_data	sample_shadows(t_hit_args ray, t_object_list objs, t_vec3 p_l_dir)
+static t_data	sample_shadows(t_hit_args ray, t_scene s, t_light l)
 {
 	t_hit_args	args_copy;
 	size_t		n_hits;
 	size_t		n_samples;
 	size_t		i;
+	t_vec3		p_l;
 
 	n_samples = 40;
 	n_hits = 0;
+	p_l = vec_sust(ray.hit_info->p, l.coords);
 	i = 0;
 	while (i < n_samples)
 	{
 		args_copy = ray;
 		if (i)
 			args_copy.ray.direct = small_direction_shift(args_copy.ray.direct);
-		if (world_hit(objs, args_copy))
+		if (world_hit(s.objects, args_copy))
 		{
-			if (fabs(args_copy.hit_info->distance - modulus(p_l_dir)) > 1E-1)
+			if (fabs(args_copy.hit_info->distance - modulus(p_l)) > 1E-1)
 				n_hits++;
 		}
 		i++;
@@ -72,7 +74,7 @@ t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
 	hit_args.ray.direct = vec_sust(info.hit_info->p, l.coords);
 	hit_args.distance_range.min = 0.001;
 	hit_args.distance_range.max = modulus(vec_sust(info.hit_info->p, l.coords));
-	l.brightness *= sample_shadows(hit_args, s.objects, vec_sust(info.hit_info->p, l.coords));
+	l.brightness *= sample_shadows(hit_args, s, l);
 	return (iluminate(c, info.hit_info->hit_obj.color, l));
 }
 
