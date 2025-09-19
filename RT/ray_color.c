@@ -23,7 +23,7 @@ static t_data	sample_shadows(t_hit_args ray, t_object_list objs, t_vec3 p_l_dir)
 	size_t		n_samples;
 	size_t		i;
 
-	n_samples = 40;
+	n_samples = 20;
 	n_hits = 0;
 	i = 0;
 	while (i < n_samples)
