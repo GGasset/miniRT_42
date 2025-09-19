@@ -23,7 +23,7 @@ static t_data	sample_shadows(t_hit_args ray, t_object_list objs, t_vec3 p_l_dir)
 	size_t		n_samples;
 	size_t		i;
 
-	n_samples = 20;
+	n_samples = 40;
 	n_hits = 0;
 	i = 0;
 	while (i < n_samples)
@@ -31,11 +31,9 @@ static t_data	sample_shadows(t_hit_args ray, t_object_list objs, t_vec3 p_l_dir)
 		args_copy = ray;
 		if (i)
 			args_copy.ray.direct = small_direction_shift(args_copy.ray.direct);
-		else
-			args_copy.ray.direct = args_copy.ray.direct;
 		if (world_hit(objs, args_copy))
 		{
-			if (fabs(args_copy.hit_info->distance - modulus(p_l_dir)) > 1)
+			if (fabs(args_copy.hit_info->distance - modulus(p_l_dir)) > 1E-1)
 				n_hits++;
 		}
 		i++;
@@ -73,7 +71,7 @@ t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
 	hit_args.ray.orig = l.coords;
 	hit_args.ray.direct = vec_sust(info.hit_info->p, l.coords);
 	hit_args.distance_range.min = 0.001;
-	hit_args.distance_range.max = 10E20;
+	hit_args.distance_range.max = modulus(vec_sust(info.hit_info->p, l.coords));
 	l.brightness *= sample_shadows(hit_args, s.objects, vec_sust(info.hit_info->p, l.coords));
 	return (iluminate(c, info.hit_info->hit_obj.color, l));
 }
