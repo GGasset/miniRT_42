@@ -23,14 +23,17 @@ t_ray	ray(t_point3 position, t_rotation direction)
 
 static void get_viewport(t_camera cam, t_vec3 viewport[2])
 {
-    const double ar     = (double)cam.width / cam.height;
-    const double tan_h  = tan((cam.fov * 3.14159 / 180.0) * 0.5); // FOV horizontal
-    const double vw     = 2.0 * cam.focal_len * tan_h;         // ancho en plano imagen
-    const double vh     = vw / ar;                             // alto
+	double	aspect_ratio;
+	double	h;
+	double	viewport_width;
 
-    // Eje X = horizontal (derecha), Eje Y = vertical (hacia abajo en imagen)
-    viewport[0] = vec3(vw, 0.0, 0.0);   // horizontal extent
-    viewport[1] = vec3(0.0, -vh, 0.0);  // vertical extent (negativo si v crece hacia abajo)
+	if (!viewport)
+		return ;
+	aspect_ratio = (double)cam.width / cam.height;
+	h = tan(cam.fov * 3.14159 / 180 / 2);
+	viewport_width = 2.0 * aspect_ratio * 2 * h * cam.focal_len;
+	viewport[0] = vec3(viewport_width, 0, 0);
+	viewport[1] = vec3(0, -(viewport_width / aspect_ratio), 0);
 }
 
 static t_vec3	get_pixel0_pos(t_camera c, t_vec3 delta[2])
