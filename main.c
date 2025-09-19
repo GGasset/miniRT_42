@@ -37,16 +37,16 @@ int main()
 	render_d.scene.ambient_light.brightness = 0.2;
 	render_d.scene.ambient_light.color = 0x00ff00;
 	
-	render_d.scene.light.coords = vec3(20, 0, 0);
+	render_d.scene.light.coords = vec3(200, 0, 0);
 	render_d.scene.light.brightness = 1;
-	render_d.scene.light.color = 0xFFc24a0e;
+	render_d.scene.light.color = 0xFFffFF;
 
 	ft_bzero(&object, sizeof(t_object));
 	object.kind = Cylinder;
 	object.sizes = vec3(4, 1, 0);
 	object.rotation = vec3(1, 0, 0);
 	object.hit = &hit_sphere;
-	object.color = 0xFFd8a5ba;
+	object.color = 0xFFffFFff;
 
 	render_d.scene.objects.len = 1;
 	render_d.scene.objects.objs = &object;
