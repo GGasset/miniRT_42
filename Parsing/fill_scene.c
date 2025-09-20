@@ -35,11 +35,6 @@ void	fill_camera(t_camera *cam, char **argv)
 
 void	fill_obj(t_object *obj, char **argv)
 {
-	t_data		*sizes;
-
-	sizes = ft_calloc(2, sizeof(t_data));
-	obj->sizes = sizes;
-
 	if (!ft_strcmp(*argv, "sp"))
 		obj->kind = Sphere;
 	else if (!ft_strcmp(*argv, "pl"))
@@ -54,11 +49,11 @@ void	fill_obj(t_object *obj, char **argv)
 		obj->rotation = get_vector(*argv++);
 	if (obj->kind != Plane)
 	{
-		obj->sizes[0] = get_scalar(*argv++);
+		obj->sizes.vs[0] = get_scalar(*argv++);
 		if (obj->kind == Cylinder)
-			obj->sizes[1] = get_scalar(*argv++);
+			obj->sizes.vs[1] = get_scalar(*argv++);
 	}
-	obj->color = get_vector(*argv++);
+	obj->color = get_color(get_vector(*argv++));
 }
 
 void	fill_obj_list(t_object_list *objs, char **argv)
