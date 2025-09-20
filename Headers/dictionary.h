@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   dictionary.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvez-dia <lvez-dia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:08:46 by alvmoral          #+#    #+#             */
-/*   Updated: 2025/05/15 17:51:00 by lvez-dia         ###   ########.fr       */
+/*   Updated: 2025/09/20 19:01:48 by alvaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DICTIONARY_H
 # define DICTIONARY_H
 
-# include "../libft/include/get_next_line.h"
-# include "../libft/include/libft.h"
+# include "../libft/libft.h"
 # include <stdint.h>
 # include <stdlib.h>
 # include <string.h>
