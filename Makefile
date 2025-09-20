@@ -34,7 +34,7 @@ NAME=miniRT
 all: minilib-all libft ${NAME}
 
 ${NAME}: ${O_FILES} ${STATIC_FILES}
-	cc ${CC_LINKING_FLAGS} ${MINILIBX_LINKING_FLAGS} -o ${NAME} ${O_FILES} ${STATIC_FILES} 
+	cc ${CC_LINKING_FLAGS} -o ${NAME} ${O_FILES} ${STATIC_FILES} ${MINILIBX_LINKING_FLAGS} 
 
 %.o : %.c
 	cc $? ${CC_flags} -o $@
