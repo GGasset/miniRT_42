@@ -29,6 +29,8 @@ int	fill_dispatcher(t_scene *s, char *line)
 		fill_ligth(&s->light, formatted_line + 1);
 	else if (!ft_strcmp(formatted_line[0], "C"))
 		fill_camera(&s->camera, formatted_line + 1);
+	else if (formatted_line[0][0] == '#')
+		write(1, "", 0);
 	else
 		fill_obj_list(&s->objects, formatted_line);
 	return (1);

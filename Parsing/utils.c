@@ -130,7 +130,9 @@ t_vec3	get_vector(char *dim)
 	// get_next_field(info_struct, field);
 	dims = ft_split(dim, ',');
 	if (dims)
-		vec = vec3(ft_atod(dims[0]), ft_atod(dims[1]), ft_atod(dims[2]));
+		vec = vec3(ft_atod(dims[0]), \
+				   ft_atod(dims[1]), \
+				   ft_atod(dims[2]));
 	ft_free((void **)dims, 1);
 	return (vec);
 }
