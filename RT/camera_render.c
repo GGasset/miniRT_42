@@ -45,7 +45,6 @@ int	render(t_render_data *render_d)
     size_t	i;
 	t_ray	ray;
 
-	printf("\n\n");
 	pixel_count = render_d->scene.camera.height * render_d->scene.camera.width;
 	i = 0;
     while (i < pixel_count)
