@@ -59,8 +59,6 @@ char    *get_next_line(int fd)
 int main()
 {
 	t_render_data	render_d;
-	t_object		object;
-
 	// Setup
 
 	ft_bzero(&render_d, sizeof(t_render_data));
@@ -89,12 +87,12 @@ int main()
 
 	render_d.scene.camera.width = render_d.img.res.x;
 	render_d.scene.camera.height = render_d.img.res.y;
-	// render_d.win = mlx_new_window(render_d.mlx, render_d.img.res.x,
-	// 		render_d.img.res.y, "MiniRT");	
-	// if (!render_d.win)
-	// 	return (free_mlx(render_d.mlx));
-	// render_loop(&render_d);
-	// printf("Delete in future, exited loop.");
+	render_d.win = mlx_new_window(render_d.mlx, render_d.img.res.x,
+			render_d.img.res.y, "MiniRT");	
+	if (!render_d.win)
+		return (free_mlx(render_d.mlx));
+	render_loop(&render_d);
+	printf("Delete in future, exited loop.");
 	free_render_data(&render_d);
 	return (0);
 }

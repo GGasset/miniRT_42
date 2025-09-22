@@ -7,18 +7,21 @@
 void	print_t_scene(t_scene s)
 {
 	// Printeo de light //
+	printf("[Light]:\n");
 	printf("coords: ");
 	print_vec3(s.light.coords);
 	printf("brightness: %lf\n", s.light.brightness);
 	printf("color: %u", s.light.color);
 	printf("\n------------------------------------\n");
 	// Printeo de ambien//
+	printf("[Ambient Light]:\n");
 	printf("coords: ");
 	print_vec3(s.ambient_light.coords);
 	printf("brightness: %lf\n", s.ambient_light.brightness);
 	printf("color: %u", s.ambient_light.color);
 	printf("\n------------------------------------\n");
 	// Printeo de Cámara
+	printf("[Camera]:\n");
 	printf("width: %zu\n", s.camera.width);
 	printf("aspect_ratio: %zu\n", s.camera.aspect_ratio);
 	printf("fov: %zu\n", s.camera.fov);

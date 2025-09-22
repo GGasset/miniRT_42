@@ -6,7 +6,7 @@
 /*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:50:09 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/09/20 18:49:33 by alvaro           ###   ########.fr       */
+/*   Updated: 2025/09/22 09:11:44 by alvaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ t_data			get_scalar(char *value);
 size_t			get_scalar_size_t(char *value);
 t_vec3			get_vector(char *dim);
 
-int		fill_dispatcher(t_scene *s, char *line);
-void	fill_ambient_ligth(t_light *ambient, char **argv);
-void	fill_ligth(t_light *light, char **argv);
-void	fill_camera(t_camera *cam, char **argv);
-void	fill_obj(t_object *obj, char **argv);
-void	fill_obj_list(t_object_list *objs, char **argv);
+int				fill_dispatcher(t_scene *s, char *line);
+void			fill_ambient_ligth(t_light *ambient, char **argv);
+void			fill_ligth(t_light *light, char **argv);
+void			fill_camera(t_camera *cam, char **argv);
+void			fill_obj(t_object *obj, char **argv);
+void			fill_obj_list(t_object_list *objs, char **argv);
 
 #endif
