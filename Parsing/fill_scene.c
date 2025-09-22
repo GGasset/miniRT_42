@@ -76,5 +76,5 @@ void fill_obj_list(t_object_list *objs, char **argv)
 	write(1, "Rotacion: ", 11);
 	print_vec3(objs->objs[objs->len].rotation);
 	objs->len++;
-	return (objs);
+	// return (objs);
 }

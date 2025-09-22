@@ -23,7 +23,7 @@ void	print_t_scene(t_scene s)
 	// Printeo de Cámara
 	printf("[Camera]:\n");
 	printf("width: %zu\n", s.camera.width);
-	printf("aspect_ratio: %zu\n", s.camera.aspect_ratio);
+	printf("aspect_ratio: %lf\n", s.camera.aspect_ratio);
 	printf("fov: %zu\n", s.camera.fov);
 	printf("max_bounces: %zu\n", s.camera.max_bounces);
 	printf("camera_pos: ");
@@ -129,6 +129,7 @@ t_vec3	get_vector(char *dim)
 	char	**dims;
 	// char	field[9];
 	t_vec3	vec;
+	ft_bzero(&vec, sizeof(vec));
 
 	// get_next_field(info_struct, field);
 	dims = ft_split(dim, ',');
