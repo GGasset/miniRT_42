@@ -26,7 +26,7 @@ t_ray	get_bounce(t_hit_args info)
 	d = info.ray.direct;
 	n = info.hit_info->normal;
 	out.direct = vec_sust(d, vec_smul(d, 2 * dot(d, n)));
-
+	out.direct = element_mult(out.direct, vec3(1, 1, -1));
 	return (out);
 }
 
