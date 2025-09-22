@@ -60,7 +60,7 @@ static t_ray	assemble_ray(t_camera camera, t_vec3 pixel_center)
 	t_rotation	degrees;
 
 	out = ray(camera.camera_pos, vec_sust(pixel_center, camera.camera_pos));
-	degrees = get_angles(vec3(0, 0, 1), norm(camera.rotation));
+	degrees = get_angles(vec3(0, 0, -1), norm(camera.rotation));
 	out.direct = norm(rotate(out.direct, degrees));
 	return (out);
 }
