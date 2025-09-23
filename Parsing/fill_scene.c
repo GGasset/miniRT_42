@@ -28,6 +28,7 @@ void	fill_camera(t_camera *cam, char **argv)
 	cam->camera_pos = get_vector(*argv++);
 	cam->rotation = get_vector(*argv++);
 	cam->fov = get_scalar_size_t(*argv++);
+	cam->focal_len = 1;
 	cam->aspect_ratio = ASPECT_RATIO;
 	cam->width = WINDOW_WIDTH;
 	cam->max_bounces = MAX_BOUNCES;
@@ -38,7 +39,7 @@ void	fill_obj(t_object *obj, char **argv)
 	if (!ft_strcmp(*argv, "sp"))
 	{
 		obj->kind = Sphere;
-		obj->rotation = vec3(0.0f, 0.0f, 5.0f);
+		obj->rotation = vec3(0.0f, 0.0f, 1.0f);
 		obj->hit = &hit_sphere;
 	}
 	else if (!ft_strcmp(*argv, "pl"))

@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:50:09 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/09/22 12:32:03 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/09/23 18:44:28 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "objects.h"
 # include "stdlib.h"
 // # include "../minilibx_funcs.h"
+#include <stdio.h>
 
 typedef struct t_light
 {

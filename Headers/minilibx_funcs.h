@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:02:48 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/09/22 18:18:02 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/09/22 18:55:35 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 #  define ASPECT_RATIO 0.5625
 # endif
 # ifndef MAX_BOUNCES
-#  define MAX_BOUNCES 0
+#  define MAX_BOUNCES 3
 # endif
 
 typedef struct s_res

@@ -71,7 +71,7 @@ t_ray	create_ray(t_camera camera, size_t pixel_i)
 
 	pixel0_pos = get_pixel0_pos(camera, pixel_delta);
 	pixel_center = vec_sum(vec_sum(pixel0_pos,
-				vec_smul(pixel_delta[0], pixel_i % camera.width)),
-			vec_smul(pixel_delta[1], pixel_i / camera.width));
+		vec_smul(pixel_delta[0], pixel_i % camera.width)),
+		vec_smul(pixel_delta[1], pixel_i / camera.width));
 	return (assemble_ray(camera, pixel_center));
 }
