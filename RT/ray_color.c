@@ -16,33 +16,33 @@
 #include "libft.h"
 #include "stdio.h"
 
-static t_data	sample_shadows(t_hit_args ray, t_object_list objs)
+static t_data	sample_shadows(t_hit_args ray, t_scene s, t_light l)
 {
 	t_hit_args	args_copy;
 	size_t		n_hits;
 	size_t		n_samples;
 	size_t		i;
+	t_vec3		p_l;
 
-	n_samples = 10;
+	n_samples = 40;
 	n_hits = 0;
+	p_l = vec_sust(ray.hit_info->p, l.coords);
 	i = 0;
 	while (i < n_samples)
 	{
 		args_copy = ray;
-		args_copy.ray.direct = small_direction_shift(args_copy.ray.direct);
-		if (world_hit(objs, args_copy))
-			n_hits++;
+		if (i)
+			args_copy.ray.direct = small_direction_shift(args_copy.ray.direct);
+		if (world_hit(s.objects, args_copy))
+		{
+			if (fabs(args_copy.hit_info->distance - modulus(p_l)) > 1E-1)
+				n_hits++;
+		}
 		i++;
 	}
 	return (1 - (t_data)n_hits / n_samples);
 }
 
-/*
-get angle between ray and norm
-get angle from norm to light
-
-
-*/
 static t_data	reflect_multiplier(t_hit_args args, t_ray r, t_light l)
 {
 	t_vec3	light_direction;
@@ -53,7 +53,7 @@ static t_data	reflect_multiplier(t_hit_args args, t_ray r, t_light l)
 	light_direction = norm(vec_sust(l.coords, args.hit_info->p));
 	tmp = norm(args.hit_info->normal);
 	bounced_ray_dir = get_bounce(args).direct;
-	out = fabs(vec_angle(bounced_ray_dir, light_direction) / 180);
+	out = fabs(vec_angle(bounced_ray_dir, light_direction) / 105);
 	return (1 - out);
 }
 
@@ -67,16 +67,14 @@ t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
 	ft_bzero(&hit_args, sizeof(t_hit_args));
 	light_direction = norm(vec_sust(l.coords, info.hit_info->p));
 	//l.brightness *= 1 - info.hit_info->distance / 20;
-	//l.brightness *= (180 - vec_angle(light_direction, info.hit_info->normal)) / 180;
 	l.brightness *= reflect_multiplier(info, r, l);
 
 	hit_args.hit_info = &hit_info;
-	hit_args.ray.orig = vec_sum(info.hit_info->p, vec_smul(info.hit_info->normal, .2));
-	hit_args.ray.direct = light_direction;
-	hit_args.ray.direct = hit_args.ray.direct;
-	hit_args.distance_range.min = 0;
+	hit_args.ray.orig = l.coords;
+	hit_args.ray.direct = vec_sust(info.hit_info->p, l.coords);
+	hit_args.distance_range.min = 0.001;
 	hit_args.distance_range.max = modulus(vec_sust(info.hit_info->p, l.coords));
-	l.brightness *= sample_shadows(hit_args, s.objects);
+	l.brightness *= sample_shadows(hit_args, s, l);
 	return (iluminate(c, info.hit_info->hit_obj.color, l));
 }
 

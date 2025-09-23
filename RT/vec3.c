@@ -135,6 +135,8 @@ t_vec3  norm(t_vec3 v)
     double  module;
 
     module = modulus(v);
+	if (!module)
+		return (v);
     return (vec_sdiv(v, module));
 }
 
@@ -169,12 +171,13 @@ t_vec3	cross_product(t_vec3 a, t_vec3 b)
 
 t_data	vec_angle(t_vec3 a, t_vec3 b)
 {
-	t_vec3	tmp;
 	t_data	out;
 
 	a = norm(a);
 	b = norm(b);
 	out = dot(a, b) / (modulus(a) * modulus(b));
+	if (out != out)
+		return (0);
 	if (out > 1)
 		out = 1;
 	if (out < -1)
@@ -194,16 +197,18 @@ t_vec3 get_angles(t_vec3 a, t_vec3 b)
 	tmp[0] = vec3(0, y(a), z(a));
 	tmp[1] = vec3(0, y(b), z(b));
 	out.vs[0] = vec_angle(tmp[0], tmp[1]);
-	out.vs[0] *= 1 - (2 * (x(a) > x(b)));
+	if (z(a) > z(b) && y(a) > y(b))
+		out.vs[0] *= -1;
 	tmp[0] = vec3(x(a), 0, z(a));
 	tmp[1] = vec3(x(b), 0, z(b));
 	out.vs[1] = vec_angle(tmp[0], tmp[1]);
-	out.vs[1] *= 1 - (2 * ((y(a) > y(b))));
+	if (x(a) > x(b) && z(a) > z(b))
+		out.vs[1] *= -1;
 	tmp[0] = vec3(x(a), y(a), 0);
 	tmp[1] = vec3(x(b), y(b), 0);
 	out.vs[2] = vec_angle(tmp[0], tmp[1]);
-	out.vs[2] *= 1 - (2 * ((z(a) > z(b))));
-	out = norm(out);
+	if (x(a) > x(b) && y(a) > y(b))
+		out.vs[2] *= -1;
 	return (out);
 }
 
