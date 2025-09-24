@@ -20,7 +20,7 @@ void print_loading_bar(size_t i, size_t pixel_count)
 	t_data	percentage_completed;
 	size_t	j;
 
-	if (i % 700)
+	if (i % 100)
 		return ;
 	bar_char_count = 10;
 	percentage_completed = (t_data)i / (pixel_count);
@@ -55,9 +55,7 @@ int	render(t_render_data *render_d)
         i++;
 		print_loading_bar(i, pixel_count);
 	}
-	i = 0;
-	while (i++ < 100)
-		printf(" ");
-	printf("\r");
+	printf("                                   ");
+	printf("\n");
 	return (0);
 }
