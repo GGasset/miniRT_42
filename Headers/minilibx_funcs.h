@@ -27,7 +27,7 @@
 #  define ASPECT_RATIO 0.5625
 # endif
 # ifndef MAX_BOUNCES
-#  define MAX_BOUNCES 1
+#  define MAX_BOUNCES 2
 # endif
 
 typedef struct s_res
