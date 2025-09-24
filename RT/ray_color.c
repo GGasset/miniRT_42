@@ -31,7 +31,8 @@ static t_data	sample_shadows(t_hit_args ray, t_scene s, t_light l)
 	while (i < n_samples)
 	{
 		args_copy = ray;
-		args_copy.ray.direct = small_direction_shift(args_copy.ray.direct);
+		args_copy.ray.direct =
+			norm(rotate(ray.ray.direct, rand_vec3(5e2, 1e5)));
 		if (world_hit(s.objects, args_copy))
 		{
 			if (fabs(args_copy.hit_info->distance - modulus(p_l)) > .1)
