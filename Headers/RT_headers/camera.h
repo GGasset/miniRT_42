@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:50:09 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/07/23 18:31:57 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/09/23 18:44:28 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "objects.h"
 # include "stdlib.h"
 // # include "../minilibx_funcs.h"
+#include <stdio.h>
 
 typedef struct t_light
 {
@@ -28,7 +29,7 @@ typedef struct t_camera
 {
 	size_t		width;
 	size_t		height;
-	size_t		aspect_ratio;
+	t_data		aspect_ratio;
 	size_t		fov;
 	size_t		max_bounces;
 	t_data		focal_len;
@@ -60,11 +61,11 @@ t_data			get_scalar(char *value);
 size_t			get_scalar_size_t(char *value);
 t_vec3			get_vector(char *dim);
 
-
-void	fill_ambient_ligth(t_light *ambient, char **argv);
-void	fill_ligth(t_light *light, char **argv);
-void	fill_camera(t_camera *cam, char **argv);
-void	fill_obj(t_object *obj, char **argv);
-void	fill_obj_list(t_object_list *objs, char **argv);
+int				fill_dispatcher(t_scene *s, char *line);
+void			fill_ambient_ligth(t_light *ambient, char **argv);
+void			fill_ligth(t_light *light, char **argv);
+void			fill_camera(t_camera *cam, char **argv);
+void			fill_obj(t_object *obj, char **argv);
+void			fill_obj_list(t_object_list *objs, char **argv);
 
 #endif
