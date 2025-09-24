@@ -24,6 +24,18 @@ int	xorshift32()
 	return (x);
 }
 
+t_vec3	rand_vec3(int range, t_data out_divider)
+{
+	t_vec3	rotation;
+
+	range += range % 2 == 0;
+	rotation.vs[0] = (abs(xorshift32()) % range - (range - range % 2) / 2);
+	rotation.vs[1] = (abs(xorshift32()) % range - (range - range % 2) / 2);
+	rotation.vs[2] = (abs(xorshift32()) % range - (range - range % 2) / 2);
+	rotation = vec_sdiv(rotation, out_divider);
+	return (rotation);
+}
+
 t_vec3	small_direction_shift(t_rotation to_rotate)
 {
 	t_vec3	rotation;
@@ -31,11 +43,7 @@ t_vec3	small_direction_shift(t_rotation to_rotate)
 	int		range;
 
 	range = 500;
-	range += range % 2 == 0;
-	rotation.vs[0] = (abs(xorshift32()) % range - (range - range % 2) / 2);
-	rotation.vs[1] = (abs(xorshift32()) % range - (range - range % 2) / 2);
-	rotation.vs[2] = (abs(xorshift32()) % range - (range - range % 2) / 2);
-	rotation = vec_sdiv(rotation, 100000);
+	rotation = rand_vec3(range, 1E5);
 	out = norm(rotate(to_rotate, rotation));
 	return (out);
 }
