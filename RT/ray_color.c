@@ -52,7 +52,7 @@ static t_data	reflect_multiplier(t_hit_args args, t_ray r, t_light l)
 	light_direction = norm(vec_sust(l.coords, args.hit_info->p));
 	tmp = norm(args.hit_info->normal);
 	bounced_ray_dir = get_bounce(args).direct;
-	out = fabs(vec_angle(bounced_ray_dir, light_direction) / 110);
+	out = fabs(vec_angle(bounced_ray_dir, light_direction) / 180);
 	return (1 - out);
 }
 
@@ -71,8 +71,8 @@ t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
 	hit_args.hit_info = &hit_info;
 	hit_args.ray.orig = l.coords;
 	hit_args.ray.direct = vec_sust(info.hit_info->p, l.coords);
-	hit_args.distance_range.min = 0.001;
-	hit_args.distance_range.max = modulus(vec_sust(info.hit_info->p, l.coords)) - .5;
+	hit_args.distance_range.min = 0.1;
+	hit_args.distance_range.max = modulus(vec_sust(info.hit_info->p, l.coords)) - .1;
 	l.brightness *= sample_shadows(hit_args, s, l);
 	return (iluminate(c, info.hit_info->hit_obj.color, l));
 }
