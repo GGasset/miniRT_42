@@ -32,6 +32,7 @@ t_ray	get_bounce(t_hit_args info)
 
 static t_color	bounce(t_render_data *d, size_t i, t_hit_args hit, t_color in)
 {
+	t_data		reflectiveness;
 	t_hit_args	hit_args;
 	t_hit_info	hit_info;
 	t_light		bounce_light;
@@ -47,7 +48,9 @@ static t_color	bounce(t_render_data *d, size_t i, t_hit_args hit, t_color in)
 	hit_args.ray = get_bounce(hit);
 	if (!world_hit(d->scene.objects, hit_args))
 		return (in);
-	bounce_light.brightness = (10 - hit_info.distance) / 10;
+	reflectiveness = .4;
+	bounce_light.brightness = (10 - hit_info.distance) / 10 * reflectiveness;
+	bounce_light.brightness /= !i + (i + 1) * (i + 1);
 	bounce_light.color = world_get_color(d, ++i, 0, get_bounce(hit));
 	out = iluminate(in, hit.hit_info->hit_obj.color, bounce_light);
 	return (out);
