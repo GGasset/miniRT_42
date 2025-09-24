@@ -107,5 +107,6 @@ t_color	get_sky_color(t_camera camera, size_t pixel_y)
 	out = 0xFF154f8c;
 	to_add = (255 - (out & 255)) * pixel_y / (t_data)camera.height / 1.8;
 	out += (to_add << 16) + (to_add << 8) + to_add;
-	return (out);
+	//return (out);
+	return (0xFF021d28);
 }
