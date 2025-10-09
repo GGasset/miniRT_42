@@ -30,6 +30,28 @@ t_ray	get_bounce(t_hit_args info)
 	return (out);
 }
 
+static t_light	sample_bounces(t_hit_args hit, t_data reflect, t_render_data *d)
+{
+	t_hit_args	args;
+	t_hit_info	info;
+	t_ray		bounces[2];
+	size_t		n_samples;
+	t_light		out;
+
+	ft_bzero(&args, sizeof(t_hit_args));
+	ft_bzero(&info, sizeof(t_hit_info));
+	args.distance_range.min = 1e4;
+	args.distance_range.min = 1e-3;
+	args.hit_info = &info;
+	bounces[0] = get_bounce(hit);
+	n_samples = 5;
+	while (n_samples-- > 0)
+	{
+		//bounces[1] = 
+	}
+	return (out);
+}
+
 static t_color	bounce(t_render_data *d, size_t i, t_hit_args hit, t_color in)
 {
 	t_data		reflectiveness;
