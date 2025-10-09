@@ -74,6 +74,7 @@ t_vec3	get_angles(t_vec3 a, t_vec3 b);
 void	vec_matrix_mult(t_vec3 matrix_row, t_vec3 vec, t_vec3 *out, size_t r_i);
 t_vec3	rotate(t_vec3 input, t_vec3 degrees);
 t_vec3	rand_vec3(int range, t_data out_divider);
+int		xorshift32();
 t_vec3	small_direction_shift(t_rotation to_rotate);
 
 #endif
