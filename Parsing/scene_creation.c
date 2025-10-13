@@ -34,11 +34,11 @@ int	fill_dispatcher(t_scene *s, char *line)
 {
 	char	**formatted_line;
 
+	if (is_empty(line))
+		return (1);
 	formatted_line = format_line(line);
 	if (!formatted_line)
 		return (0);
-	if (is_empty(formatted_line[0]))
-		return (1);
 	if (!ft_strcmp(formatted_line[0], "A"))
 		fill_ambient_ligth(&s->ambient_light, formatted_line + 1);
 	else if (!ft_strcmp(formatted_line[0], "L"))

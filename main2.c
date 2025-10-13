@@ -79,7 +79,10 @@ int main()
 		line = get_next_line(fd);
 		if (!line)
 			break ;
+		printf("line: %s\n", line);
 		fill_dispatcher(&render_d.scene, line);
+		free(line);
+		line = NULL;
 	}
 	print_t_scene(render_d.scene);
 
