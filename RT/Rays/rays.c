@@ -46,8 +46,8 @@ static t_vec3	get_pixel0_pos(t_camera c, t_vec3 delta[2])
 	get_viewport(c, viewport);
 	delta[0] = vec_sdiv(viewport[0], c.width);
 	delta[1] = vec_sdiv(viewport[1], c.height);
-	upper_left = vec3(0, 0, 1);
-	upper_left = element_mult(upper_left, c.rotation);
+	upper_left = vec3(0, 0, c.focal_len);
+	//upper_left = element_mult(upper_left, c.rotation);
 	upper_left = vec_sust(c.camera_pos, upper_left);
 	upper_left = vec_sust(upper_left, vec_sdiv(viewport[0], 2));
 	upper_left = vec_sust(upper_left, vec_sdiv(viewport[1], 2));
