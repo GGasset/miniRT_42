@@ -121,9 +121,8 @@ int	hit_cylinder(t_hit_args args)
 	i = 0;
 	while (i < 3)
 	{
-		is_closer = tmp[i].did_hit && tmp[i].did_hit > args.distance_range.min;
-		is_closer = is_closer && (tmp[i].distance < closest_hit.distance);
-		if (is_closer)
+		is_closer = tmp[i].did_hit && tmp[i].distance > args.distance_range.min;
+		if (is_closer && (tmp[i].distance < closest_hit.distance))
 			closest_hit = tmp[i];
 		i++;
 	}
