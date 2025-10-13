@@ -92,8 +92,6 @@ static int	calculate_caps(t_hit_args args, t_hit_info *out, int is_end_cap)
 	d = dot(args.object.rotation, c)
 		/ dot(args.object.rotation, args.ray.direct);
 	nd = vec_smul(args.ray.direct, d);
-	if (fabs(dot(vec_sust(nd, c), args.object.rotation)) > 1e-6)
-		return (0);
 	if (dot(vec_sust(nd, c), vec_sust(nd, c)) >= r * r)
 		return (0);
 	out->did_hit = 1;
