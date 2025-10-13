@@ -31,7 +31,8 @@ static t_data	sample_shadows(t_hit_args ray, t_scene s, t_light l)
 	while (i < n_samples)
 	{
 		args_copy = ray;
-		args_copy.ray.direct = small_direction_shift(args_copy.ray.direct);
+		args_copy.ray.direct =
+			norm(rotate(ray.ray.direct, rand_vec3(5e2, 1e5)));
 		if (world_hit(s.objects, args_copy))
 		{
 			if (fabs(args_copy.hit_info->distance - modulus(p_l)) > .1)
@@ -44,15 +45,18 @@ static t_data	sample_shadows(t_hit_args ray, t_scene s, t_light l)
 
 static t_data	reflect_multiplier(t_hit_args args, t_ray r, t_light l)
 {
+	t_data	refl_coeff;
 	t_vec3	light_direction;
 	t_vec3	bounced_ray_dir;
 	t_vec3	tmp;
 	t_data	out;
-	
+
+	refl_coeff = .4;
 	light_direction = norm(vec_sust(l.coords, args.hit_info->p));
 	tmp = norm(args.hit_info->normal);
 	bounced_ray_dir = get_bounce(args).direct;
-	out = fabs(vec_angle(bounced_ray_dir, light_direction) / 110);
+	out = fabs(vec_angle(bounced_ray_dir, light_direction) / 90) * refl_coeff;
+	out += fabs(vec_angle(tmp, light_direction) / 135) * (1 - refl_coeff);
 	return (1 - out);
 }
 
@@ -71,8 +75,8 @@ t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
 	hit_args.hit_info = &hit_info;
 	hit_args.ray.orig = l.coords;
 	hit_args.ray.direct = vec_sust(info.hit_info->p, l.coords);
-	hit_args.distance_range.min = 0.001;
-	hit_args.distance_range.max = modulus(vec_sust(info.hit_info->p, l.coords)) - .5;
+	hit_args.distance_range.min = 0.1;
+	hit_args.distance_range.max = modulus(vec_sust(info.hit_info->p, l.coords)) - .1;
 	l.brightness *= sample_shadows(hit_args, s, l);
 	return (iluminate(c, info.hit_info->hit_obj.color, l));
 }
@@ -107,5 +111,6 @@ t_color	get_sky_color(t_camera camera, size_t pixel_y)
 	out = 0xFF154f8c;
 	to_add = (255 - (out & 255)) * pixel_y / (t_data)camera.height / 1.8;
 	out += (to_add << 16) + (to_add << 8) + to_add;
-	return (out);
+	//return (out);
+	return (0xFF021d28);
 }

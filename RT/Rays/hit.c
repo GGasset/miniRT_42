@@ -30,8 +30,47 @@ t_ray	get_bounce(t_hit_args info)
 	return (out);
 }
 
+static t_light	sample_bounces(t_hit_args hit, t_data reflect, t_render_data *d)
+{
+	t_hit_args	args;
+	t_hit_info	info;
+	t_ray		bounces[2];
+	size_t		n_samples;
+	t_light		out;
+
+	ft_bzero(&args, sizeof(t_hit_args));
+	ft_bzero(&info, sizeof(t_hit_info));
+	args.distance_range.min = 1e4;
+	args.distance_range.min = 1e-3;
+	args.hit_info = &info;
+	bounces[0] = get_bounce(hit);
+	n_samples = 5;
+	while (n_samples-- > 0)
+	{
+		//bounces[1] = small_direction_shift
+	}
+	return (out);
+}
+
+static t_color	add_sun(t_color in, t_hit_args args, t_render_data *d)
+{
+	t_hit_args	check_hit;
+	t_hit_info	hit_out;
+	t_color		out;
+
+	ft_bzero(&check_hit, sizeof(t_hit_args));
+	ft_bzero(&hit_out, sizeof(t_hit_info));
+	check_hit.hit_info = &hit_out;
+	check_hit.ray.orig = args.ray.orig;
+	check_hit.ray.direct = norm(vec_sust(d->scene.light.coords, args.ray.orig));
+	check_hit.distance_range.max = MAX_RANGE;
+	check_hit.distance_range.min = 1E-3;
+	//heck_hit.
+}
+
 static t_color	bounce(t_render_data *d, size_t i, t_hit_args hit, t_color in)
 {
+	t_data		reflectiveness;
 	t_hit_args	hit_args;
 	t_hit_info	hit_info;
 	t_light		bounce_light;
@@ -41,13 +80,15 @@ static t_color	bounce(t_render_data *d, size_t i, t_hit_args hit, t_color in)
 		return (0);
 	ft_bzero(&hit_args, sizeof(t_hit_args));
     ft_bzero(&hit_info, sizeof(t_hit_info));
-	hit_args.distance_range.max = 10000;
+	hit_args.distance_range.max = MAX_RANGE;
 	hit_args.distance_range.min = 1E-3;
     hit_args.hit_info = &hit_info;
 	hit_args.ray = get_bounce(hit);
 	if (!world_hit(d->scene.objects, hit_args))
 		return (in);
-	bounce_light.brightness = (10 - hit_info.distance) / 10;
+	reflectiveness = .4;
+	bounce_light.brightness = (10 - hit_info.distance) / 10 * reflectiveness;
+	bounce_light.brightness /= !i + (i + 1) * (i + 1);
 	bounce_light.color = world_get_color(d, ++i, 0, get_bounce(hit));
 	out = iluminate(in, hit.hit_info->hit_obj.color, bounce_light);
 	return (out);
@@ -65,11 +106,11 @@ int	world_get_color(t_render_data *d, size_t i, size_t pixel_i, t_ray ray)
 	scene = d->scene;
     ft_bzero(&hit_args, sizeof(t_hit_args));
     ft_bzero(&hit_info, sizeof(t_hit_info));
-	hit_args.distance_range.max = 1E4;
+	hit_args.distance_range.max = MAX_RANGE;
 	hit_args.distance_range.min = 1E-3;
     hit_args.hit_info = &hit_info;
 	hit_args.ray = ray;
-	out = get_sky_color(d->scene.camera, pixel_i / d->scene.camera.height);
+	out = (0xFF021d28);
 	out *= !i;
 	if (world_hit(d->scene.objects, hit_args))
 	{

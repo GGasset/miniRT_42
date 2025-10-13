@@ -62,12 +62,10 @@ static int	calculate_cylinder(t_hit_args args, t_hit_info *out_data)
 	if (sqrt_in < 0)
 		return (0);
 	quadratic(&out_data->distance, args, sqrt_in);
-	t = dot(args.object.rotation, vec_sum(vec_smul(args.ray.direct, out_data->distance), args.object.coords));
-	//t = dot(args.object.rotation, vec_sust(vec_smul(args.ray.direct, out_data->distance), vec_sust(args.object.coords, args.ray.orig)));
-	
+	out_data->p = vec_sum(args.ray.orig, vec_smul(args.ray.direct, out_data->distance));
+	t = dot(args.object.rotation, vec_sust(out_data->p, vec_sust(args.object.coords, args.ray.orig)));
 	if (t < 0 || t > args.object.sizes.vs[1])
 		return (0);
-	out_data->p = vec_sum(args.ray.orig, vec_smul(args.ray.direct, out_data->distance));
 	out_data->did_hit = 1;
 	tmp = vec_smul(args.object.rotation, -t);
 	tmp = vec_sum(tmp, vec_smul(args.ray.direct, out_data->distance));
@@ -92,8 +90,6 @@ static int	calculate_caps(t_hit_args args, t_hit_info *out, int is_end_cap)
 	d = dot(args.object.rotation, c)
 		/ dot(args.object.rotation, args.ray.direct);
 	nd = vec_smul(args.ray.direct, d);
-	if (fabs(dot(vec_sust(nd, c), args.object.rotation)) < 1E-6)
-		return (0);
 	if (dot(vec_sust(nd, c), vec_sust(nd, c)) >= r * r)
 		return (0);
 	out->did_hit = 1;
@@ -123,9 +119,8 @@ int	hit_cylinder(t_hit_args args)
 	i = 0;
 	while (i < 3)
 	{
-		is_closer = tmp[i].did_hit && tmp[i].did_hit > args.distance_range.min;
-		is_closer = is_closer && (tmp[i].distance < closest_hit.distance);
-		if (is_closer)
+		is_closer = tmp[i].did_hit && tmp[i].distance > args.distance_range.min;
+		if (is_closer && (tmp[i].distance < closest_hit.distance))
 			closest_hit = tmp[i];
 		i++;
 	}
