@@ -25,7 +25,7 @@ int	hit_plane(t_hit_args args)
 	t_object	obj;
 
 	obj = args.object;
-	numerator = dot(obj.rotation, vec_sust(args.ray.orig, obj.coords));
+	numerator = dot(obj.rotation, vec_sust(obj.coords, args.ray.orig));
 	denominator = dot(obj.rotation, args.ray.direct);
 	//printf("num: %lf  demon: %lf\n", numerator, denominator);
 

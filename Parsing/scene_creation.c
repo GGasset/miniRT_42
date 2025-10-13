@@ -16,6 +16,20 @@
 #include "../../libft/libft.h"
 #include <stdio.h>
 
+int is_empty(char *fline)
+{
+	int i;
+
+	i = 0;
+	while (fline[i])
+	{
+		if (!ft_isspace(fline[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	fill_dispatcher(t_scene *s, char *line)
 {
 	char	**formatted_line;
@@ -23,6 +37,8 @@ int	fill_dispatcher(t_scene *s, char *line)
 	formatted_line = format_line(line);
 	if (!formatted_line)
 		return (0);
+	if (is_empty(formatted_line[0]))
+		return (1);
 	if (!ft_strcmp(formatted_line[0], "A"))
 		fill_ambient_ligth(&s->ambient_light, formatted_line + 1);
 	else if (!ft_strcmp(formatted_line[0], "L"))
