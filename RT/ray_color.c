@@ -45,15 +45,18 @@ static t_data	sample_shadows(t_hit_args ray, t_scene s, t_light l)
 
 static t_data	reflect_multiplier(t_hit_args args, t_ray r, t_light l)
 {
+	t_data	refl_coeff;
 	t_vec3	light_direction;
 	t_vec3	bounced_ray_dir;
 	t_vec3	tmp;
 	t_data	out;
-	
+
+	refl_coeff = .4;
 	light_direction = norm(vec_sust(l.coords, args.hit_info->p));
 	tmp = norm(args.hit_info->normal);
 	bounced_ray_dir = get_bounce(args).direct;
-	out = fabs(vec_angle(bounced_ray_dir, light_direction) / 135);
+	out = fabs(vec_angle(bounced_ray_dir, light_direction) / 90) * refl_coeff;
+	out += fabs(vec_angle(tmp, light_direction) / 135) * (1 - refl_coeff);
 	return (1 - out);
 }
 
