@@ -29,6 +29,9 @@
 # ifndef MAX_BOUNCES
 #  define MAX_BOUNCES 2
 # endif
+# ifndef MAX_RANGE
+#  define MAX_RANGE 10000
+#endif
 
 typedef struct s_res
 {

@@ -64,7 +64,7 @@ static t_color	bounce(t_render_data *d, size_t i, t_hit_args hit, t_color in)
 		return (0);
 	ft_bzero(&hit_args, sizeof(t_hit_args));
     ft_bzero(&hit_info, sizeof(t_hit_info));
-	hit_args.distance_range.max = 10000;
+	hit_args.distance_range.max = MAX_RANGE;
 	hit_args.distance_range.min = 1E-3;
     hit_args.hit_info = &hit_info;
 	hit_args.ray = get_bounce(hit);
@@ -90,7 +90,7 @@ int	world_get_color(t_render_data *d, size_t i, size_t pixel_i, t_ray ray)
 	scene = d->scene;
     ft_bzero(&hit_args, sizeof(t_hit_args));
     ft_bzero(&hit_info, sizeof(t_hit_info));
-	hit_args.distance_range.max = 1E4;
+	hit_args.distance_range.max = MAX_RANGE;
 	hit_args.distance_range.min = 1E-3;
     hit_args.hit_info = &hit_info;
 	hit_args.ray = ray;
