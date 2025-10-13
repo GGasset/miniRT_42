@@ -53,7 +53,7 @@ static t_data	reflect_multiplier(t_hit_args args, t_ray r, t_light l)
 	light_direction = norm(vec_sust(l.coords, args.hit_info->p));
 	tmp = norm(args.hit_info->normal);
 	bounced_ray_dir = get_bounce(args).direct;
-	out = fabs(vec_angle(bounced_ray_dir, light_direction) / 180);
+	out = fabs(vec_angle(bounced_ray_dir, light_direction) / 135);
 	return (1 - out);
 }
 
