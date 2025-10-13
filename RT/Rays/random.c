@@ -24,6 +24,17 @@ int	xorshift32()
 	return (x);
 }
 
+t_data	rand_fract(int include_negative)
+{
+	t_data	out;
+
+	out = xorshift32() % (int)1E5;
+	out = out / 1E5;
+	if (include_negative)
+		out = out * 2 - 1;
+	return (out);
+}
+
 t_vec3	rand_vec3(int range, t_data out_divider)
 {
 	t_vec3	rotation;

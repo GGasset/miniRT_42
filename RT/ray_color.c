@@ -57,6 +57,7 @@ static t_data	reflect_multiplier(t_hit_args args, t_ray r, t_light l)
 	bounced_ray_dir = get_bounce(args).direct;
 	out = fabs(vec_angle(bounced_ray_dir, light_direction) / 90) * refl_coeff;
 	out += fabs(vec_angle(tmp, light_direction) / 135) * (1 - refl_coeff);
+	out += rand_fract(TRUE) * .0103125;
 	return (1 - out);
 }
 
