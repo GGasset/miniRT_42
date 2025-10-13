@@ -42,6 +42,7 @@ static t_vec3	get_pixel0_pos(t_camera c, t_vec3 delta[2])
 	t_vec3	upper_left;
 	t_vec3	upper_left_pixel_pos;
 
+	c.rotation = norm(c.rotation);
 	get_viewport(c, viewport);
 	delta[0] = vec_sdiv(viewport[0], c.width);
 	delta[1] = vec_sdiv(viewport[1], c.height);
@@ -62,7 +63,6 @@ static t_ray	assemble_ray(t_camera camera, t_vec3 pixel_center)
 
 	out = ray(camera.camera_pos, vec_sust(pixel_center, camera.camera_pos));
 	degrees = get_angles(vec3(0, 0, -1), norm(camera.rotation));
-	degrees.vs[0] = 0;
 	out.direct = norm(rotate(out.direct, degrees));
 	return (out);
 }
