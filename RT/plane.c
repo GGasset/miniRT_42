@@ -25,7 +25,7 @@ int	hit_plane(t_hit_args args)
 	t_object	obj;
 
 	obj = args.object;
-	numerator = dot(obj.rotation, vec_sust(args.ray.orig, obj.coords));
+	numerator = dot(obj.rotation, vec_sust(obj.coords, args.ray.orig));
 	denominator = dot(obj.rotation, args.ray.direct);
 	//printf("num: %lf  demon: %lf\n", numerator, denominator);
 
@@ -40,6 +40,8 @@ int	hit_plane(t_hit_args args)
 		// args->hit_info->distance = modulus(args->hit_info->p); //Mal
 		args.hit_info->distance = t;
 		args.hit_info->normal = obj.rotation;
+		if (vec_angle(args.ray.direct, args.hit_info->normal) < 90)
+			args.hit_info->normal = vec_smul(args.hit_info->normal, -1);
 	}
 	return (args.hit_info->did_hit);
 }
