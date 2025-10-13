@@ -62,12 +62,10 @@ static int	calculate_cylinder(t_hit_args args, t_hit_info *out_data)
 	if (sqrt_in < 0)
 		return (0);
 	quadratic(&out_data->distance, args, sqrt_in);
-	t = dot(args.object.rotation, vec_sum(vec_smul(args.ray.direct, out_data->distance), args.object.coords));
-	//t = dot(args.object.rotation, vec_sust(vec_smul(args.ray.direct, out_data->distance), vec_sust(args.object.coords, args.ray.orig)));
-	
+	out_data->p = vec_sum(args.ray.orig, vec_smul(args.ray.direct, out_data->distance));
+	t = dot(args.object.rotation, vec_sust(out_data->p, vec_sust(args.object.coords, args.ray.orig)));
 	if (t < 0 || t > args.object.sizes.vs[1])
 		return (0);
-	out_data->p = vec_sum(args.ray.orig, vec_smul(args.ray.direct, out_data->distance));
 	out_data->did_hit = 1;
 	tmp = vec_smul(args.object.rotation, -t);
 	tmp = vec_sum(tmp, vec_smul(args.ray.direct, out_data->distance));
