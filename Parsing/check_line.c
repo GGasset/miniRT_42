@@ -12,6 +12,16 @@
 
 #include "parsing.h"
 
+static int check_counter(char first_char, t_object_counter *counter)
+{
+	counter->n_a += first_char == 'A';
+	counter->n_c += first_char == 'C';
+	counter->n_l += first_char == 'L';
+	if (counter->n_a > 1 || counter->n_c > 1 || counter->n_l > 1)
+		return ((printf("Error\nMultiple definitions of a property\n"), 0));
+	return (1);
+}
+
 static int	check_property(char *line, t_object_counter *counter)
 {
 	size_t	i;
@@ -36,12 +46,7 @@ static int	check_property(char *line, t_object_counter *counter)
 			return (0);
 	if (!counter)
 		return (1);
-	counter->n_a += *line == 'A';
-	counter->n_c += *line == 'C';
-	counter->n_l += *line == 'L';
-	if (counter->n_a > 1 || counter->n_c > 1 || counter->n_l > 1)
-		return ((printf("Error\nMultiple definitions of a property\n"), 0));
-	return (1);
+	return (check_counter(*line, counter));
 }
 
 static int	check_object(char *line)
@@ -70,7 +75,6 @@ static int	check_object(char *line)
 int	check_router(char *line, t_object_counter *counter)
 {
 	char	c;
-	size_t	i;
 
 	if (!line)
 		return (0);
