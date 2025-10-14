@@ -89,12 +89,12 @@ static t_color	bounce(t_render_data *d, size_t i, t_hit_args hit, t_color in)
 	reflectiveness = .4;
 	bounce_light.brightness = (10 - hit_info.distance) / 10 * reflectiveness;
 	bounce_light.brightness /= !i + (i + 1) * (i + 1);
-	bounce_light.color = world_get_color(d, ++i, 0, get_bounce(hit));
+	bounce_light.color = world_get_color(d, ++i, get_bounce(hit));
 	out = iluminate(in, hit.hit_info->hit_obj.color, bounce_light);
 	return (out);
 }
 
-int	world_get_color(t_render_data *d, size_t i, size_t pixel_i, t_ray ray)
+int	world_get_color(t_render_data *d, size_t i, t_ray ray)
 {
 	t_scene		scene;
     t_hit_args  hit_args;
