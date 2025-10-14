@@ -147,11 +147,6 @@ t_data	modulus(t_vec3 vec)
                  + z(vec) * z(vec)));
 }
 
-t_data	theta(t_vec3 a, t_vec3 b)
-{
-    return (acos((dot(a, b) / (modulus(a) * modulus(b)))));
-}
-
 t_vec3	n_unitary(t_vec3 a, t_vec3 b)
 {
     t_vec3 out;
@@ -164,7 +159,7 @@ t_vec3	n_unitary(t_vec3 a, t_vec3 b)
 
 t_vec3	cross_product(t_vec3 a, t_vec3 b)
 {
-    t_data tt = theta(a, b);
+    t_data tt = vec_angle(a, b);
 
     return (vec_smul(n_unitary(a, b), modulus(a) * modulus(b) * sin(tt)));
 }

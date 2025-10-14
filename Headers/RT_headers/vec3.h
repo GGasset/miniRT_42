@@ -63,7 +63,6 @@ t_vec3  vec_smul(t_vec3 v1, t_data factor);
 t_data  dot(t_vec3 v1, t_vec3 v2);
 t_vec3  norm(t_vec3 v);
 t_data	modulus(t_vec3 vec);
-t_data	theta(t_vec3 a, t_vec3 b);
 t_vec3	n_unitary(t_vec3 a, t_vec3 b);
 t_vec3	cross_product(t_vec3 a, t_vec3 b);
 t_data	vec_angle(t_vec3 a, t_vec3 b);
