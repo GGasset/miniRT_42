@@ -54,18 +54,31 @@ static t_light	sample_bounces(t_hit_args hit, t_data reflect, t_render_data *d)
 
 static t_color	add_sun(t_color in, t_hit_args args, t_render_data *d)
 {
+	t_vec3		ray_to_light;
 	t_hit_args	check_hit;
 	t_hit_info	hit_out;
-	t_color		out;
+	t_light		light;
+	t_vec3		light_dir;
 
 	ft_bzero(&check_hit, sizeof(t_hit_args));
 	ft_bzero(&hit_out, sizeof(t_hit_info));
 	check_hit.hit_info = &hit_out;
+	ray_to_light = vec_sust(d->scene.light.coords, args.ray.orig);
 	check_hit.ray.orig = args.ray.orig;
-	check_hit.ray.direct = norm(vec_sust(d->scene.light.coords, args.ray.orig));
-	check_hit.distance_range.max = MAX_RANGE;
+	check_hit.ray.direct = norm(ray_to_light);
+	check_hit.distance_range.max = modulus(ray_to_light);
 	check_hit.distance_range.min = 1E-3;
-	//heck_hit.
+	if (world_hit(d->scene.objects, check_hit))
+		return (in);
+	light.color = 0xfff159;
+	light_dir = norm(vec_sust(d->scene.light.coords, args.ray.orig));
+	light.brightness = 1 - fabs(vec_angle(args.ray.direct, light_dir) / 5);
+	//if (light.brightness > 0)
+	//	printf("%f\n", light.brightness);
+	//if (light.brightness >= 0)
+	//	return (0xFFffFFff);
+		//return (0xFFfff159);
+	return (iluminate(in, 0xFFffFFff, light));
 }
 
 static t_color	bounce(t_render_data *d, size_t i, t_hit_args hit, t_color in)
@@ -119,6 +132,7 @@ int	world_get_color(t_render_data *d, size_t i, t_ray ray)
 		out = point_ilum(out, hit_args, scene, scene.light, ray);
 		out = bounce(d, i, hit_args, out);
 	}
+	out = add_sun(out, hit_args, d);
 	return (out);
 }
 
