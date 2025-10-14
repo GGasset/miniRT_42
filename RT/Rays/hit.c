@@ -72,7 +72,7 @@ static t_color	add_sun(t_color in, t_hit_args args, t_render_data *d)
 		return (in);
 	light.color = 0xfff159;
 	light_dir = norm(vec_sust(d->scene.light.coords, args.ray.orig));
-	light.brightness = .6 - fabs(vec_angle(args.ray.direct, light_dir) / 2.5);
+	light.brightness = .2 - fabs(vec_angle(args.ray.direct, light_dir) / 7);
 	return (iluminate(in, 0xFFffFFff, light));
 }
 
