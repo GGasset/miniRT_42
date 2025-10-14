@@ -43,7 +43,7 @@ static t_data	sample_shadows(t_hit_args ray, t_scene s, t_light l)
 	return (1 - (t_data)n_hits / n_samples);
 }
 
-static t_data	reflect_multiplier(t_hit_args args, t_ray r, t_light l)
+static t_data	reflect_multiplier(t_hit_args args, t_light l)
 {
 	t_data	refl_coeff;
 	t_vec3	light_direction;
@@ -71,7 +71,7 @@ t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
 	ft_bzero(&hit_args, sizeof(t_hit_args));
 	light_direction = norm(vec_sust(l.coords, info.hit_info->p));
 	//l.brightness *= 1 - info.hit_info->distance / 20;
-	l.brightness *= reflect_multiplier(info, r, l);
+	l.brightness *= reflect_multiplier(info, l);
 
 	hit_args.hit_info = &hit_info;
 	hit_args.ray.orig = l.coords;
