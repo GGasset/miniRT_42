@@ -51,7 +51,7 @@ int	render(t_render_data *render_d)
     {
 		ray = create_ray(render_d->scene.camera, i);
 		// printf("i: %zu  ray orig: %lf  direct: %lf\n",i,  y(ray.orig), y(ray.direct));
-		((int *)render_d->img.addr)[i] = world_get_color(render_d, 0, i, ray);
+		((int *)render_d->img.addr)[i] = world_get_color(render_d, 0, ray);
         i++;
 		print_loading_bar(i, pixel_count);
 	}
