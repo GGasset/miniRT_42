@@ -6,7 +6,7 @@
 /*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:20:03 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/07/22 18:57:57 by alvaro           ###   ########.fr       */
+/*   Updated: 2025/10/14 18:44:36 by alvaro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "libft.h"
 # include <stddef.h>
 # include <math.h>
+#include <stdarg.h>
+
 
 typedef double			t_data;
 
@@ -76,5 +78,6 @@ t_vec3	rotate(t_vec3 input, t_vec3 degrees);
 t_vec3	rand_vec3(int range, t_data out_divider);
 int		xorshift32();
 t_vec3	small_direction_shift(t_rotation to_rotate);
+t_vec3 ft_vecop(int n_ops, ...);
 
 #endif
