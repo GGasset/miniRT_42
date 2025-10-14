@@ -37,7 +37,8 @@ static void get_viewport(t_camera cam, t_vec3 viewport[2])
 	viewport_height = viewport_width / aspect_ratio;
 	u = norm(cross_product(vec3(0, 1, 0), cam.rotation));
 	viewport[0] = vec_smul(u, viewport_width);
-	viewport[1] = vec_smul(vec_smul(cross_product(cam.rotation, u), -1), viewport_height);
+	viewport[1] = vec_smul(cross_product(cam.rotation, u), -1);
+	viewport[1] = vec_smul(viewport[1], viewport_height);
 }
 
 static t_vec3	get_pixel0_pos(t_camera c, t_vec3 delta[2])
@@ -61,7 +62,6 @@ static t_vec3	get_pixel0_pos(t_camera c, t_vec3 delta[2])
 static t_ray	assemble_ray(t_camera camera, t_vec3 pixel_center)
 {
 	t_ray		out;
-	t_rotation	degrees;
 
 	out = ray(camera.camera_pos, vec_sust(pixel_center, camera.camera_pos));
 	return (out);
