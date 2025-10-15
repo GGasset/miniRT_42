@@ -70,7 +70,7 @@ static t_color	add_sun(t_color in, t_hit_args args, t_render_data *d)
 	check_hit.distance_range.min = 1E-3;
 	if (world_hit(d->scene.objects, check_hit))
 		return (in);
-	light.color = 0xfff159;
+	light.color = d->scene.light.color;
 	light_dir = norm(vec_sust(d->scene.light.coords, args.ray.orig));
 	light.brightness = .2 - fabs(vec_angle(args.ray.direct, light_dir) / 7);
 	return (iluminate(in, 0xFFffFFff, light));
