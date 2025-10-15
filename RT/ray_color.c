@@ -16,33 +16,6 @@
 #include "libft.h"
 #include "stdio.h"
 
-static t_data	sample_shadows(t_hit_args ray, t_scene s, t_light l)
-{
-	t_hit_args	args_copy;
-	size_t		n_hits;
-	size_t		n_samples;
-	size_t		i;
-	t_vec3		p_l;
-
-	n_samples = 3;
-	n_hits = 0;
-	p_l = vec_sust(ray.hit_info->p, l.coords);
-	i = 0;
-	while (i < n_samples)
-	{
-		args_copy = ray;
-		args_copy.ray.direct =
-			norm(rotate(ray.ray.direct, rand_vec3(5e2, 1e5)));
-		if (world_hit(s.objects, args_copy))
-		{
-			if (fabs(args_copy.hit_info->distance - modulus(p_l)) > .1)
-				n_hits++;
-		}
-		i++;
-	}
-	return (1 - (t_data)n_hits / n_samples);
-}
-
 static t_data	reflect_multiplier(t_hit_args args, t_light l)
 {
 	t_data	refl_coeff;
@@ -74,10 +47,11 @@ t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
 
 	hit_args.hit_info = &hit_info;
 	hit_args.ray.orig = l.coords;
-	hit_args.ray.direct = vec_sust(info.hit_info->p, l.coords);
+	hit_args.ray.direct = norm(vec_sust(info.hit_info->p, l.coords));
 	hit_args.distance_range.min = 0.1;
-	hit_args.distance_range.max = modulus(vec_sust(info.hit_info->p, l.coords)) - .1;
-	l.brightness *= sample_shadows(hit_args, s, l);
+	hit_args.distance_range.max =
+		modulus(vec_sust(info.hit_info->p, l.coords)) - .1;
+	l.brightness *= !world_hit(s.objects, hit_args);
 	return (iluminate(c, info.hit_info->hit_obj.color, l));
 }
 
