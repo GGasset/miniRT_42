@@ -118,7 +118,7 @@ int	world_get_color(t_render_data *d, size_t i, t_ray ray)
 	hit_args.distance_range.min = 1E-3;
     hit_args.hit_info = &hit_info;
 	hit_args.ray = ray;
-	out = (0xFF021d28);
+	out = SKY_COLOR;
 	out *= !i;
 	if (world_hit(d->scene.objects, hit_args))
 	{
