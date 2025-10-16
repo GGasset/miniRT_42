@@ -25,5 +25,6 @@ typedef struct t_object_counter
 
 int	expect_vec3(char *line, size_t *i, t_interval range);
 int	expect_number(char *line, size_t *i, t_interval range, int expect_space);
+int	check_router(char *line, t_object_counter *counter);
 
 #endif
