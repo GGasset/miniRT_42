@@ -1,93 +1,69 @@
 #include "libft.h"
 #include "minilibx_funcs.h"
+#include "parsing.h"
+
 #include <stdio.h>
 
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
 
-char    *strjoin_and_free(char *s1, char *s2)
+static char	**read_lines(int fd)
 {
-	char    *joined;
-	int             i;
-	size_t  j;
+	char	**out;
+	char	*buff;
+	char	tmp[2];
 
-	joined = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!joined)
-			return (NULL);
+	ft_bzero(tmp, 2);
+	buff = 0;
+	if (read(fd, tmp, 0) == -1)
+		return (0);
+	while (read(fd, tmp, 1) > 0)
+		buff = ft_strjoin_free(buff, tmp, TRUE, FALSE);
+	out = ft_split(buff, '\n');
+	free(buff);
+	return (out);
+}
+
+static int	parse(int argc, char **argv, t_render_data *d)
+{
+	char				**lines;
+	int					fd;
+	size_t				i;
+	t_object_counter	counter;
+
+	ft_bzero(&counter, sizeof(t_object_counter));
+	if (argc != 2)
+		return (printf("Usage:\n./miniRT map_path\n"), 1);
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		return (printf("Could not open file %s\n", argv[1]), 1);
+	lines = read_lines(fd);
+	if (!lines)
+		return (printf("Empty file err\n"), 1);
 	i = 0;
-	j = 0;
-	while (s1 && s1[j])
-			joined[i++] = s1[j++];
-	j = 0;
-	while (s2 && s2[j])
-			joined[i++] = s2[j++];
-	joined[i] = '\0';
-	free(s1);
-	return (joined);
+	while (lines[i])
+		if (!check_router(lines[i++], &counter))
+			return (ft_free_splitted(lines), 1);
+	i = 0;
+	while (lines[i])
+		fill_dispatcher(&d->scene, lines[i++]);
+	ft_free_splitted(lines);
+	return (0);
 }
 
-char    *get_next_line(int fd)
-{
-	static char     buffer[1];
-	static int      buffer_read = 0;
-	static int      buffer_pos = 0;
-	char            *line;
-	char            temp[2];
-
-	line = NULL;
-	if (fd < 0 || 1 <= 0)
-			return (NULL);
-	while (1)
-	{
-		if (buffer_pos >= buffer_read)
-		{
-			buffer_read = read(fd, buffer, 1);
-			buffer_pos = 0;
-			if (buffer_read <= 0)
-				break ;
-		}
-		temp[0] = buffer[buffer_pos++];
-		temp[1] = '\0';
-		line = strjoin_and_free(line, temp);
-		if (temp[0] == '\n')
-			break ;
-	}
-	return (line);
-}
-
-int main()
+int main(int argc, char **argv)
 {
 	t_render_data	render_d;
-	// Setup
 
 	ft_bzero(&render_d, sizeof(t_render_data));
+	if (parse(argc, argv, &render_d))
+		return (0);
 	render_d.mlx = mlx_init();
 	if (!render_d.mlx)
 		return (1);
 	render_d.img.res.x = WINDOW_WIDTH;
 	render_d.img.res.y = WINDOW_WIDTH * ASPECT_RATIO;
-
-	// Parsing
-	int fd;
-	fd = open("map.rt", O_RDONLY);
-	if (fd == -1)
-		return (1);
-	char *line;
-	while (1)	
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		printf("line: %s\n", line);
-		fill_dispatcher(&render_d.scene, line);
-		free(line);
-		line = NULL;
-	}
-	print_t_scene(render_d.scene);
-
-	// Execution
-
 	render_d.scene.camera.width = render_d.img.res.x;
 	render_d.scene.camera.height = render_d.img.res.y;
 	render_d.win = mlx_new_window(render_d.mlx, render_d.img.res.x,
@@ -95,7 +71,6 @@ int main()
 	if (!render_d.win)
 		return (free_mlx(render_d.mlx));
 	render_loop(&render_d);
-	printf("Delete in future, exited loop.");
 	free_render_data(&render_d);
 	return (0);
 }
