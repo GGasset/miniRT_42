@@ -27,6 +27,8 @@ static int	check_property(char *line, t_object_counter *counter)
 	size_t	i;
 
 	i = 1;
+	if (*line != 'A' && *line != 'C' && *line != 'L')
+		return (1);
 	if (!ft_isspace(line[i]))
 		return ((printf("Error\nInvalid object id\n"), 0));
 	if (*line == 'A')
@@ -54,6 +56,8 @@ static int	check_object(char *line)
 	size_t	i;
 
 	i = 2;
+	if (*line != 's' && *line != 'p' && *line != 'c')
+		return (1);
 	if (!ft_isspace(line[i]))
 		return ((printf("Error\nInvalid object id\n"), 0));
 	if (!expect_vec3(line, &i, interval(-1E30, 1E30)))
@@ -81,12 +85,14 @@ int	check_router(char *line, t_object_counter *counter)
 	while (ft_isspace(*line))
 		line++;
 	c = *line;
+	if (c == '#')
+		return (1);
 	if (c != 'A' && c != 'C' && c != 'L' && c != 's' && c != 'p' && c != 'c')
 		return ((printf("Error\nInvalid object id\n%s\n", line), 0));
 	if ((c == 's' && line[1] != 'p') || (c == 'p' && line[1] != 'l')
 		|| (c == 'c' && line[1] != 'y'))
 		return ((printf("Error\nInvalid object id\n%s\n", line), 0));
 	if (!check_property(line, counter) || !check_object(line))
-		return (printf("In line %s\n", line));
+		return (printf("In line %s\n", line), 0);
 	return (1);
 }
