@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main2.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ggasset- <ggasset-@student.42.fr>          #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025-10-16 16:01:14 by ggasset-          #+#    #+#             */
+/*   Updated: 2025-10-16 16:01:14 by ggasset-         ###   ########student.  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "minilibx_funcs.h"
 #include "parsing.h"
@@ -7,6 +19,16 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
+
+#define USF "%s %s %s %s %s %s %s%s"
+#define USAGE "Usage:\n./miniRT map_path\n"
+#define L "\tL pos(x,y,z) brightness[0,1](x) color[0,255](r,g,b)\n"
+#define A "\tA brightness[0,1](x) color[0,255](r,g,b)\n"
+#define C "\tC pos(x,y,z) norm_direction[-1,1](x,y,z) FOV[0,180](x)\n"
+#define PL "\tpl pos(x,y,z) norm_direct[-1,1](x,y,z) color[0,255](r,g,b)\n"
+#define SP "\tsp pos(x,y,z) size[0,∞](x) color[0,255](r,g,b)\n"
+#define CY "\tcy pos(x,y,z) norm_dir[-1,1](x,y,z) diameter[0,∞](x)"
+#define CY1 "height[0,∞](x) color[0,255](r,g,b)\n"
 
 static char	**read_lines(int fd)
 {
@@ -34,7 +56,7 @@ static int	parse(int argc, char **argv, t_render_data *d)
 
 	ft_bzero(&counter, sizeof(t_object_counter));
 	if (argc != 2)
-		return (printf("Usage:\n./miniRT map_path\n"), 1);
+		return (printf(USF, USAGE, L, A, C, PL, SP, CY, CY1), 1);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (printf("Could not open file %s\n", argv[1]), 1);
