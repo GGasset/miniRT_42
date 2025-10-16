@@ -12,19 +12,6 @@
 
 #include "libft.h"
 
-static size_t	nbr_len(int nbr)
-{
-	size_t	i;
-
-	i = 0;
-	while (nbr)
-	{
-		nbr /= 10;
-		i++;
-	}
-	return (i);
-}
-
 static size_t	count_dup_zeros(char *str)
 {
 	size_t	i;
@@ -40,20 +27,27 @@ static size_t	count_dup_zeros(char *str)
 static double	after_dot(char *dot_pos)
 {
 	double	out;
+	int		out_cpy;
 	size_t	nbr_l;
 
 	out = 0;
-	if (dot_pos)
+	if (!dot_pos)
+		return (0);
+	out = ft_atoi(dot_pos + 1);
+	out_cpy = (int)out;
+	nbr_l = 0;
+	while (out_cpy)
 	{
-		out = ft_atoi(dot_pos + 1);
-		nbr_l = nbr_len((int)out) + count_dup_zeros(dot_pos + 1);
-		while (nbr_l)
-		{
-			out /= 10;
-			nbr_l--;
-		}
-		*dot_pos = 0;
+		out_cpy /= 10;
+		nbr_l++;
 	}
+	nbr_l += count_dup_zeros(dot_pos + 1);
+	while (nbr_l)
+	{
+		out /= 10;
+		nbr_l--;
+	}
+	*dot_pos = 0;
 	return (out);
 }
 
@@ -70,7 +64,7 @@ static double	under_dot(double f, char *str)
 	return (tmp);
 }
 
-double	ft_atod_s(char *str, int *error)
+static double	inner_atod(char *str, int *error)
 {
 	size_t	i;
 	char	*dot_pos;
@@ -94,5 +88,24 @@ double	ft_atod_s(char *str, int *error)
 	out = after_dot(dot_pos);
 	out = under_dot(out, str);
 	free(str);
+	return (out);
+}
+
+double	ft_atod_s(char *str, int *error)
+{
+	char	*trimmed_str;
+	char	tmp[2];
+	double	out;
+
+	ft_bzero(tmp, 2);
+	trimmed_str = 0;
+	while (ft_isdigit(*str) || *str == '.' || *str == '-')
+	{
+		tmp[0] = *str;
+		trimmed_str = ft_strjoin_free(trimmed_str, tmp, TRUE, FALSE);
+		str++;
+	}
+	out = inner_atod(trimmed_str, error);
+	free(trimmed_str);
 	return (out);
 }
