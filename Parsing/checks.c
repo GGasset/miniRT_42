@@ -14,7 +14,7 @@
 
 static int	is_valid_nbr_char(char c)
 {
-	return ((ft_isalnum(c) && !ft_isalpha(c)) || c == '.');
+	return ((ft_isalnum(c) && !ft_isalpha(c)) || c == '.' || c =='-');
 }
 
 int	expect_vec3(char *line, size_t *i, t_interval range)
@@ -34,6 +34,21 @@ int	expect_vec3(char *line, size_t *i, t_interval range)
 	return (1);
 }
 
+int check_nbr_err(int err, t_data nbr, t_interval range)
+{
+	if (err)
+	{
+		printf("%.2lf: Number parsing err\n", nbr);
+		return (0);
+	}
+	if (nbr > range.max + 1e-5 || nbr < range.min - 1e-5)
+	{
+		printf("%.2lf: Number out of range'\n", nbr);
+		return (0);
+	}
+	return (1);
+}
+
 int	expect_number(char *line, size_t *i, t_interval range, int expect_space)
 {
 	int		dot_count;
@@ -48,8 +63,8 @@ int	expect_number(char *line, size_t *i, t_interval range, int expect_space)
 	if (!line[*i])
 		return (printf("Error\nMissing expected number\n"), 0);
 	number = ft_atod_s(line + *i, &nbr_err);
-	if (nbr_err || number >= range.max || number <= range.min)
-		return (printf("Error\nNumber out of range\n"), 0);
+	if (!check_nbr_err(nbr_err, number, range))
+		return (0);
 	while (line[*i] && is_valid_nbr_char(line[*i]))
 	{
 		dot_count += line[*i] == '.';
