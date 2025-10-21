@@ -35,6 +35,9 @@
 # ifndef SKY_COLOR
 #  define SKY_COLOR 0xFF021d28
 # endif
+# ifndef MOVEMENT_SPD
+#  define MOVEMENT_SPD 5
+# endif
 
 typedef struct s_res
 {
