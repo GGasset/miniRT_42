@@ -67,7 +67,7 @@ static int	parse(int argc, char **argv, t_render_data *d)
 	while (lines[i])
 		if (!check_router(lines[i++], &counter))
 			return (ft_free_splitted(lines), 1);
-	if (!counter.n_a || !counter.n_c || counter.n_l)
+	if (!counter.n_a || !counter.n_c || !counter.n_l)
 		return (printf("Missing id\n"), ft_free_splitted(lines), 1);
 	i = 0;
 	while (lines[i])
