@@ -238,6 +238,54 @@ t_vec3	rotate(t_vec3 input, t_vec3 degrees)
 	vec_matrix_mult(vec3(0, 0, 1), tmp, &out, 2);
 	return (out);
 }
+
+/*
+ * Evalúa: V op V op V ... (n_ops operandos → n_ops-1 operadores)
+ * Ej.: ft_vecop(3, v1, '+', v2, '-', ft_vecop(2, v3, '*', v4))
+ *
+ * Reglas:
+ *  - Evaluación estrictamente izquierda→derecha (sin precedencia).
+ *  - Operadores soportados: '+', '-', '*'
+ *  - '*' es multiplicación componente a componente.
+ *  - Para “paréntesis” usa llamadas anidadas a ft_vecop (devuelven t_vec3).
+ */
+t_vec3 ft_vecop(int n_ops, ...)
+{
+    va_list ap;
+    t_vec3 acc;
+
+    if (n_ops <= 0) {
+        /* Devuelve (0,0,0) si no hay operandos; adapta si prefieres assert */
+        t_vec3 ret;
+        ret.vs[0] = 0.0;
+        ret.vs[1] = 0.0;
+        ret.vs[2] = 0.0;
+        return (ret);
+    }
+
+    va_start(ap, n_ops);
+
+    /* Primer operando */
+    acc = va_arg(ap, t_vec3);
+
+    for (int i = 1; i < n_ops; ++i) {
+        int op = va_arg(ap, int);      /* char → promovido a int en varargs */
+        t_vec3 rhs = va_arg(ap, t_vec3);
+
+        switch (op) {
+            case '+': acc = vec_sum(acc, rhs);      break;
+            case '-': acc = vec_sust(acc, rhs);      break;
+            default:
+                /* Operador no soportado: devuelve acumulado tal cual.
+                   Puedes cambiar a assert/abort si prefieres error duro. */
+                break;
+        }
+    }
+
+    va_end(ap);
+    return acc;
+}
+
 void test_cross_product(t_vec3 a, t_vec3 b)
 {
     t_vec3 c = cross_product(a, b);
