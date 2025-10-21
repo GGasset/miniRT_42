@@ -52,11 +52,12 @@ t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
 	l.brightness *= reflect_multiplier(info, l);
 
 	hit_args.hit_info = &hit_info;
-	hit_args.ray.orig = l.coords;
+	hit_args.ray.orig = vec_sum(l.coords,
+		vec_smul(info.hit_info->normal, EPSILON));
 	hit_args.ray.direct = norm(vec_sust(info.hit_info->p, l.coords));
-	hit_args.distance_range.min = 0.1;
+	hit_args.distance_range.min = EPSILON;
 	hit_args.distance_range.max =
-		modulus(vec_sust(info.hit_info->p, l.coords)) - .1;
+		modulus(vec_sust(info.hit_info->p, l.coords)) - EPSILON;
 	l.brightness *= !world_hit(s.objects, hit_args);
 	return (iluminate(c, info.hit_info->hit_obj.color, l));
 }
