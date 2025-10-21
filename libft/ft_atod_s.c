@@ -70,11 +70,6 @@ static double	inner_atod(char *str, int *error)
 	char	*dot_pos;
 	double	out;
 
-	if (!error)
-		return (0);
-	*error = 0;
-	if (!str)
-		return (*error = 1, 0);
 	dot_pos = ft_strchr(str, '.');
 	if (ft_strchr(dot_pos + ((size_t)dot_pos > 0), '.'))
 		return (*error = 1, 0);
@@ -97,6 +92,11 @@ double	ft_atod_s(char *str, int *error)
 	char	tmp[2];
 	double	out;
 
+	if (!error)
+		return (0);
+	*error = 0;
+	if (!str)
+		return (*error = 1, 0);
 	ft_bzero(tmp, 2);
 	trimmed_str = 0;
 	while (ft_isdigit(*str) || *str == '.' || *str == '-')
