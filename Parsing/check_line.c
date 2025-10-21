@@ -62,14 +62,14 @@ static int	check_object(char *line)
 		return ((printf("Error\nInvalid object id\n"), 0));
 	if (!expect_vec3(line, &i, interval(-1E30, 1E30)))
 		return (0);
-	if (*line == 's' && !expect_number(line, &i, interval(-1E30, 1E30), 1))
+	if (*line == 's' && !expect_number(line, &i, interval(0, 1E30), 1))
 		return (0);
 	if (*line == 'p' || *line == 'c')
 		if (!expect_vec3(line, &i, interval(-1, 1)))
 			return (0);
 	if (*line == 'c')
-		if (!expect_number(line, &i, interval(-1E30, 1E30), 1)
-			|| !expect_number(line, &i, interval(-1E30, 1E30), 1))
+		if (!expect_number(line, &i, interval(0, 1E30), 1)
+			|| !expect_number(line, &i, interval(0, 1E30), 1))
 				return (0);
 	if (!expect_vec3(line, &i, interval(0, 255)))
 		return (0);
