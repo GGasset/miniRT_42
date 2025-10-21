@@ -1,6 +1,6 @@
 
 # TODO
-solucionar bug con sombras
+Normalizacion
 
 # Parsing
 - Checkeo de errores (GG)
