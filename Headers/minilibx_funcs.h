@@ -38,6 +38,9 @@
 # ifndef MOVEMENT_SPD
 #  define MOVEMENT_SPD 5
 # endif
+# ifndef EPSILON
+#  define EPSILON 1e-5
+# endif
 
 typedef struct s_res
 {
