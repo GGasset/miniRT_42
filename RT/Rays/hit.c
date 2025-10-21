@@ -39,8 +39,7 @@ static t_light	sample_bounces(t_hit_args hit, t_data reflect, t_render_data *d)
 
 	ft_bzero(&args, sizeof(t_hit_args));
 	ft_bzero(&info, sizeof(t_hit_info));
-	args.distance_range.min = 1e4;
-	args.distance_range.min = 1e-3;
+	args.distance_range.min = EPSILON;
 	args.hit_info = &info;
 	bounces[0] = get_bounce(hit);
 	n_samples = 5;
@@ -66,7 +65,7 @@ static t_color	add_sun(t_color in, t_hit_args args, t_render_data *d)
 	check_hit.ray.orig = args.ray.orig;
 	check_hit.ray.direct = norm(ray_to_light);
 	check_hit.distance_range.max = modulus(ray_to_light);
-	check_hit.distance_range.min = 1E-3;
+	check_hit.distance_range.min = EPSILON;
 	if (world_hit(d->scene.objects, check_hit))
 		return (in);
 	light.color = d->scene.light.color;
@@ -93,7 +92,7 @@ static t_color	bounce(t_render_data *d, size_t i, t_hit_args hit, t_color in)
 	ft_bzero(&hit_args, sizeof(t_hit_args));
     ft_bzero(&hit_info, sizeof(t_hit_info));
 	hit_args.distance_range.max = MAX_RANGE;
-	hit_args.distance_range.min = 1E-3;
+	hit_args.distance_range.min = EPSILON;
     hit_args.hit_info = &hit_info;
 	hit_args.ray = get_bounce(hit);
 	if (!world_hit(d->scene.objects, hit_args))
@@ -119,7 +118,7 @@ int	world_get_color(t_render_data *d, size_t i, t_ray ray)
     ft_bzero(&hit_args, sizeof(t_hit_args));
     ft_bzero(&hit_info, sizeof(t_hit_info));
 	hit_args.distance_range.max = MAX_RANGE;
-	hit_args.distance_range.min = 1E-3;
+	hit_args.distance_range.min = EPSILON;
     hit_args.hit_info = &hit_info;
 	hit_args.ray = ray;
 	out = SKY_COLOR;
