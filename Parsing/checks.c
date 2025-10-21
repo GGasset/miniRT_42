@@ -21,12 +21,12 @@ int	expect_vec3(char *line, size_t *i, t_interval range)
 {
 	if (!expect_number(line, i, range, 0))
 		return ((printf("Number error\n"), 0));
-	if (line[*i] != ',')
+	if (line[*i] != ',' || !is_valid_nbr_char(line[*i - 1]))
 		return ((printf("Error\nExpected comma\n"), 0));
 	(*i)++;
 	if (!expect_number(line, i, range, 0))
 		return ((printf("Number error\n"), 0));
-	if (line[*i] != ',')
+	if (line[*i] != ',' || !is_valid_nbr_char(line[*i - 1]))
 		return ((printf("Error\nExpected comma\n"), 0));
 	(*i)++;
 	if (!expect_number(line, i, range, 1))
