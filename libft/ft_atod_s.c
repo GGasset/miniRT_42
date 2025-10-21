@@ -105,6 +105,8 @@ double	ft_atod_s(char *str, int *error)
 		trimmed_str = ft_strjoin_free(trimmed_str, tmp, TRUE, FALSE);
 		str++;
 	}
+	if (!trimmed_str)
+		return (*error = 1, 0);
 	out = inner_atod(trimmed_str, error);
 	free(trimmed_str);
 	return (out);
