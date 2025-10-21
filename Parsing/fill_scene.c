@@ -27,6 +27,7 @@ void	fill_camera(t_camera *cam, char **argv)
 {
 	cam->camera_pos = get_vector(*argv++);
 	cam->rotation = get_vector(*argv++);
+	cam->rotation = vec_sum(cam->rotation, vec3(1e-5, 1e-5, 1e-5));
 	cam->fov = get_scalar_size_t(*argv++);
 	cam->focal_len = 1;
 	cam->aspect_ratio = ASPECT_RATIO;
