@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "minilibx_funcs.h"
 
 static int	is_valid_nbr_char(char c)
 {
@@ -21,12 +22,12 @@ int	expect_vec3(char *line, size_t *i, t_interval range)
 {
 	if (!expect_number(line, i, range, 0))
 		return ((printf("Number error\n"), 0));
-	if (line[*i] != ',')
+	if (line[*i] != ',' || !is_valid_nbr_char(line[*i - 1]))
 		return ((printf("Error\nExpected comma\n"), 0));
 	(*i)++;
 	if (!expect_number(line, i, range, 0))
 		return ((printf("Number error\n"), 0));
-	if (line[*i] != ',')
+	if (line[*i] != ',' || !is_valid_nbr_char(line[*i - 1]))
 		return ((printf("Error\nExpected comma\n"), 0));
 	(*i)++;
 	if (!expect_number(line, i, range, 1))
@@ -41,7 +42,7 @@ int check_nbr_err(int err, t_data nbr, t_interval range)
 		printf("%.2lf: Number parsing err\n", nbr);
 		return (0);
 	}
-	if (nbr > range.max + 1e-5 || nbr < range.min - 1e-5)
+	if (nbr > range.max + EPSILON || nbr < range.min - EPSILON)
 	{
 		printf("%.2lf: Number out of range'\n", nbr);
 		return (0);
