@@ -129,7 +129,7 @@ int	world_get_color(t_render_data *d, size_t i, t_ray ray)
 		out = 0xFF000000;
 		out = iluminate(out, hit_info.hit_obj.color, scene.ambient_light);
 		out = point_ilum(out, hit_args, scene, scene.light, ray);
-		out = bounce(d, i, hit_args, out);
+		//out = bounce(d, i, hit_args, out);
 	}
 	out = add_sun(out, hit_args, d);
 	return (out);
