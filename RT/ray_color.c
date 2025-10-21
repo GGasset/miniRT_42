@@ -22,16 +22,22 @@ static t_data	reflect_multiplier(t_hit_args args, t_light l)
 	t_vec3	light_direction;
 	t_vec3	bounced_ray_dir;
 	t_vec3	tmp;
-	t_data	out;
+	t_data	out[3];
 
 	refl_coeff = .4;
 	light_direction = norm(vec_sust(l.coords, args.hit_info->p));
+	bounced_ray_dir = norm(get_bounce(args).direct);
 	tmp = norm(args.hit_info->normal);
-	bounced_ray_dir = get_bounce(args).direct;
-	out = fabs(vec_angle(bounced_ray_dir, light_direction) / 90) * refl_coeff;
-	out += fabs(vec_angle(tmp, light_direction) / 135) * (1 - refl_coeff);
-	out += rand_fract(TRUE) * .0103125;
-	return (1 - out);
+	out[0] = 0;
+	out[1] = 0;
+	out[0] = 1 - (vec_angle(bounced_ray_dir, light_direction) / (144));
+	out[0] += -out[0] * (out[0] < 0) + (1 - out[0]) * (out[0] > 1);
+	out[1] = 1 - (vec_angle(tmp, light_direction) / 90);
+	out[1] += -out[1] * (out[1] < 0) + (1 - out[1]) * (out[1] > 1);
+	out[2] = out[0] + out[1];
+	out[2] += -out[2] * (out[2] < 0) + (1 - out[2]) * (out[1] > 1);
+	out[2] += rand_fract(TRUE) * .0103125;
+	return (out[2]);
 }
 
 t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
