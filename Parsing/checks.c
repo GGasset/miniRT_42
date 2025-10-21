@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "minilibx_funcs.h"
 
 static int	is_valid_nbr_char(char c)
 {
@@ -41,7 +42,7 @@ int check_nbr_err(int err, t_data nbr, t_interval range)
 		printf("%.2lf: Number parsing err\n", nbr);
 		return (0);
 	}
-	if (nbr > range.max + 1e-5 || nbr < range.min - 1e-5)
+	if (nbr > range.max + EPSILON || nbr < range.min - EPSILON)
 	{
 		printf("%.2lf: Number out of range'\n", nbr);
 		return (0);
