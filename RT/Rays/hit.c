@@ -29,27 +29,6 @@ t_ray	get_bounce(t_hit_args info)
 	return (out);
 }
 
-static t_light	sample_bounces(t_hit_args hit, t_data reflect, t_render_data *d)
-{
-	t_hit_args	args;
-	t_hit_info	info;
-	t_ray		bounces[2];
-	size_t		n_samples;
-	t_light		out;
-
-	ft_bzero(&args, sizeof(t_hit_args));
-	ft_bzero(&info, sizeof(t_hit_info));
-	args.distance_range.min = EPSILON;
-	args.hit_info = &info;
-	bounces[0] = get_bounce(hit);
-	n_samples = 5;
-	while (n_samples-- > 0)
-	{
-		//bounces[1] = small_direction_shift
-	}
-	return (out);
-}
-
 static t_color	add_sun(t_color in, t_hit_args args, t_render_data *d)
 {
 	t_vec3		ray_to_light;
@@ -79,7 +58,7 @@ static t_color	add_sun(t_color in, t_hit_args args, t_render_data *d)
 	return (iluminate(in, 0xFFffFFff, light));
 }
 
-static t_color	bounce(t_render_data *d, size_t i, t_hit_args hit, t_color in)
+/*static t_color	bounce(t_render_data *d, size_t i, t_hit_args hit, t_color in)
 {
 	t_data		reflectiveness;
 	t_hit_args	hit_args;
@@ -103,7 +82,7 @@ static t_color	bounce(t_render_data *d, size_t i, t_hit_args hit, t_color in)
 	bounce_light.color = world_get_color(d, ++i, get_bounce(hit));
 	out = iluminate(in, hit.hit_info->hit_obj.color, bounce_light);
 	return (out);
-}
+}*/
 
 int	world_get_color(t_render_data *d, size_t i, t_ray ray)
 {
@@ -127,8 +106,7 @@ int	world_get_color(t_render_data *d, size_t i, t_ray ray)
 	{
 		out = 0xFF000000;
 		out = iluminate(out, hit_info.hit_obj.color, scene.ambient_light);
-		out = point_ilum(out, hit_args, scene, scene.light, ray);
-		//out = bounce(d, i, hit_args, out);
+		out = point_ilum(out, hit_args, scene, scene.light);
 	}
 	out = add_sun(out, hit_args, d);
 	return (out);

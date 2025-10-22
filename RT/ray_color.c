@@ -40,7 +40,7 @@ static t_data	reflect_multiplier(t_hit_args args, t_light l)
 	return (out[2]);
 }
 
-t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l, t_ray r)
+t_color	point_ilum(t_color c, t_hit_args info, t_scene s, t_light l)
 {
 	t_vec3		light_direction;
 	t_hit_info	hit_info;
