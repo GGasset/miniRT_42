@@ -1,0 +1,6 @@
+Parsing/scene_creation.c
+RT/cylinder.c
+RT/plane.c
+RT/sphere.c
+RT/vec3.c
+data_structs/darray_conversions.c

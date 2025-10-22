@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main2.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggasset- <ggasset-@student.42.fr>          #+#  +:+       +#+        */
+/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-10-16 16:01:14 by ggasset-          #+#    #+#             */
-/*   Updated: 2025-10-16 16:01:14 by ggasset-         ###   ########student.  */
+/*   Created: 2025/10/16 16:01:14 by ggasset-          #+#    #+#             */
+/*   Updated: 2025/10/22 12:46:05 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static int	check_norm(t_render_data *d)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_render_data	render_d;
 
@@ -122,7 +122,7 @@ int main(int argc, char **argv)
 	render_d.scene.camera.width = render_d.img.res.x;
 	render_d.scene.camera.height = render_d.img.res.y;
 	render_d.win = mlx_new_window(render_d.mlx, render_d.img.res.x,
-			render_d.img.res.y, "MiniRT");	
+			render_d.img.res.y, "MiniRT");
 	if (!render_d.win)
 		return (free_mlx(render_d.mlx)); // LEAK
 	render_loop(&render_d);

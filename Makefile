@@ -6,7 +6,7 @@ RT_C_FILES = $(addprefix Rays/, ${RT_RAYS_C_FILES})
 RT_C_FILES += vec3.c sphere.c plane.c cylinder.c camera_render.c ray_color.c
 C_FILES += $(addprefix ./RT/, ${RT_C_FILES})
 
-PARSING_C_FILES=checks.c check_line.c fill_scene.c scene_creation.c utils.c
+PARSING_C_FILES=checks.c check_line.c fill_scene.c fill_objects.c format_line.c scene_creation.c utils.c
 C_FILES += $(addprefix ./Parsing/, ${PARSING_C_FILES})
 
 DATA_STRUCTS_FILES=darray_conversions.c dictionary_utils.c dictionary.c dictionary2.c dynamic_array.c
