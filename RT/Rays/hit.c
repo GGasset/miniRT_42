@@ -58,32 +58,6 @@ static t_color	add_sun(t_color in, t_hit_args args, t_render_data *d)
 	return (iluminate(in, 0xFFffFFff, light));
 }
 
-/*static t_color	bounce(t_render_data *d, size_t i, t_hit_args hit, t_color in)
-{
-	t_data		reflectiveness;
-	t_hit_args	hit_args;
-	t_hit_info	hit_info;
-	t_light		bounce_light;
-	t_color		out;
-
-	if (i > MAX_BOUNCES || !d)
-		return (0);
-	ft_bzero(&hit_args, sizeof(t_hit_args));
-    ft_bzero(&hit_info, sizeof(t_hit_info));
-	hit_args.distance_range.max = MAX_RANGE;
-	hit_args.distance_range.min = EPSILON;
-    hit_args.hit_info = &hit_info;
-	hit_args.ray = get_bounce(hit);
-	if (!world_hit(d->scene.objects, hit_args))
-		return (in);
-	reflectiveness = .4;
-	bounce_light.brightness = (10 - hit_info.distance) / 10 * reflectiveness;
-	bounce_light.brightness /= !i + (i + 1) * (i + 1);
-	bounce_light.color = world_get_color(d, ++i, get_bounce(hit));
-	out = iluminate(in, hit.hit_info->hit_obj.color, bounce_light);
-	return (out);
-}*/
-
 int	world_get_color(t_render_data *d, size_t i, t_ray ray)
 {
 	t_scene		scene;
