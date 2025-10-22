@@ -3,7 +3,8 @@ C_FILES = $(addprefix ./minilibx-funcs/, ${MINILIBX_FUNCS_C_FILES})
 
 RT_RAYS_C_FILES=hit.c rays.c random.c
 RT_C_FILES = $(addprefix Rays/, ${RT_RAYS_C_FILES})
-RT_C_FILES += vec3.c sphere.c plane.c cylinder.c camera_render.c ray_color.c
+RT_C_FILES += vec3/vec3_access.c vec3/vec3_angles.c vec3/vec3.c vec3/vec3_color_interval.c \
+			  vec3/vec3_matrix.c vec3/vec3_op.c vec3/vec3_vecop.c sphere.c plane.c cylinder.c camera_render.c ray_color.c
 C_FILES += $(addprefix ./RT/, ${RT_C_FILES})
 
 PARSING_C_FILES=checks.c check_line.c fill_scene.c fill_objects.c format_line.c scene_creation.c utils.c

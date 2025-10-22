@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   darray_conversions.c                               :+:      :+:    :+:   */
+/*   vec3_access.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/22 16:50:01 by alvmoral          #+#    #+#             */
-/*   Updated: 2025/10/22 16:50:23 by alvmoral         ###   ########.fr       */
+/*   Created: 2025/10/22 17:11:12 by alvmoral          #+#    #+#             */
+/*   Updated: 2025/10/22 17:11:32 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Headers/dynamic_array.h"
-#include <stdio.h>
+#include "vec3.h"
 
-char	*dstr(t_darray *darr)
+t_data	x(t_vec3 vec)
 {
-	char	*str;
-
-	str = (char *) darr->darray;
-	return (str);
+	return (vec.vs[0]);
 }
 
-char	**dpstr(t_darray *darr)
+t_data	y(t_vec3 vec)
 {
-	char	**pstr;
+	return (vec.vs[1]);
+}
 
-	pstr = (char **) darr->darray;
-	return (pstr);
+t_data	z(t_vec3 vec)
+{
+	return (vec.vs[2]);
+}
+
+void	print_vec3(t_vec3 vec)
+{
+	printf("(%lf, %lf, %lf)\n", x(vec), y(vec), z(vec));
 }

@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:20:03 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/10/22 12:35:53 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:18:32 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include <math.h>
 # include <stdarg.h>
+# include <stdio.h>
 # include <stddef.h>
 
 typedef double			t_data;
