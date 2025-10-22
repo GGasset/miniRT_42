@@ -61,18 +61,18 @@ static t_color	add_sun(t_color in, t_hit_args args, t_render_data *d)
 int	world_get_color(t_render_data *d, size_t i, t_ray ray)
 {
 	t_scene		scene;
-    t_hit_args  hit_args;
+	t_hit_args	hit_args;
 	t_hit_info	hit_info;
 	t_color		out;
 
 	if (i > MAX_BOUNCES || !d)
 		return (0);
 	scene = d->scene;
-    ft_bzero(&hit_args, sizeof(t_hit_args));
-    ft_bzero(&hit_info, sizeof(t_hit_info));
+	ft_bzero(&hit_args, sizeof(t_hit_args));
+	ft_bzero(&hit_info, sizeof(t_hit_info));
 	hit_args.distance_range.max = MAX_RANGE;
 	hit_args.distance_range.min = EPSILON;
-    hit_args.hit_info = &hit_info;
+	hit_args.hit_info = &hit_info;
 	hit_args.ray = ray;
 	out = SKY_COLOR;
 	out *= !i;
