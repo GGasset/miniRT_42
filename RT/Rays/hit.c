@@ -146,7 +146,7 @@ int	world_hit(t_object_list world_objs, t_hit_args args)
 	tmp_args.hit_info = &tmp_hit;
 	closest_hit.distance = args.distance_range.max;
 	i = 0;
-	while (i < world_objs.len)
+	while (i < world_objs.len && world_objs.objs)
 	{
 		tmp_args.object = world_objs.objs[i];
 		if (tmp_args.object.hit(tmp_args)
