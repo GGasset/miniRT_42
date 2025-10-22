@@ -1,58 +1,93 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ggasset- <ggasset-@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/03 10:35:13 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/09/20 09:44:59by alvaro           ###   ########.fr       */
+/*   Created: 2025-10-16 16:01:14 by ggasset-          #+#    #+#             */
+/*   Updated: 2025-10-16 16:01:14 by ggasset-         ###   ########student.  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minilibx_funcs.h"
-#include "stdio.h"
+#include "parsing.h"
 
-int main()
+#include <stdio.h>
+
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+#define USF "%s %s %s %s %s %s %s%s"
+#define USAGE "Usage:\n./miniRT map_path\n"
+#define L "\tL pos(x,y,z) brightness[0,1](x) color[0,255](r,g,b)\n"
+#define A "\tA brightness[0,1](x) color[0,255](r,g,b)\n"
+#define C "\tC pos(x,y,z) norm_direction[-1,1](x,y,z) FOV[0,180](x)\n"
+#define PL "\tpl pos(x,y,z) norm_direct[-1,1](x,y,z) color[0,255](r,g,b)\n"
+#define SP "\tsp pos(x,y,z) size[0,∞](x) color[0,255](r,g,b)\n"
+#define CY "\tcy pos(x,y,z) norm_dir[-1,1](x,y,z) diameter[0,∞](x)"
+#define CY1 "height[0,∞](x) color[0,255](r,g,b)\n"
+
+static char	**read_lines(int fd)
+{
+	char	**out;
+	char	*buff;
+	char	tmp[2];
+
+	ft_bzero(tmp, 2);
+	buff = 0;
+	if (read(fd, tmp, 0) == -1)
+		return (0);
+	while (read(fd, tmp, 1) > 0)
+		buff = ft_strjoin_free(buff, tmp, TRUE, FALSE);
+	out = ft_split(buff, '\n');
+	free(buff);
+	return (out);
+}
+
+static int	parse(int argc, char **argv, t_render_data *d)
+{
+	char				**lines;
+	int					fd;
+	size_t				i;
+	t_object_counter	counter;
+
+	ft_bzero(&counter, sizeof(t_object_counter));
+	if (argc != 2)
+		return (printf(USF, USAGE, L, A, C, PL, SP, CY, CY1), 1);
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		return (printf("Could not open file %s\n", argv[1]), 1);
+	lines = read_lines(fd);
+	if (!lines)
+		return (printf("Empty file err\n"), 1);
+	i = 0;
+	while (lines[i])
+		if (!check_router(lines[i++], &counter))
+			return (ft_free_splitted(lines), 1);
+	if (!counter.n_a || !counter.n_c || !counter.n_l)
+		return (printf("Missing id\n"), ft_free_splitted(lines), 1);
+	i = 0;
+	while (lines[i])
+		fill_dispatcher(&d->scene, lines[i++]);
+	ft_free_splitted(lines);
+	return (0);
+}
+
+int main(int argc, char **argv)
 {
 	t_render_data	render_d;
-	t_object		object;
-
-	// Setup
 
 	ft_bzero(&render_d, sizeof(t_render_data));
+	if (parse(argc, argv, &render_d))
+		return (0);
 	render_d.mlx = mlx_init();
 	if (!render_d.mlx)
 		return (1);
 	render_d.img.res.x = WINDOW_WIDTH;
 	render_d.img.res.y = WINDOW_WIDTH * ASPECT_RATIO;
-
-	// Parsing
-
-	render_d.scene.camera.fov = 90;
-	render_d.scene.camera.rotation = vec3(0, 0, 1);
-	render_d.scene.camera.camera_pos = vec3(0, 0, 5);
-	render_d.scene.camera.focal_len = 1;
-	render_d.scene.ambient_light.brightness = 0.2;
-	render_d.scene.ambient_light.color = 0x00ff00;
-	
-	render_d.scene.light.coords = vec3(200, 0, 0);
-	render_d.scene.light.brightness = 1;
-	render_d.scene.light.color = 0xFFffFF;
-
-	ft_bzero(&object, sizeof(t_object));
-	object.kind = Cylinder;
-	object.sizes = vec3(4, 1, 0);
-	object.rotation = vec3(1, 0, 0);
-	object.hit = &hit_sphere;
-	object.color = 0xFFffFFff;
-
-	render_d.scene.objects.len = 1;
-	render_d.scene.objects.objs = &object;
-
-	// Execution
-
 	render_d.scene.camera.width = render_d.img.res.x;
 	render_d.scene.camera.height = render_d.img.res.y;
 	render_d.win = mlx_new_window(render_d.mlx, render_d.img.res.x,
@@ -60,7 +95,6 @@ int main()
 	if (!render_d.win)
 		return (free_mlx(render_d.mlx));
 	render_loop(&render_d);
-	printf("Delete in future, exited loop.");
 	free_render_data(&render_d);
 	return (0);
 }

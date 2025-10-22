@@ -12,7 +12,7 @@ C_FILES += $(addprefix ./Parsing/, ${PARSING_C_FILES})
 DATA_STRUCTS_FILES=darray_conversions.c dictionary_utils.c dictionary.c dictionary2.c dynamic_array.c
 C_FILES += $(addprefix ./data_structs/, ${DATA_STRUCTS_FILES})
 
-C_FILES += main2.c
+C_FILES += main.c
 
 O_FILES = $(patsubst %.c,%.o, ${C_FILES})
 
