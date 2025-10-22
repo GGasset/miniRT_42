@@ -13,6 +13,7 @@
 #include "libft.h"
 #include "minilibx_funcs.h"
 #include "parsing.h"
+#include "vec3.h"
 
 #include <stdio.h>
 
@@ -76,6 +77,34 @@ static int	parse(int argc, char **argv, t_render_data *d)
 	return (0);
 }
 
+static int	check_norm(t_render_data *d)
+{
+	t_vec3	*rot;
+	size_t	i;
+
+	if (fabs(modulus(d->scene.camera.rotation) - 1) > .1)
+	{
+		printf("Warning: camera rotation not normalized\nNew rotation: ");
+		print_vec3(norm(d->scene.camera.rotation));
+		d->scene.camera.rotation = norm(d->scene.camera.rotation);
+	}
+	i = (size_t)-1;
+	while (++i < d->scene.objects.len && d->scene.objects.objs)
+	{
+		rot = &d->scene.objects.objs[i].rotation;
+		if (d->scene.objects.objs[i].kind == Sphere)
+			continue ;
+		if (modulus(*rot) < EPSILON)
+			return (printf("ERROR: orientation not normalized\n"), 1);
+		if (fabs(modulus(*rot) - 1) < .1)
+			continue ;
+		printf("Warning: object rotation not normalized\nNew orientation: ");
+		print_vec3(norm(*rot));
+		*rot = norm(*rot);
+	}
+	return (0);
+}
+
 int main(int argc, char **argv)
 {
 	t_render_data	render_d;
@@ -83,9 +112,11 @@ int main(int argc, char **argv)
 	ft_bzero(&render_d, sizeof(t_render_data));
 	if (parse(argc, argv, &render_d))
 		return (0);
+	if (check_norm(&render_d))
+		return (1); // LEAK
 	render_d.mlx = mlx_init();
 	if (!render_d.mlx)
-		return (1);
+		return (1); // LEAK
 	render_d.img.res.x = WINDOW_WIDTH;
 	render_d.img.res.y = WINDOW_WIDTH * ASPECT_RATIO;
 	render_d.scene.camera.width = render_d.img.res.x;
@@ -93,8 +124,8 @@ int main(int argc, char **argv)
 	render_d.win = mlx_new_window(render_d.mlx, render_d.img.res.x,
 			render_d.img.res.y, "MiniRT");	
 	if (!render_d.win)
-		return (free_mlx(render_d.mlx));
+		return (free_mlx(render_d.mlx)); // LEAK
 	render_loop(&render_d);
 	free_render_data(&render_d);
-	return (0);
+	return (0); // LEAK
 }
