@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 16:50:01 by alvmoral          #+#    #+#             */
-/*   Updated: 2025/10/22 16:50:23 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/10/23 12:52:27 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*dstr(t_darray *darr)
 	char	*str;
 
 	str = (char *) darr->darray;
+	free(darr);
 	return (str);
 }
 
@@ -26,5 +27,6 @@ char	**dpstr(t_darray *darr)
 	char	**pstr;
 
 	pstr = (char **) darr->darray;
+	free(darr);
 	return (pstr);
 }

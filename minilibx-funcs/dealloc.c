@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dealloc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggasset- <ggasset-@student.42.fr>          #+#  +:+       +#+        */
+/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-05-22 17:30:39 by ggasset-          #+#    #+#             */
-/*   Updated: 2025-05-22 17:30:39 by ggasset-         ###   ########student.  */
+/*   Created: 2025/05/22 17:30:39 by ggasset-          #+#    #+#             */
+/*   Updated: 2025/10/23 12:03:14 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,5 @@ void	free_render_data(t_render_data *d)
 	free_img(d);
 	free_win(d);
 	free_mlx(d);
+	free(d->scene.objects.objs);
 }

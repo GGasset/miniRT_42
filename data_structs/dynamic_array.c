@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dynamic_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvaro <alvaro@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 18:06:42 by lvez-dia          #+#    #+#             */
-/*   Updated: 2025/06/03 03:59:53 by alvaro           ###   ########.fr       */
+/*   Updated: 2025/10/23 12:24:16 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_darray(t_darray *darray, int type)
 	if (type == 1)
 		free(darray->darray);
 	else if (type == 2)
-		ft_free(darray->darray, 1);
+		ft_free_splitted(darray->darray);
 	free(darray);
 	darray = NULL;
 }

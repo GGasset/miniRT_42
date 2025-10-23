@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 22:33:25 by alvmoral          #+#    #+#             */
-/*   Updated: 2025/10/22 16:43:18 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/10/23 11:57:22 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ int	fill_dispatcher(t_scene *s, char *line)
 		fill_camera(&s->camera, formatted_line + 1);
 	else if (formatted_line[0][0] != '#')
 		fill_obj_list(&s->objects, formatted_line);
+	ft_free_splitted(formatted_line);
 	return (1);
 }

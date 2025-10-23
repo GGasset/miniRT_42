@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 11:26:56 by alvmoral          #+#    #+#             */
-/*   Updated: 2025/10/23 11:27:22 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/10/23 12:05:47 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ void	fill_obj_list(t_object_list *objs, char **argv)
 	+ (objs->len != 0) \
 	* (objs->len + 1)) * sizeof(t_object);
 	objs->objs = ft_realloc(objs->objs, objs->len \
-		* sizeof(t_object), obj_to_alloc, 0);
+		* sizeof(t_object), obj_to_alloc, 1);
 	fill_obj(&objs->objs[objs->len], argv);
-	write(1, "Rotacion: ", 11);
 	print_vec3(objs->objs[objs->len].rotation);
 	objs->len++;
 }

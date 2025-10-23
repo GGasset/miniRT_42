@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:36:55 by alvmoral          #+#    #+#             */
-/*   Updated: 2025/10/23 11:28:53 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/10/23 11:59:48 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,6 @@ t_vec3	get_vector(char *dim)
 		vec = vec3(ft_atod(dims[0]), \
 					ft_atod(dims[1]), \
 					ft_atod(dims[2]));
-	ft_free((void **)dims, 1);
+	ft_free_splitted(dims);
 	return (vec);
 }

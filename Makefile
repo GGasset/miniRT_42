@@ -28,7 +28,7 @@ STATIC_FILES=${LIBFT_DIR}/${LIBFT_NAME} ${MINILIBX_DIR}/${MINILIBX_NAME}
 
 INCLUDE=-I/usr/include -I ./Headers/ -I ./Headers/RT_headers/ -I ./Parsing/ -I ${LIBFT_DIR}/ -I ${MINILIBX_DIR}
 
-CC_SHARED_FLAGS=-O3 #-fsanitize=address,undefined
+CC_SHARED_FLAGS=-O3 #-fsanitize=address
 CC_flags=${CC_SHARED_FLAGS} -c -Wall -Wextra -g ${INCLUDE} #-Werror
 CC_LINKING_FLAGS=${CC_SHARED_FLAGS}
 MINILIBX_LINKING_FLAGS=-L/usr/lib -lXext -lX11 -lm -lz 

@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 16:01:14 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/10/22 12:46:05 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/10/23 12:04:14 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,10 @@ int	main(int argc, char **argv)
 	if (parse(argc, argv, &render_d))
 		return (0);
 	if (check_norm(&render_d))
-		return (1); // LEAK
+		return (free_render_data(&render_d), 1); // LEAK
 	render_d.mlx = mlx_init();
 	if (!render_d.mlx)
-		return (1); // LEAK
+		return (free_render_data(&render_d), 1); // LEAK
 	render_d.img.res.x = WINDOW_WIDTH;
 	render_d.img.res.y = WINDOW_WIDTH * ASPECT_RATIO;
 	render_d.scene.camera.width = render_d.img.res.x;
@@ -124,8 +124,8 @@ int	main(int argc, char **argv)
 	render_d.win = mlx_new_window(render_d.mlx, render_d.img.res.x,
 			render_d.img.res.y, "MiniRT");
 	if (!render_d.win)
-		return (free_mlx(render_d.mlx)); // LEAK
+		return (free_render_data(&render_d), 1); // LEAK
 	render_loop(&render_d);
 	free_render_data(&render_d);
-	return (0); // LEAK
+	return (0);
 }
