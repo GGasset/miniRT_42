@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:02:48 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/09/22 18:55:35 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/10/23 11:22:39 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #  define WINDOW_WIDTH 1080
 # endif
 # ifndef RENDER_WIDTH
-	#define RENDER_WIDTH WINDOW_WIDTH
+	# define RENDER_WIDTH WINDOW_WIDTH
 #endif
 # ifndef ASPECT_RATIO
 // 16:9 default aspect ratio

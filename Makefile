@@ -60,6 +60,8 @@ libft_fclean:
 debug: clean minilib-all libft ${C_FILES}
 	cc -o ${NAME} -g3 -Wall -Wextra ${INCLUDE} ${C_FILES} ${STATIC_FILES} ${MINILIBX_LINKING_FLAGS}
 
+norm: 
+	norminette main.c data_structs Headers libft Parsing RT
 # MINILIB
 
 minilib-all:
