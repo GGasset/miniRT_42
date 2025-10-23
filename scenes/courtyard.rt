@@ -1,0 +1,33 @@
+# Ambient light
+A 0.2 255,200,150
+
+# Camera (baja, mirando al horizonte)
+C -10,1,0 0,0,1 70
+
+# Luz solar cálida
+L 10,15,-10 0.8 255,220,180
+
+# Suelo de mármol
+pl 0,-2,0 0,1,0 200,200,200
+
+# Cielo (plano azul detrás)
+pl 0,0,100 0,0,-1 180,210,255
+
+# Columnas del patio
+cy -6,-2,10 0,1,0 1 6 240,240,240
+cy -2,-2,10 0,1,0 1 6 240,240,240
+cy  2,-2,10 0,1,0 1 6 240,240,240
+cy  6,-2,10 0,1,0 1 6 240,240,240
+
+# Fuente central (cilindro + esfera)
+cy 0,-2,8 0,1,0 2 1 100,100,120
+sp 0,-1,8 1 90,120,255
+
+# Reflejos de columnas (pseudo simetría)
+cy -6,-2,16 0,1,0 1 6 220,220,220
+cy -2,-2,16 0,1,0 1 6 220,220,220
+cy  2,-2,16 0,1,0 1 6 220,220,220
+cy  6,-2,16 0,1,0 1 6 220,220,220
+
+# Decoración: esfera de bronce
+sp 3,-1,5 1 180,100,40
