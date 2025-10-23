@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:36:55 by alvmoral          #+#    #+#             */
-/*   Updated: 2025/10/22 12:40:49by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/10/23 11:28:53 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@
 // 		printf("rotation: ");
 // 		print_vec3(s.objects.objs[i].rotation);
 // 		printf("color: %u", s.objects.objs[i].color);
-// 		printf("sizes: %lf  %lf\n", s.objects.objs[i].sizes.vs[0], s.objects.objs[i].sizes.vs[1]);
+// 		printf("sizes: %lf  %lf\n", s.objects.objs[i].sizes.vs[0], 
+		// s.objects.objs[i].sizes.vs[1]);
 // 		printf("\n------------------------------------\n");
 // 	}
 // 	// print_vec3(&s.objects);

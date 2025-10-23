@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 16:02:48 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/10/23 11:22:39 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/10/23 11:26:06 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #  define WINDOW_WIDTH 1080
 # endif
 # ifndef RENDER_WIDTH
-	# define RENDER_WIDTH WINDOW_WIDTH
-#endif
+#  define RENDER_WIDTH WINDOW_WIDTH
+# endif
 # ifndef ASPECT_RATIO
 // 16:9 default aspect ratio
 #  define ASPECT_RATIO 0.5625
@@ -31,7 +31,7 @@
 # endif
 # ifndef MAX_RANGE
 #  define MAX_RANGE 10000
-#endif
+# endif
 # ifndef SKY_COLOR
 #  define SKY_COLOR 0xFF021d28
 # endif
@@ -66,7 +66,6 @@ typedef struct t_render_data
 	void	*mlx;
 	void	*win;
 }		t_render_data;
-
 
 void	create_hooks(t_render_data *r_d);
 int		render_image(t_render_data *render_d);

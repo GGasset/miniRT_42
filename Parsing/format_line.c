@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 13:20:38 by alvmoral          #+#    #+#             */
-/*   Updated: 2025/10/22 13:21:06 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/10/23 11:28:34 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ char	**format_line(char *line)
 		else if (new == 1)
 		{
 			next_field = dstr(line_field);
-			(new--, append_darray(&format_line, &next_field));
+			new--;
+			append_darray(&format_line, &next_field);
 			line_field = alloc_darray(3, sizeof(char));
 		}
 	}

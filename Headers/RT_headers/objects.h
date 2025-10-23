@@ -6,7 +6,7 @@
 /*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:23:20 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/10/22 18:22:30 by alvmoral         ###   ########.fr       */
+/*   Updated: 2025/10/23 11:26:32 by alvmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ double		radial_len2_axis(t_vec3 v, t_vec3 n, t_vec3 *out);
 t_vec3		cylinder_axis(const t_object *o);
 int			point_inside_height(const t_object *o, t_vec3 p);
 t_vec3		radial_from_point(const t_object *o, t_vec3 p);
-
 
 int			hit_sphere(t_hit_args args);
 int			hit_plane(t_hit_args args);
