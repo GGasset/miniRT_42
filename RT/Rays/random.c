@@ -12,7 +12,7 @@
 
 #include "vec3.h"
 
-int	xorshift32()
+int	xorshift32(void)
 {
 	static int	x;
 

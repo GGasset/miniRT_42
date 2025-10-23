@@ -15,7 +15,7 @@
 
 static int	is_valid_nbr_char(char c)
 {
-	return ((ft_isalnum(c) && !ft_isalpha(c)) || c == '.' || c =='-');
+	return ((ft_isalnum(c) && !ft_isalpha(c)) || c == '.' || c == '-');
 }
 
 int	expect_vec3(char *line, size_t *i, t_interval range)
@@ -35,7 +35,7 @@ int	expect_vec3(char *line, size_t *i, t_interval range)
 	return (1);
 }
 
-int check_nbr_err(int err, t_data nbr, t_interval range)
+int	check_nbr_err(int err, t_data nbr, t_interval range)
 {
 	if (err)
 	{
@@ -55,7 +55,7 @@ int	expect_number(char *line, size_t *i, t_interval range, int expect_space)
 	int		dot_count;
 	t_data	number;
 	int		nbr_err;
-	
+
 	if (!line || !i)
 		return (0);
 	dot_count = 0;

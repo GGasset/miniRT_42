@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ggasset- <ggasset-@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/28 14:33:15 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/09/16 14:05:04y alvmoral         ###   ########.fr       */
+/*   Created: 2025-10-22 09:52:16 by ggasset-          #+#    #+#             */
+/*   Updated: 2025-10-22 09:52:16 by ggasset-         ###   ########student.  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_ray	ray(t_point3 position, t_rotation direction)
 	return (out);
 }
 
-static void get_viewport(t_camera cam, t_vec3 viewport[2])
+static void	get_viewport(t_camera cam, t_vec3 viewport[2])
 {
 	double	aspect_ratio;
 	double	h;
@@ -77,7 +77,7 @@ t_ray	create_ray(t_camera camera, size_t pixel_i)
 	camera.rotation = element_mult(camera.rotation, vec3(1, -1, -1));
 	pixel0_pos = get_pixel0_pos(camera, pixel_delta);
 	pixel_center = vec_sum(vec_sum(pixel0_pos,
-		vec_smul(pixel_delta[0], pixel_i % camera.width)),
-		vec_smul(pixel_delta[1], pixel_i / camera.width));
+				vec_smul(pixel_delta[0], pixel_i % camera.width)),
+			vec_smul(pixel_delta[1], pixel_i / camera.width));
 	return (assemble_ray(camera, pixel_center));
 }

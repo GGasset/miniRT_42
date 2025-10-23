@@ -29,27 +29,6 @@ t_ray	get_bounce(t_hit_args info)
 	return (out);
 }
 
-static t_light	sample_bounces(t_hit_args hit, t_data reflect, t_render_data *d)
-{
-	t_hit_args	args;
-	t_hit_info	info;
-	t_ray		bounces[2];
-	size_t		n_samples;
-	t_light		out;
-
-	ft_bzero(&args, sizeof(t_hit_args));
-	ft_bzero(&info, sizeof(t_hit_info));
-	args.distance_range.min = EPSILON;
-	args.hit_info = &info;
-	bounces[0] = get_bounce(hit);
-	n_samples = 5;
-	while (n_samples-- > 0)
-	{
-		//bounces[1] = small_direction_shift
-	}
-	return (out);
-}
-
 static t_color	add_sun(t_color in, t_hit_args args, t_render_data *d)
 {
 	t_vec3		ray_to_light;
@@ -79,47 +58,21 @@ static t_color	add_sun(t_color in, t_hit_args args, t_render_data *d)
 	return (iluminate(in, 0xFFffFFff, light));
 }
 
-static t_color	bounce(t_render_data *d, size_t i, t_hit_args hit, t_color in)
-{
-	t_data		reflectiveness;
-	t_hit_args	hit_args;
-	t_hit_info	hit_info;
-	t_light		bounce_light;
-	t_color		out;
-
-	if (i > MAX_BOUNCES || !d)
-		return (0);
-	ft_bzero(&hit_args, sizeof(t_hit_args));
-    ft_bzero(&hit_info, sizeof(t_hit_info));
-	hit_args.distance_range.max = MAX_RANGE;
-	hit_args.distance_range.min = EPSILON;
-    hit_args.hit_info = &hit_info;
-	hit_args.ray = get_bounce(hit);
-	if (!world_hit(d->scene.objects, hit_args))
-		return (in);
-	reflectiveness = .4;
-	bounce_light.brightness = (10 - hit_info.distance) / 10 * reflectiveness;
-	bounce_light.brightness /= !i + (i + 1) * (i + 1);
-	bounce_light.color = world_get_color(d, ++i, get_bounce(hit));
-	out = iluminate(in, hit.hit_info->hit_obj.color, bounce_light);
-	return (out);
-}
-
 int	world_get_color(t_render_data *d, size_t i, t_ray ray)
 {
 	t_scene		scene;
-    t_hit_args  hit_args;
+	t_hit_args	hit_args;
 	t_hit_info	hit_info;
 	t_color		out;
 
 	if (i > MAX_BOUNCES || !d)
 		return (0);
 	scene = d->scene;
-    ft_bzero(&hit_args, sizeof(t_hit_args));
-    ft_bzero(&hit_info, sizeof(t_hit_info));
+	ft_bzero(&hit_args, sizeof(t_hit_args));
+	ft_bzero(&hit_info, sizeof(t_hit_info));
 	hit_args.distance_range.max = MAX_RANGE;
 	hit_args.distance_range.min = EPSILON;
-    hit_args.hit_info = &hit_info;
+	hit_args.hit_info = &hit_info;
 	hit_args.ray = ray;
 	out = SKY_COLOR;
 	out *= !i;
@@ -127,8 +80,7 @@ int	world_get_color(t_render_data *d, size_t i, t_ray ray)
 	{
 		out = 0xFF000000;
 		out = iluminate(out, hit_info.hit_obj.color, scene.ambient_light);
-		out = point_ilum(out, hit_args, scene, scene.light, ray);
-		//out = bounce(d, i, hit_args, out);
+		out = point_ilum(out, hit_args, scene, scene.light);
 	}
 	out = add_sun(out, hit_args, d);
 	return (out);

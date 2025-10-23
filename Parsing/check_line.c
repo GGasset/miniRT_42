@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-static int check_counter(char first_char, t_object_counter *counter)
+static int	check_counter(char first_char, t_object_counter *counter)
 {
 	if (!counter)
 		return (1);
@@ -42,7 +42,7 @@ static int	check_property(char *line, t_object_counter *counter)
 			return (0);
 	if (*line == 'C')
 		if (!expect_vec3(line, &i, interval(-1, 1))
-				|| !expect_number(line, &i, interval(0, 180), 1))
+			|| !expect_number(line, &i, interval(0, 180), 1))
 			return (0);
 	if (*line == 'L')
 		if (!expect_number(line, &i, interval(0, 1), 1)
@@ -72,7 +72,7 @@ static int	check_object(char *line)
 	if (*line == 'c')
 		if (!expect_number(line, &i, interval(0, 1E30), 1)
 			|| !expect_number(line, &i, interval(0, 1E30), 1))
-				return (0);
+			return (0);
 	if (!expect_vec3(line, &i, interval(0, 255)))
 		return (0);
 	if (line[i])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera_render.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvmoral <alvmoral@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ggasset- <ggasset-@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/05 13:08:26 by ggasset-          #+#    #+#             */
-/*   Updated: 2025/09/22 18:32:23y alvmoral         ###   ########.fr       */
+/*   Created: 2025-10-22 09:58:29 by ggasset-          #+#    #+#             */
+/*   Updated: 2025-10-22 09:58:29 by ggasset-         ###   ########student.  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "camera.h"
 #include "stdio.h"
 
-void print_loading_bar(size_t i, size_t pixel_count)
+void	print_loading_bar(size_t i, size_t pixel_count)
 {
 	size_t	bar_char_count;
 	t_data	percentage_completed;
@@ -42,17 +42,16 @@ void print_loading_bar(size_t i, size_t pixel_count)
 int	render(t_render_data *render_d)
 {
 	size_t	pixel_count;
-    size_t	i;
+	size_t	i;
 	t_ray	ray;
 
 	pixel_count = render_d->scene.camera.height * render_d->scene.camera.width;
 	i = 0;
-    while (i < pixel_count)
-    {
+	while (i < pixel_count)
+	{
 		ray = create_ray(render_d->scene.camera, i);
-		// printf("i: %zu  ray orig: %lf  direct: %lf\n",i,  y(ray.orig), y(ray.direct));
 		((int *)render_d->img.addr)[i] = world_get_color(render_d, 0, ray);
-        i++;
+		i++;
 		print_loading_bar(i, pixel_count);
 	}
 	printf("                                   ");
