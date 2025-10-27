@@ -31,6 +31,19 @@
 #define CY "\tcy pos(x,y,z) norm_dir[-1,1](x,y,z) diameter[0,∞](x)"
 #define CY1 "height[0,∞](x) color[0,255](r,g,b)\n"
 
+static int	check_2errors(int argc, char **argv)
+{
+	size_t	name_len;
+
+	if (argc != 2)
+		return (printf(USF, USAGE, L, A, C, PL, SP, CY, CY1), 1);
+	name_len = ft_strlen(argv[1]);
+	if (argv[1][name_len - 1] != 't' || argv[1][name_len - 2] != 'r'
+		|| argv[1][name_len - 3] != '.')
+		return (printf("Err, %s not a .rt file\n", argv[1]), 1);
+	return (0);
+}
+
 static char	**read_lines(int fd)
 {
 	char	**out;
@@ -56,8 +69,8 @@ static int	parse(int argc, char **argv, t_render_data *d)
 	t_object_counter	counter;
 
 	ft_bzero(&counter, sizeof(t_object_counter));
-	if (argc != 2)
-		return (printf(USF, USAGE, L, A, C, PL, SP, CY, CY1), 1);
+	if (check_2errors(argc, argv))
+		return (1);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (printf("Could not open file %s\n", argv[1]), 1);
