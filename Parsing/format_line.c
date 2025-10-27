@@ -55,9 +55,9 @@ char	**format_line(char *line)
 	{
 		if (!traversing_field(&new, &line_field, line[i], &i) && new == 1)
 		{
-			append_darray(&line_field, (char[1]) {'\0'});
-			next_field = dstr(line_field);
 			new--;
+			append_darray(&line_field, &new);
+			next_field = dstr(line_field);
 			append_darray(&format_line, &next_field);
 			line_field = alloc_darray(3, sizeof(char));
 		}
