@@ -85,8 +85,8 @@ static int	check_norm(t_render_data *d)
 	if (fabs(modulus(d->scene.camera.rotation) - 1) > .1)
 	{
 		printf("Warning: camera rotation not normalized\nNew rotation: ");
-		//print_vec3(norm(d->scene.camera.rotation));
 		d->scene.camera.rotation = norm(d->scene.camera.rotation);
+		print_vec3(d->scene.camera.rotation);
 	}
 	i = (size_t)-1;
 	while (++i < d->scene.objects.len && d->scene.objects.objs)
@@ -99,8 +99,8 @@ static int	check_norm(t_render_data *d)
 		if (fabs(modulus(*rot) - 1) < .1)
 			continue ;
 		printf("Warning: object rotation not normalized\nNew orientation: ");
-		//print_vec3(norm(*rot));
 		*rot = norm(*rot);
+		print_vec3(*rot);
 	}
 	return (0);
 }
