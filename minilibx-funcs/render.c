@@ -31,15 +31,13 @@ int	render_image(t_render_data *render_d)
 	render_d->has_rendered = 1;
 	mlx_put_image_to_window(render_d->mlx, render_d->win, render_d->img.img,
 		0, 0);
-	// free_img(render_d);
+	free_img(render_d);
 	return (0);
 }
 
 void	render_loop(t_render_data *render_d)
 {
 	create_hooks(render_d);
-	// render_image(render_d);
 	mlx_loop_hook(render_d->mlx, render_image, render_d);
 	mlx_loop(render_d->mlx);
 }
-
