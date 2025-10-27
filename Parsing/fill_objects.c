@@ -61,6 +61,5 @@ void	fill_obj_list(t_object_list *objs, char **argv)
 	objs->objs = ft_realloc(objs->objs, objs->len \
 		* sizeof(t_object), obj_to_alloc, 1);
 	fill_obj(&objs->objs[objs->len], argv);
-	print_vec3(objs->objs[objs->len].rotation);
 	objs->len++;
 }
