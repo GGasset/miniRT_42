@@ -54,7 +54,6 @@ int	render(t_render_data *render_d)
 		i++;
 		print_loading_bar(i, pixel_count);
 	}
-	printf("                                   ");
 	printf("\n");
 	return (0);
 }
